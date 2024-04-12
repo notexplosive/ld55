@@ -1,6 +1,6 @@
 {
-  "title": "ld55",
-  "author": "Unknown Author",
+  "title": "Ludum Dare 55 Game",
+  "author": "NotExplosive and Ursagames",
   "soko_version": "0.1.0",
   "mod_version": "0.1.0",
   "default_tile": "floor",
@@ -81,7 +81,6 @@
   ],
   "screen_size": {
     "width": 1920,
-    "height": 1080,
-    "Area": 2073600
+    "height": 1080
   }
 }
