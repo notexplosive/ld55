@@ -1,0 +1,27 @@
+{
+  "traits": [
+    {
+      "name": "Phase",
+      "value": 10
+    }
+  ],
+  "hide_from_editor": false,
+  "config_variables": [
+    {
+      "copy_to_instance": true,
+      "data": {
+        "key": "renderer",
+        "value": "SolidColor",
+        "type": 0
+      }
+    },
+    {
+      "copy_to_instance": true,
+      "data": {
+        "key": "color",
+        "value": "blue",
+        "type": 4
+      }
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "title": "ld55",
+  "author": "Unknown Author",
+  "soko_version": "0.1.0",
+  "mod_version": "0.1.0",
+  "default_tile": "floor",
+  "tile_size": 64,
+  "title_screen_level": "",
+  "menu_selected_color": "",
+  "campaign": {
+    "chapters": [
+      {
+        "level": "first_level",
+        "name": "First Level",
+        "instance_variable_overrides": []
+      }
+    ],
+    "name": "campaign",
+    "save_name": "campaign"
+  },
+  "trait_enums": [
+    {
+      "name": "Phase",
+      "supported_values": [
+        {
+          "name": "Empty",
+          "value": 0
+        },
+        {
+          "name": "Solid",
+          "value": 10
+        }
+      ]
+    }
+  ],
+  "dialogue": "dialogue",
+  "color_aliases": [
+    {
+      "alias": "green",
+      "color": "228B22FF"
+    },
+    {
+      "alias": "blue",
+      "color": "ADD8E6FF"
+    },
+    {
+      "alias": "white",
+      "color": "FFFFFFFF"
+    }
+  ],
+  "swap_color": "FFFFFF",
+  "room_size_rule": {
+    "type": "width",
+    "size": 10,
+    "aspect_ratio": "1:1"
+  },
+  "prop_layer_rules": {
+    "default_layer": 0,
+    "rules": []
+  },
+  "layers": [
+    {
+      "name": "Bottom",
+      "shader": null
+    },
+    {
+      "name": "Middle",
+      "shader": null
+    },
+    {
+      "name": "Color",
+      "shader": "ColorSwap"
+    },
+    {
+      "name": "Top",
+      "shader": null
+    }
+  ],
+  "color_keys": [
+    "color"
+  ],
+  "screen_size": {
+    "width": 1920,
+    "height": 1080,
+    "Area": 2073600
+  }
+}
