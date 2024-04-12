@@ -3,6 +3,8 @@ setlocal
 
 set src=%cd%
 
+git pull
+
 echo Pulling SokoMaker at: %cd%
 cd /d "../SokoMaker"
 git checkout main
