@@ -299,6 +299,11 @@
     "body": "direction.name",
     "description": ""
   },
+  "DrawArguments.elapsedTime": {
+    "prefix": "drawArguments:elapsedTime",
+    "body": "drawArguments:elapsedTime()",
+    "description": ""
+  },
   "DrawArguments.isEditor": {
     "prefix": "drawArguments:isEditor",
     "body": "drawArguments:isEditor()",
@@ -624,9 +629,24 @@
     "body": "painter:drawProp(sheetName, position, angle)",
     "description": ""
   },
+  "Painter.drawText": {
+    "prefix": "painter:drawText",
+    "body": "painter:drawText(text, position, restrictWidth, angle, centered)",
+    "description": ""
+  },
+  "Painter.measureText": {
+    "prefix": "painter:measureText",
+    "body": "painter:measureText(text, restrictWidth)",
+    "description": "Obtains a rectangle representing the size of a string at the current font size. One day this might get moved int a \"Font\" class."
+  },
   "Painter.setColor": {
     "prefix": "painter:setColor",
     "body": "painter:setColor(rgbaHexColor)",
+    "description": ""
+  },
+  "Painter.setFontSize": {
+    "prefix": "painter:setFontSize",
+    "body": "painter:setFontSize(size)",
     "description": ""
   },
   "ReadableState.get": {
@@ -928,6 +948,11 @@
     "prefix": "World:raiseEventAt",
     "body": "World:raiseEventAt(gridPosition, eventName, parameters)",
     "description": "Runs an event on all gridlings at the specified location"
+  },
+  "World.rebuildLevel": {
+    "prefix": "World:rebuildLevel",
+    "body": "World:rebuildLevel()",
+    "description": ""
   },
   "World.resetRoom": {
     "prefix": "World:resetRoom",

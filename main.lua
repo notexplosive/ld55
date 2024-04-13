@@ -125,7 +125,7 @@ function exports.onLoadLevel()
 end
 
 function exports.onLoadCheckpoint()
-
+    player.clearState()
 end
 
 function exports.onEnter()
