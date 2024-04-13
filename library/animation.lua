@@ -1,6 +1,12 @@
 local animation = {}
 
+function animation.toPose(entity, pose)
+    entity.state["pose"] = pose
 
+    if entity.state["is_carrying"] then
+        entity.state["pose"] = pose .. "_carry"
+    end
+end
 
 function animation.interpolateState(state, key, lerpFunction, value, duration)
     World:playAnimation(function(tween, params)
@@ -23,7 +29,7 @@ function animation.interpolateMove(move)
         local move = params.move
         local movingEntity = move:movingEntity()
         tween:callback(function()
-            movingEntity.state["pose"] = "walk"
+            animation.toPose(movingEntity, "walk")
         end)
         move:execute()
 
@@ -36,7 +42,7 @@ function animation.interpolateMove(move)
         end
 
         tween:callback(function()
-            movingEntity.state["pose"] = "idle"
+            animation.toPose(movingEntity, "idle")
         end)
     end
 

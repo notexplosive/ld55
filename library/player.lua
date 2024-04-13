@@ -1,18 +1,42 @@
-local animation = require "library.animation"
-local lerp      = require "library.lerp"
-local items     = require "library.items"
-local player    = {}
-local impl      = {}
+local animation   = require "library.animation"
+local lerp        = require "library.lerp"
+local items       = require "library.items"
+local player      = {}
+local impl        = {}
+
+local HELD_HEIGHT = 20
+
+local function setupHeldItemGraphic(entityTemplate)
+    -- spawns a new instance of the entity in case it didn't already exist
+    local entity = World:spawnEntity(Soko:gridPosition(0, 0), Soko.DIRECTION.NONE, entityTemplate)
+
+    impl.heldItem.graphic = World:spawnObject(Soko:gridPosition(0, 0))
+    impl.heldItem.graphic.state:addOtherState(entity.state)
+    impl.heldItem.graphic.state["layer"] = 4
+
+    entity:destroy()
+end
 
 function player.setInstance(entity)
+    local oldState
+    if impl.instance then
+        oldState = impl.instance.state
+    end
+
     impl.instance = entity
+
+    if oldState then
+        entity.state:addOtherState(oldState)
+    end
 
     if impl.uiObject ~= nil then
         impl.uiObject:destroy()
     end
 
-    if impl.heldItem ~= nil then
-        impl.heldItem:destroy()
+    if impl.heldItem ~= nil and player.heldItemGraphic() then
+        player.heldItemGraphic():destroy()
+        setupHeldItemGraphic(impl.heldItem.templateName)
+        impl.heldItem.graphic.state["height"] = HELD_HEIGHT
     end
 
     impl.uiObject = World:spawnObject(Soko:gridPosition(0, 0))
@@ -20,7 +44,7 @@ function player.setInstance(entity)
     impl.uiObject.state["layer"] = 3
     impl.uiObject.state["render_function"] = function(painter, drawArguments)
         if impl.heldItem then
-            local page = items[impl.heldItem:templateName()]
+            local page = items[impl.heldItem.templateName]
 
             if page ~= nil then
                 for _, rule in ipairs(page.rules) do
@@ -33,6 +57,8 @@ function player.setInstance(entity)
             end
         end
     end
+
+    animation.toPose(impl.instance, "idle")
 end
 
 function player.instance()
@@ -43,8 +69,24 @@ function player.clearState()
     impl = {}
 end
 
-function player.heldItem()
-    return impl.heldItem
+function player.hasHeldItem()
+    return impl.heldItem ~= nil
+end
+
+function player.heldItemGraphic()
+    if impl.heldItem == nil then
+        return nil
+    end
+
+    return impl.heldItem.graphic
+end
+
+function player.heldItemName()
+    if impl.heldItem == nil then
+        return nil
+    end
+
+    return impl.heldItem.templateName
 end
 
 function player.pickUpItem(entity)
@@ -52,11 +94,17 @@ function player.pickUpItem(entity)
         return
     end
 
-    entity.state["layer"] = 4
-    entity.state["height"] = 0
-    animation.interpolateState(entity.state, "height", lerp.number, 20, 0.05)
+    impl.heldItem = {
+        templateName = entity:templateName(),
+    }
 
-    impl.heldItem = entity
+    setupHeldItemGraphic(entity:templateName())
+    impl.heldItem.graphic.state["height"] = 0
+    animation.interpolateState(impl.heldItem.graphic.state, "height", lerp.number, HELD_HEIGHT, 0.05)
+    impl.instance.state["is_carrying"] = true
+    animation.toPose(impl.instance, "idle")
+
+    entity:destroy()
 end
 
 function player.dropItem()
@@ -65,11 +113,17 @@ function player.dropItem()
         return
     end
 
-    impl.heldItem.state["layer"] = 2
-    impl.heldItem.displacementTweenable():set(Soko:worldPosition(0, -impl.heldItem.state["height"]))
-    animation.displacementToZero(impl.heldItem)
+    local droppedItem = World:spawnEntity(impl.instance.gridPosition, Soko.DIRECTION.NONE, impl.heldItem.templateName)
 
-    impl.heldItem.gridPosition = impl.instance.gridPosition
+    impl.instance.state["is_carrying"] = false
+    animation.toPose(impl.instance, "idle")
+    droppedItem.state:addOtherState(impl.heldItem.graphic.state)
+    droppedItem.state["layer"] = 2
+    droppedItem.displacementTweenable():set(Soko:worldPosition(0, -droppedItem.state["height"]))
+    animation.displacementToZero(droppedItem)
+
+    droppedItem.gridPosition = impl.instance.gridPosition
+    impl.heldItem.graphic:destroy()
     impl.heldItem = nil
 end
 
