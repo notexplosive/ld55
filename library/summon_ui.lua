@@ -33,6 +33,7 @@ function summon_ui.create()
     options[2].text = "Begin"
     options[2].offset = Soko:worldPosition(100, -20)
     options[2].execute = function()
+        
     end
 
     object.state["renderer"] = "lua"
