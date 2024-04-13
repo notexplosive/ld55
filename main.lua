@@ -112,14 +112,14 @@ function exports.onLoadCheckpoint()
 end
 
 function exports.onEnter()
-
-end
-
-function exports.onTurn()
-
+    World:raiseEntityEvent("onEnter", {})
 end
 
 function exports.onLeave()
+    
+end
+
+function exports.onTurn()
 
 end
 

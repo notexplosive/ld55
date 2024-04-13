@@ -1,0 +1,65 @@
+{
+    "is_directional": false,
+    "traits": [
+        {
+            "name": "Surface",
+            "value": 15
+        }
+    ],
+    "config_variables": [
+        {
+            "copy_to_instance": false,
+            "data": {
+                "key": "renderer",
+                "value": "EditorOnlyWhiteSquare",
+                "type": 0
+            }
+        },
+        {
+            "copy_to_instance": false,
+            "data": {
+                "key": "behavior",
+                "value": "loading_dock",
+                "type": 0
+            }
+        },
+        {
+            "copy_to_instance": false,
+            "data": {
+                "key": "color",
+                "value": "00aaff",
+                "type": 0
+            }
+        },
+        {
+            "copy_to_instance": false,
+            "data": {
+                "key": "label",
+                "value": "dock",
+                "type": 0
+            }
+        },
+        {
+            "copy_to_instance": false,
+            "data": {
+                "key": "layer",
+                "value": "2",
+                "type": 1
+            }
+        },
+        {
+            "data": {
+                "key": "zone_width",
+                "value": "1",
+                "type": 1
+            }
+        },
+        {
+            "data": {
+                "key": "zone_height",
+                "value": "1",
+                "type": 1
+            }
+        }
+    ]
+}
