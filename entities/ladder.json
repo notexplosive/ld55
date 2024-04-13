@@ -1,0 +1,35 @@
+{
+    "is_directional": false,
+    "traits": [
+      {
+        "name": "Surface",
+        "value": 0
+      }
+    ],
+    "config_variables": [
+      {
+        "copy_to_instance": false,
+        "data": {
+          "key": "renderer",
+          "value": "SingleFrame",
+          "type": 0
+        }
+      },
+      {
+        "copy_to_instance": false,
+        "data": {
+          "key": "sheet",
+          "value": "ladder",
+          "type": 0
+        }
+      },
+      {
+        "copy_to_instance": false,
+        "data": {
+          "key": "layer",
+          "value": "2",
+          "type": 1
+        }
+      }
+    ]
+  }
