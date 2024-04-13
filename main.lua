@@ -42,8 +42,14 @@ function exports.onInput(input)
 
             if player.heldItem() == nil then
                 -- is empty handed, pick up item if there is one
-                if itemAtPosition then
-                    player.pickUpItem(itemAtPosition)
+                if itemAtPosition ~= nil then
+                    if itemAtPosition:checkTrait("Pickable", "CanPickUp") then
+                        player.pickUpItem(itemAtPosition)
+                    end
+
+                    if itemAtPosition:templateName() == "nexus" then
+                        print("tap nexus")
+                    end
                 end
             else
                 -- has item, attempt to drop it

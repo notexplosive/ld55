@@ -35,6 +35,19 @@
           "value": 15
         }
       ]
+    },
+    {
+      "name": "Pickable",
+      "supported_values": [
+        {
+          "name": "CanPickUp",
+          "value": 0
+        },
+        {
+          "name": "CannotPickUp",
+          "value": 1
+        }
+      ]
     }
   ],
   "dialogue": "dialogue",
