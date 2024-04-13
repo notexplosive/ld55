@@ -62,7 +62,7 @@ function exports.onInput(input)
             end
 
             for i, entity in ipairs(World:getEntitiesAt(player.instance().gridPosition + player.instance().facingDirection:toGridPosition())) do
-                if entity:templateName() == "shelf" then
+                if entity:checkTrait("Surface", "Wall") and entity:checkTrait("Pickable", "CanActivate") then
                     shelfAhead = entity
                     break
                 end
@@ -79,8 +79,10 @@ function exports.onInput(input)
                     end
                 else
                     if shelfAhead ~= nil then
-                        player.pickUpItem(World:spawnEntity(player.instance().gridPosition, Soko.DIRECTION.NONE,
-                            shelfAhead.state["item"]))
+                        if shelfAhead:templateName() == "shelf" then
+                            player.pickUpItem(World:spawnEntity(player.instance().gridPosition, Soko.DIRECTION.NONE,
+                                shelfAhead.state["item"]))
+                        end
 
                         -- activate item
                         World:raiseEventAt(shelfAhead.gridPosition, "onActivate", {})

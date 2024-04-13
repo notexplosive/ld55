@@ -3,7 +3,7 @@
   "traits": [
     {
       "name": "Surface",
-      "value": 10
+      "value": 15
     }
   ],
   "config_variables": [
@@ -11,7 +11,7 @@
       "copy_to_instance": false,
       "data": {
         "key": "renderer",
-        "value": "SingleFrame",
+        "value": "LoopFrames",
         "type": 0
       }
     },
@@ -19,8 +19,22 @@
       "copy_to_instance": false,
       "data": {
         "key": "sheet",
-        "value": "shelf",
+        "value": "cupcake_candle",
         "type": 0
+      }
+    },
+    {
+      "data": {
+        "key": "idle",
+        "value": "[0,1,2]",
+        "type": 0
+      }
+    },
+    {
+      "data": {
+        "key": "idle_fps",
+        "value": "1",
+        "type": 1
       }
     },
     {
@@ -29,13 +43,6 @@
         "key": "layer",
         "value": "2",
         "type": 1
-      }
-    },
-    {
-      "data": {
-        "key": "item",
-        "value": "birthday_candle",
-        "type": 0
       }
     }
   ]
