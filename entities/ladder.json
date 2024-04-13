@@ -3,7 +3,7 @@
     "traits": [
       {
         "name": "Surface",
-        "value": 0
+        "value": 10
       }
     ],
     "config_variables": [
@@ -21,6 +21,28 @@
           "key": "sheet",
           "value": "ladder",
           "type": 0
+        }
+      },
+      {
+        "copy_to_instance": false,
+        "data": {
+          "key": "behavior",
+          "value": "dialogue_touch_trigger",
+          "type": 0
+        }
+      },
+      {
+        "data": {
+          "key": "scene",
+          "value": "hello",
+          "type": 0
+        }
+      },
+      {
+        "data": {
+          "key": "one_off",
+          "value": "false",
+          "type": 2
         }
       },
       {

@@ -22,6 +22,13 @@
     },
     {
       "data": {
+        "key": "actor_key",
+        "value": "player",
+        "type": 0
+      }
+    },
+    {
+      "data": {
         "key": "sheet",
         "value": "player",
         "type": 0
