@@ -1,0 +1,21 @@
+{
+    "traits": [],
+    "config_variables": [
+      {
+        "copy_to_instance": true,
+        "data": {
+          "key": "renderer",
+          "value": "SingleFrame",
+          "type": 0
+        }
+      },
+      {
+        "copy_to_instance": true,
+        "data": {
+          "key": "sheet",
+          "value": "floor_upstairs",
+          "type": 0
+        }
+      }
+    ]
+  }

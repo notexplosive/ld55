@@ -4,10 +4,6 @@
       {
         "name": "Surface",
         "value": 10
-      },
-      {
-        "name": "Pickable",
-        "value": 2
       }
     ],
     "config_variables": [
@@ -15,7 +11,7 @@
         "copy_to_instance": false,
         "data": {
           "key": "renderer",
-          "value": "SingleFrame",
+          "value": "LoopFrames",
           "type": 0
         }
       },
@@ -23,30 +19,44 @@
         "copy_to_instance": false,
         "data": {
           "key": "sheet",
-          "value": "ladder",
+          "value": "npcs",
           "type": 0
+        }
+      },
+      {
+        "data": {
+          "key": "idle",
+          "value": "[0,1]",
+          "type": 0
+        }
+      },
+      {
+        "data": {
+          "key": "idle_fps",
+          "value": "1.5",
+          "type": 1
         }
       },
       {
         "copy_to_instance": false,
         "data": {
           "key": "behavior",
-          "value": "teleport_room",
+          "value": "dialogue_touch_trigger",
           "type": 0
         }
       },
       {
         "data": {
-          "key": "position_x",
-          "value": "1",
-          "type": 1
+          "key": "scene",
+          "value": "hello",
+          "type": 0
         }
       },
       {
         "data": {
-          "key": "position_y",
-          "value": "1",
-          "type": 1
+          "key": "one_off",
+          "value": "false",
+          "type": 2
         }
       },
       {

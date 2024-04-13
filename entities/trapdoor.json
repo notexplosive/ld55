@@ -3,7 +3,7 @@
     "traits": [
       {
         "name": "Surface",
-        "value": 10
+        "value": 15
       },
       {
         "name": "Pickable",
@@ -23,7 +23,7 @@
         "copy_to_instance": false,
         "data": {
           "key": "sheet",
-          "value": "ladder",
+          "value": "trapdoor",
           "type": 0
         }
       },
