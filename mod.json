@@ -29,6 +29,10 @@
         {
           "name": "Wall",
           "value": 10
+        },
+        {
+          "name": "Item",
+          "value": 15
         }
       ]
     }
@@ -64,12 +68,16 @@
       "shader": null
     },
     {
-      "name": "Middle",
+      "name": "Items",
       "shader": null
     },
     {
-      "name": "Color",
-      "shader": "ColorSwap"
+      "name": "Player",
+      "shader": null
+    },
+    {
+      "name": "AbovePlayer",
+      "shader": null
     },
     {
       "name": "Top",

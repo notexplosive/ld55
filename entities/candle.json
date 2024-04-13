@@ -3,10 +3,9 @@
   "traits": [
     {
       "name": "Surface",
-      "value": 10
+      "value": 15
     }
   ],
-  "hide_from_editor": true,
   "config_variables": [
     {
       "copy_to_instance": false,
@@ -20,15 +19,15 @@
       "copy_to_instance": false,
       "data": {
         "key": "color",
-        "value": "white",
-        "type": 4
+        "value": "ffaa00",
+        "type": 0
       }
     },
     {
       "copy_to_instance": false,
       "data": {
         "key": "layer",
-        "value": "3",
+        "value": "2",
         "type": 1
       }
     }

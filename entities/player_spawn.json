@@ -1,0 +1,19 @@
+{
+  "is_directional": false,
+  "traits": [
+    {
+      "name": "Surface",
+      "value": 10
+    }
+  ],
+  "config_variables": [
+    {
+      "copy_to_instance": false,
+      "data": {
+        "key": "label",
+        "value": "spawn",
+        "type": 0
+      }
+    }
+  ]
+}
