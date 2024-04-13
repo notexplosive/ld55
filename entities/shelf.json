@@ -1,0 +1,42 @@
+{
+  "is_directional": false,
+  "traits": [
+    {
+      "name": "Surface",
+      "value": 10
+    }
+  ],
+  "config_variables": [
+    {
+      "copy_to_instance": false,
+      "data": {
+        "key": "renderer",
+        "value": "SolidColor",
+        "type": 0
+      }
+    },
+    {
+      "copy_to_instance": false,
+      "data": {
+        "key": "color",
+        "value": "blue",
+        "type": 0
+      }
+    },
+    {
+      "copy_to_instance": false,
+      "data": {
+        "key": "layer",
+        "value": "2",
+        "type": 1
+      }
+    },
+    {
+      "data": {
+        "key": "item",
+        "value": "candle",
+        "type": 0
+      }
+    }
+  ]
+}

@@ -32,10 +32,18 @@ function exports.onInput(input)
 
         if input.isPrimary then
             local itemAtPosition = nil
+            local shelfAhead = nil
 
             for i, entity in ipairs(World:getEntitiesAt(player.instance().gridPosition)) do
                 if entity:checkTrait("Surface", "Item") then
                     itemAtPosition = entity
+                    break
+                end
+            end
+
+            for i, entity in ipairs(World:getEntitiesAt(player.instance().gridPosition + player.instance().facingDirection:toGridPosition())) do
+                if entity:templateName() == "shelf" then
+                    shelfAhead = entity
                     break
                 end
             end
@@ -49,6 +57,11 @@ function exports.onInput(input)
 
                     if itemAtPosition:templateName() == "nexus" then
                         print("tap nexus")
+                    end
+                else
+                    if shelfAhead ~= nil then
+                        player.pickUpItem(World:spawnEntity(player.instance().gridPosition, Soko.DIRECTION.NONE,
+                            shelfAhead.state["item"]))
                     end
                 end
             else
@@ -64,10 +77,11 @@ function exports.onInput(input)
 end
 
 function exports.onMove(move)
-    local tile = World:getTileAt(move:targetPosition())
-    if move:movingEntity() == player.instance() then
-        if tile:checkTrait("Surface", "Wall") then
-            move:stop()
+    for i, gridling in ipairs(World:getGridlingsAt(move:targetPosition())) do
+        if move:movingEntity() == player.instance() then
+            if gridling:checkTrait("Surface", "Wall") then
+                move:stop()
+            end
         end
     end
 end
