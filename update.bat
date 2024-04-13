@@ -3,11 +3,10 @@ setlocal
 
 set src=%cd%
 
-git pull
-
 echo Pulling SokoMaker at: %cd%
 cd /d "../SokoMaker"
 git checkout main
+git reset origin
 git pull
 
 :: :: Skip mods because we don't need it
@@ -19,6 +18,7 @@ git pull
 cd /d "explogine"
 echo Pulling explogine at: %cd%
 git checkout main
+git reset origin
 git pull
 
 cd /d ".."
