@@ -34,13 +34,13 @@ function exports.onInput(input)
             local itemAtPosition = nil
 
             for i, entity in ipairs(World:getEntitiesAt(player.instance().gridPosition)) do
-                if entity:checkTrait("Surface", "Item") and entity ~= player.heldItem() then
+                if entity:checkTrait("Surface", "Item") then
                     itemAtPosition = entity
                     break
                 end
             end
 
-            if player.heldItem() == nil then
+            if not player.hasHeldItem() then
                 -- is empty handed, pick up item if there is one
                 if itemAtPosition ~= nil then
                     if itemAtPosition:checkTrait("Pickable", "CanPickUp") then
@@ -73,12 +73,11 @@ function exports.onMove(move)
 end
 
 function exports.onUpdate(dt)
-    if player.heldItem() ~= nil then
-        local gridOffset = player.instance().gridPosition - player.heldItem().gridPosition
-        local newPosition =
-            Soko.toWorldPosition(gridOffset) + player.instance():displacementTweenable():get() +
-            Soko:worldPosition(0, -player.heldItem().state["height"])
-        player.heldItem():displacementTweenable():set(newPosition)
+    if player.hasHeldItem() then
+        local playerWorldPosition =
+            Soko:toWorldPosition(player:instance().gridPosition) + player.instance():displacementTweenable():get()
+        local newPosition = playerWorldPosition + Soko:worldPosition(0, -player.heldItemGraphic().state["height"])
+        player.heldItemGraphic().tweenablePosition:set(newPosition)
     end
 end
 
