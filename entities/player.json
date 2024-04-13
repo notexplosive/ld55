@@ -92,6 +92,14 @@
         "value": "[18,19,20,19]",
         "type": 0
       }
+    },
+    {
+      "copy_to_instance": false,
+      "data": {
+        "key": "layer",
+        "value": "3",
+        "type": 1
+      }
     }
   ]
 }
