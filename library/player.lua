@@ -10,6 +10,11 @@ function player.setInstance(entity)
     if impl.uiObject ~= nil then
         impl.uiObject:destroy()
     end
+
+    if impl.heldItem ~= nil then
+        impl.heldItem:destroy()
+    end
+
     impl.uiObject = World:spawnObject(Soko:gridPosition(0, 0))
     impl.uiObject.state["renderer"] = "lua"
     impl.uiObject.state["layer"] = 3
