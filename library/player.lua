@@ -132,4 +132,14 @@ function player.dropItem()
     impl.heldItem = nil
 end
 
+function player.setUI(ui)
+    impl.currentUI = ui
+end
+
+function player.currentUI()
+    if impl.currentUI ~= nil and not impl.currentUI.animatedObject:isDestroyed() then
+        return impl.currentUI
+    end
+end
+
 return player

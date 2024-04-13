@@ -35,6 +35,11 @@ function exports.onStart()
 end
 
 function exports.onInput(input)
+    if player.currentUI() then
+        player.currentUI().onInput(input)
+        return
+    end
+
     if player.instance() then
         if input.direction ~= Soko.DIRECTION.NONE then
             local move = animation.interpolateMove(player.instance():generateDirectionalMove(input.direction))

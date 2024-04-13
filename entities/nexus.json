@@ -42,6 +42,13 @@
       }
     },
     {
+      "data": {
+        "key": "behavior",
+        "value": "nexus",
+        "type": 0
+      }
+    },
+    {
       "copy_to_instance": false,
       "data": {
         "key": "layer",
