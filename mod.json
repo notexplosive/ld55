@@ -4,7 +4,7 @@
   "soko_version": "0.1.0",
   "mod_version": "0.1.0",
   "default_tile": "floor",
-  "tile_size": 64,
+  "tile_size": 32,
   "title_screen_level": "",
   "menu_selected_color": "",
   "campaign": {
