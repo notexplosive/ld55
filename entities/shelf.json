@@ -11,15 +11,15 @@
       "copy_to_instance": false,
       "data": {
         "key": "renderer",
-        "value": "SolidColor",
+        "value": "SingleFrame",
         "type": 0
       }
     },
     {
       "copy_to_instance": false,
       "data": {
-        "key": "color",
-        "value": "blue",
+        "key": "sheet",
+        "value": "shelf",
         "type": 0
       }
     },

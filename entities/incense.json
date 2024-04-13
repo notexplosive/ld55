@@ -11,16 +11,30 @@
       "copy_to_instance": false,
       "data": {
         "key": "renderer",
-        "value": "SolidColor",
+        "value": "LoopFrames",
         "type": 0
       }
     },
     {
       "copy_to_instance": false,
       "data": {
-        "key": "color",
-        "value": "555555",
+        "key": "sheet",
+        "value": "incense",
         "type": 0
+      }
+    },
+    {
+      "data": {
+        "key": "idle",
+        "value": "[0,1,2,3]",
+        "type": 0
+      }
+    },
+    {
+      "data": {
+        "key": "idle_fps",
+        "value": "1.5",
+        "type": 1
       }
     },
     {
