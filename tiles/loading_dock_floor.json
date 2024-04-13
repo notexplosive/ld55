@@ -1,0 +1,27 @@
+{
+  "traits": [],
+  "hide_from_editor": true,
+  "config_variables": [
+    {
+      "data": {
+        "key": "renderer",
+        "value": "SingleFrame",
+        "type": 0
+      }
+    },
+    {
+      "data": {
+        "key": "tint",
+        "value": "ff0000",
+        "type": 0
+      }
+    },
+    {
+      "data": {
+        "key": "sheet",
+        "value": "floor",
+        "type": 0
+      }
+    }
+  ]
+}

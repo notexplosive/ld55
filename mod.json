@@ -46,6 +46,10 @@
         {
           "name": "CannotPickUp",
           "value": 1
+        },
+        {
+          "name": "CanActivate",
+          "value": 2
         }
       ]
     }

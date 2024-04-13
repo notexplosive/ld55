@@ -1,0 +1,14 @@
+{
+    "is_directional": false,
+    "traits": [
+        {
+            "name": "Pickable",
+            "value": 2
+        },
+        {
+            "name": "Surface",
+            "value": 15
+        }
+    ],
+    "config_variables": []
+}

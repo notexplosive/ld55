@@ -53,15 +53,17 @@ function exports.onInput(input)
                 if itemAtPosition ~= nil then
                     if itemAtPosition:checkTrait("Pickable", "CanPickUp") then
                         player.pickUpItem(itemAtPosition)
-                    end
-
-                    if itemAtPosition:templateName() == "nexus" then
-                        print("tap nexus")
+                    else
+                        -- activate item
+                        World:raiseEventAt(itemAtPosition.gridPosition, "onActivate", {})
                     end
                 else
                     if shelfAhead ~= nil then
                         player.pickUpItem(World:spawnEntity(player.instance().gridPosition, Soko.DIRECTION.NONE,
                             shelfAhead.state["item"]))
+
+                        -- activate item
+                        World:raiseEventAt(shelfAhead.gridPosition, "onActivate", {})
                     end
                 end
             else
@@ -112,14 +114,14 @@ function exports.onLoadCheckpoint()
 end
 
 function exports.onEnter()
+    World:raiseEntityEvent("onEnter", {})
+end
+
+function exports.onLeave()
 
 end
 
 function exports.onTurn()
-
-end
-
-function exports.onLeave()
 
 end
 
