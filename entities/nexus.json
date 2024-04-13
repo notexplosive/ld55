@@ -1,0 +1,39 @@
+{
+  "is_directional": false,
+  "traits": [
+    {
+      "name": "Surface",
+      "value": 15
+    },
+    {
+      "name": "Pickable",
+      "value": 1
+    }
+  ],
+  "config_variables": [
+    {
+      "copy_to_instance": false,
+      "data": {
+        "key": "renderer",
+        "value": "SolidColor",
+        "type": 0
+      }
+    },
+    {
+      "copy_to_instance": false,
+      "data": {
+        "key": "color",
+        "value": "00aaff",
+        "type": 0
+      }
+    },
+    {
+      "copy_to_instance": false,
+      "data": {
+        "key": "layer",
+        "value": "2",
+        "type": 1
+      }
+    }
+  ]
+}
