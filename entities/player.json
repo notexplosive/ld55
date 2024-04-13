@@ -2,7 +2,7 @@
   "is_directional": false,
   "traits": [
     {
-      "name": "Phase",
+      "name": "Surface",
       "value": 10
     }
   ],

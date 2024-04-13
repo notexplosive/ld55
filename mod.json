@@ -1,5 +1,5 @@
 {
-  "title": "Ludum Dare 55 Game",
+  "title": "Summatro",
   "author": "NotExplosive and Ursagames",
   "soko_version": "0.1.0",
   "mod_version": "0.1.0",
@@ -20,14 +20,14 @@
   },
   "trait_enums": [
     {
-      "name": "Phase",
+      "name": "Surface",
       "supported_values": [
         {
-          "name": "Empty",
+          "name": "Floor",
           "value": 0
         },
         {
-          "name": "Solid",
+          "name": "Wall",
           "value": 10
         }
       ]
@@ -48,11 +48,11 @@
       "color": "FFFFFFFF"
     }
   ],
-  "swap_color": "FFFFFF",
+  "swap_color": "FF00FF",
   "room_size_rule": {
     "type": "width",
-    "size": 10,
-    "aspect_ratio": "1:1"
+    "size": 20,
+    "aspect_ratio": "16:9"
   },
   "prop_layer_rules": {
     "default_layer": 0,
