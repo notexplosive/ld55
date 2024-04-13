@@ -1,4 +1,55 @@
+local score_events = require "library.score_events"
 local animation = {}
+local ABOVE_POSITION = -40
+
+function animation.doScoringAnimation()
+    World:playAnimation(function(tween)
+        tween:startMultiplex()
+        for i, event in ipairs(score_events.all()) do
+            tween:startSequence()
+
+            tween:wait(0.1 * i)
+            tween:dynamic(function(innerTween)
+                local textObject = World:spawnObject(event.gridPosition)
+                textObject.state["layer"] = 4
+                textObject.state["renderer"] = "lua"
+                textObject.state["render_function"] = function(painter, drawArguments)
+                    painter:setFontSize(16)
+                    painter:setColor("00ffff")
+                    local text = tostring(event.amount)
+                    local bounds = painter:measureText(text)
+                    local offset = Soko:worldPosition(bounds.width, bounds.height) / 2
+                    painter:drawText(text, drawArguments.worldPosition - offset)
+                end
+
+
+                innerTween:interpolate(
+                    textObject.tweenablePosition:to(
+                        textObject.tweenablePosition:get() + Soko:worldPosition(0, ABOVE_POSITION - 20)),
+                    0.5,
+                    "cubic_fast_slow"
+                )
+
+                innerTween:interpolate(
+                    textObject.tweenablePosition:to(
+                        textObject.tweenablePosition:get() + Soko:worldPosition(0, ABOVE_POSITION)),
+                    0.15,
+                    "cubic_slow_fast"
+                )
+
+                innerTween:wait(0.2)
+
+                innerTween:callback(function()
+                    textObject:destroy()
+                end)
+            end)
+            tween:endSequence()
+        end
+        tween:endMultiplex()
+
+        score_events:clearEvents()
+    end)
+end
 
 function animation.toPose(entity, pose)
     entity.state["pose"] = pose

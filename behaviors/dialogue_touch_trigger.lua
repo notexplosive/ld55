@@ -20,12 +20,10 @@ local function doSpeak(self, other)
 end
 
 function exports.onEnter(self)
-    print("Entered!")
     self.state:set("is_complete", false)
 end
 
 function exports.onTouched(self, params)
-    print("Touched!")
     local move = params.move
     local other = move:movingEntity()
     doSpeak(self, other)

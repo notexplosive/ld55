@@ -1,5 +1,7 @@
-local player = require "library.player"
+local player    = require "library.player"
 local draw_text = require "library.draw_text"
+local score     = require "library.score"
+local animation = require "library.animation"
 local summon_ui = {}
 
 function summon_ui.create()
@@ -33,7 +35,8 @@ function summon_ui.create()
     options[2].text = "Begin"
     options[2].offset = Soko:worldPosition(100, -20)
     options[2].execute = function()
-        
+        restore()
+        score.execute()
     end
 
     object.state["renderer"] = "lua"
@@ -44,6 +47,7 @@ function summon_ui.create()
 
         local duration = 0.15
         local timeDelta = math.min(drawArguments:elapsedTime() - timestamp, duration) / duration
+        local titleAngle = math.sin(drawArguments:elapsedTime() * 2) * 0.01
 
         painter:setFontSize(32)
         draw_text.draw(painter, drawArguments, "Begin Summoning?", Soko:worldPosition(0, -100), titleAngle)
@@ -84,6 +88,7 @@ function summon_ui.create()
 
             if input.isPrimary then
                 options[selectedOption].execute()
+                animation.doScoringAnimation()
             end
         end
     }

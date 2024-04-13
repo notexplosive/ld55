@@ -1,4 +1,4 @@
-local rules = {}
+local rule_template = {}
 
 local function emptyFunction() end
 
@@ -7,10 +7,10 @@ local function createRule(description)
     rule.description = description
     rule.gridPositions = Soko:list()
 
-    rule.executeFunction = emptyFunction
+    rule.execute = emptyFunction
 
     rule.setFunction = function(ruleFuncion)
-        rule.executeFunction = ruleFuncion
+        rule.execute = ruleFuncion
         return rule
     end
 
@@ -21,7 +21,7 @@ local function createRule(description)
     return rule
 end
 
-function rules.createPage(title)
+function rule_template.createPage(title)
     local page = {}
     page.title = title
     page.rules = Soko:list()
@@ -33,4 +33,4 @@ function rules.createPage(title)
     return page
 end
 
-return rules
+return rule_template
