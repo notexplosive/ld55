@@ -1,11 +1,6 @@
 {
   "is_directional": false,
-  "traits": [
-    {
-      "name": "Surface",
-      "value": 10
-    }
-  ],
+  "traits": [],
   "config_variables": [
     {
       "copy_to_instance": false,
