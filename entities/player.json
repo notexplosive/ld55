@@ -4,6 +4,10 @@
     {
       "name": "Surface",
       "value": 10
+    },
+    {
+      "name": "Pickable",
+      "value": 1
     }
   ],
   "hide_from_editor": true,

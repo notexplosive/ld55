@@ -4,20 +4,34 @@ local animation = require "library.animation"
 local player    = require "library.player"
 
 function exports.onStart()
-    local spawnPosition = World.levelState["force_spawn_position"]
+    if player.instance() == nil then
+        local shouldWarp = false
+        local spawnPosition = World.levelState["force_spawn_position"]
 
-    if spawnPosition == nil then
-        for i, entity in ipairs(World:allEntities()) do
-            if entity:templateName() == "player_spawn" then
-                spawnPosition = entity.gridPosition
-                break
+        if spawnPosition == nil then
+            for i, entity in ipairs(World:allEntities()) do
+                if entity:templateName() == "player_spawn" then
+                    spawnPosition = entity.gridPosition
+                    break
+                end
+
+                if entity:templateName() == "nexus" then
+                    spawnPosition = entity.gridPosition
+                    shouldWarp = true
+                    break
+                end
             end
         end
+
+        spawnPosition = spawnPosition or Soko:gridPosition(0, 0)
+
+        player.setInstance(spawning.spawnPlayer(spawnPosition, Soko.DIRECTION.DOWN))
+
+        if shouldWarp then
+            local items = spawning.spawnStartingItems()
+            animation.warpIn(player.instance(), items)
+        end
     end
-
-    spawnPosition = spawnPosition or Soko:gridPosition(0, 0)
-
-    player.setInstance(spawning.spawnPlayer(spawnPosition, Soko.DIRECTION.DOWN))
 end
 
 function exports.onInput(input)
@@ -25,8 +39,9 @@ function exports.onInput(input)
         if input.direction ~= Soko.DIRECTION.NONE then
             local move = animation.interpolateMove(player.instance():generateDirectionalMove(input.direction))
 
-            if World:getRoomAtGridPosition(move:startPosition()) ~= World:getRoomAtGridPosition(move:targetPosition()) then
-                player.setInstance(spawning.spawnPlayer(move:targetPosition(), move.direction))
+            local targetRoom = World:getRoomAtGridPosition(move:targetPosition())
+            if World:getRoomAtGridPosition(move:startPosition()) ~= targetRoom then
+                player.moveToRoom(targetRoom)
             end
         end
 
@@ -106,7 +121,7 @@ function exports.onRoomStateChanged(key)
 end
 
 function exports.onLoadLevel()
-
+    player.clearState()
 end
 
 function exports.onLoadCheckpoint()

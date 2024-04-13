@@ -56,4 +56,82 @@ function animation.displacementToZero(entity)
     end)
 end
 
+local flyMaxPosition = Soko:worldPosition(0, -500)
+
+local function flyUp(tween, entity)
+    tween:wait(1)
+    tween:interpolate(entity:displacementTweenable():to(flyMaxPosition), 0.5,
+        "cubic_slow_fast")
+    tween:callback(function()
+        entity:setVisible(false)
+    end)
+end
+
+
+local function flyDown(tween, entity)
+    tween:callback(function()
+        entity:displacementTweenable():set(flyMaxPosition)
+    end)
+    tween:interpolate(entity:displacementTweenable():to(Soko:worldPosition(0, 0)), 1, "cubic_fast_slow")
+end
+
+local function doWarp(func, playerEntity, items, whenDone)
+    World:playAnimation(function(tween, params)
+        tween:startMultiplex()
+
+        tween:startSequence()
+
+        func(tween, playerEntity)
+
+        tween:endSequence()
+
+        tween:startSequence()
+        for i = 1, 32 do
+            tween:callback(function()
+                playerEntity.facingDirection = playerEntity.facingDirection:next()
+            end)
+            tween:wait(0.05)
+        end
+        tween:callback(function()
+            playerEntity.facingDirection = Soko.DIRECTION.DOWN
+        end)
+        tween:endSequence()
+
+        local itemTemplates = Soko:list()
+        for i, item in ipairs(items) do
+            tween:startSequence()
+            tween:wait(i * 0.1)
+            func(tween, item)
+            tween:endSequence()
+
+            itemTemplates:add(
+                {
+                    template = item:templateName(),
+                    position = item.gridPosition - playerEntity.gridPosition
+                }
+            )
+        end
+
+        tween:endMultiplex()
+
+        if whenDone ~= nil then
+            tween:callback(function()
+                whenDone(itemTemplates)
+            end)
+        end
+    end)
+end
+
+function animation.warpOut(playerEntity, items, whenDone)
+    doWarp(flyUp, playerEntity, items, whenDone)
+end
+
+function animation.warpIn(playerEntity, items, whenDone)
+    for i, item in ipairs(items) do
+        item:displacementTweenable():set(flyMaxPosition)
+    end
+
+    doWarp(flyDown, playerEntity, items, whenDone)
+end
+
 return animation

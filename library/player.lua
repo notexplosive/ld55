@@ -17,6 +17,11 @@ local function setupHeldItemGraphic(entityTemplate)
     entity:destroy()
 end
 
+function player.moveToRoom(room)
+    World:loadRoom(room)
+    World.camera:panToRoom(room)
+end
+
 function player.setInstance(entity)
     local oldState
     if impl.instance then
