@@ -2,8 +2,8 @@
     "is_directional": false,
     "traits": [
         {
-            "name": "Surface",
-            "value": 15
+            "name": "Pickable",
+            "value": 2
         }
     ],
     "config_variables": [
