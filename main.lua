@@ -102,6 +102,7 @@ function exports.onMove(move)
     for i, gridling in ipairs(World:getGridlingsAt(move:targetPosition())) do
         if move:movingEntity() == player.instance() then
             if gridling:checkTrait("Surface", "Wall") then
+                World:raiseEventAt(move:targetPosition(), "onTouched", { move = move })
                 move:stop()
             end
         end
