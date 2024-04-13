@@ -15,16 +15,30 @@
       "copy_to_instance": false,
       "data": {
         "key": "renderer",
-        "value": "SolidColor",
+        "value": "LoopFrames",
         "type": 0
       }
     },
     {
       "copy_to_instance": false,
       "data": {
-        "key": "color",
-        "value": "00aaff",
+        "key": "sheet",
+        "value": "nexus",
         "type": 0
+      }
+    },
+    {
+      "data": {
+        "key": "idle",
+        "value": "[0,1,2,3]",
+        "type": 0
+      }
+    },
+    {
+      "data": {
+        "key": "idle_fps",
+        "value": "4",
+        "type": 1
       }
     },
     {
