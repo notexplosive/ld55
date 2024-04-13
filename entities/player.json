@@ -12,16 +12,85 @@
       "copy_to_instance": false,
       "data": {
         "key": "renderer",
-        "value": "SolidColor",
+        "value": "FacingDirection",
         "type": 0
       }
     },
     {
-      "copy_to_instance": false,
       "data": {
-        "key": "color",
-        "value": "white",
-        "type": 4
+        "key": "sheet",
+        "value": "player",
+        "type": 0
+      }
+    },
+    {
+      "data": {
+        "key": "idle_fps",
+        "value": "6",
+        "type": 1
+      }
+    },
+    {
+      "data": {
+        "key": "walk_fps",
+        "value": "12",
+        "type": 1
+      }
+    },
+    {
+      "data": {
+        "key": "idle_down",
+        "value": "[1]",
+        "type": 0
+      }
+    },
+    {
+      "data": {
+        "key": "idle_left",
+        "value": "[7]",
+        "type": 0
+      }
+    },
+    {
+      "data": {
+        "key": "idle_right",
+        "value": "[13]",
+        "type": 0
+      }
+    },
+    {
+      "data": {
+        "key": "idle_up",
+        "value": "[19]",
+        "type": 0
+      }
+    },
+    {
+      "data": {
+        "key": "walk_down",
+        "value": "[0,1,2,1]",
+        "type": 0
+      }
+    },
+    {
+      "data": {
+        "key": "walk_left",
+        "value": "[6,7,8,7]",
+        "type": 0
+      }
+    },
+    {
+      "data": {
+        "key": "walk_right",
+        "value": "[12,13,14,13]",
+        "type": 0
+      }
+    },
+    {
+      "data": {
+        "key": "walk_up",
+        "value": "[18,19,20,19]",
+        "type": 0
       }
     }
   ]
