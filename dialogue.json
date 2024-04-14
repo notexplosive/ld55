@@ -95,7 +95,7 @@
         "settings": {
           "volume": 1.0,
           "pan": 0.0,
-          "pitch": 3.0
+          "pitch": 0.4
         }
       },
       "moods": [
@@ -192,6 +192,66 @@
           "speaker_id": "player",
           "text": "Default Text.",
           "mood": "normal"
+        }
+      ]
+    },
+    {
+      "name": "customer_request_non_flaming_horse",
+      "lines": [
+        {
+          "speaker_id": "player",
+          "text": "Thanks for choosing Summons Incorpeal for your summoning needs.",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "player",
+          "text": "How can I help you today?",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "Uh. You can summon me a horse right?",
+          "mood": "cowboy_unamused"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Of course! One horse coming up!",
+          "mood": "happy"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "Yipee!",
+          "mood": "cowboy_happy"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "Make  sure it's not on fire like \nthe last one though!",
+          "mood": "cowboy_angry"
+        },
+        {
+          "speaker_id": "player",
+          "text": "The last horse summoned for you was on fire?!",
+          "mood": "shocked"
+        }
+      ]
+    },
+    {
+      "name": "get_coal",
+      "lines": [
+        {
+          "speaker_id": "player",
+          "text": "I found a piece of coal!",
+          "mood": "happy"
+        }
+      ]
+    },
+    {
+      "name": "found_nothing",
+      "lines": [
+        {
+          "speaker_id": "player",
+          "text": "I searched and found nothing.",
+          "mood": "worried"
         }
       ]
     }

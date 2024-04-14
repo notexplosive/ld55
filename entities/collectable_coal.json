@@ -1,0 +1,59 @@
+{
+    "is_directional": false,
+    "traits": [
+        {
+        "name": "Surface",
+        "value": 10
+        },
+        {
+        "name": "Pickable",
+        "value": 2
+        }
+    ],
+    "config_variables": [
+      {
+        "data": {
+          "key": "renderer",
+          "value": "EditorOnlyWhiteSquare",
+          "type": 0
+        }
+      },
+      {
+        "data": {
+          "key": "color",
+          "value": "ffffaa",
+          "type": 0
+        }
+      },
+      {
+        "data": {
+          "key": "label",
+          "value": "C",
+          "type": 0
+        }
+      },
+      {
+        "copy_to_instance": false,
+        "data": {
+          "key": "layer",
+          "value": "2",
+          "type": 1
+        }
+      },
+      {
+        "copy_to_instance": false,
+        "data": {
+          "key": "behavior",
+          "value": "firepit_activate_trigger",
+          "type": 0
+        }
+      },
+      {
+        "data": {
+          "key": "one_off",
+          "value": "true",
+          "type": 2
+        }
+      }
+    ]
+  }

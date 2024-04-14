@@ -1,0 +1,31 @@
+{
+    "traits": [
+      {
+        "name": "Surface",
+        "value": 10
+      }
+    ],
+    "config_variables": [
+      {
+        "data": {
+          "key": "renderer",
+          "value": "EditorOnlyWhiteSquare",
+          "type": 0
+        }
+      },
+      {
+        "data": {
+          "key": "color",
+          "value": "ffffaa",
+          "type": 0
+        }
+      },
+      {
+        "data": {
+          "key": "label",
+          "value": "X",
+          "type": 0
+        }
+      }
+    ]
+  }
