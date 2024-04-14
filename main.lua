@@ -44,9 +44,11 @@ function exports.onInput(input)
         if input.direction ~= Soko.DIRECTION.NONE then
             local move = animation.interpolateMove(player.instance():generateDirectionalMove(input.direction))
 
-            local targetRoom = World:getRoomAtGridPosition(move:targetPosition())
-            if World:getRoomAtGridPosition(move:startPosition()) ~= targetRoom then
-                player.moveToRoom(targetRoom)
+            if move:isAllowed() then
+                local targetRoom = World:getRoomAtGridPosition(move:targetPosition())
+                if World:getRoomAtGridPosition(move:startPosition()) ~= targetRoom then
+                    player.moveToRoom(targetRoom)
+                end
             end
         end
 
