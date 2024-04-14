@@ -148,4 +148,19 @@ function player.currentUI()
     end
 end
 
+function player.move(direction)
+    local move = animation.interpolateMove(player.instance():generateDirectionalMove(direction))
+
+    if move:isAllowed() then
+        local targetRoom = World:getRoomAtGridPosition(move:targetPosition())
+        if World:getRoomAtGridPosition(move:startPosition()) ~= targetRoom then
+            player.moveToRoom(targetRoom)
+        end
+
+        World:raiseEventAt(move:targetPosition(), "playerSteppedOn", {})
+        return true
+    end
+    return false
+end
+
 return player

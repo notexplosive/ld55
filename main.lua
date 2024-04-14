@@ -5,6 +5,7 @@ local player       = require "library.player"
 local score_events = require "library.score_events"
 local run_context  = require "library.run_context"
 local shop         = require "library.shop"
+local missions     = require "library.missions"
 
 function exports.onStart()
     if player.instance() == nil then
@@ -45,6 +46,10 @@ function exports.onStart()
             run_context.rehydrateLoadingDock(entity.gridPosition)
         end
 
+        if entity.state["behavior"] == "mission_post" then
+            missions.setup(entity)
+        end
+
         if entity.state["special"] == "storage" then
             run_context.rehydrateStorage(entity.gridPosition)
         end
@@ -63,16 +68,7 @@ function exports.onInput(input)
 
     if player.instance() then
         if input.direction ~= Soko.DIRECTION.NONE then
-            local move = animation.interpolateMove(player.instance():generateDirectionalMove(input.direction))
-
-            if move:isAllowed() then
-                local targetRoom = World:getRoomAtGridPosition(move:targetPosition())
-                if World:getRoomAtGridPosition(move:startPosition()) ~= targetRoom then
-                    player.moveToRoom(targetRoom)
-                end
-
-                World:raiseEventAt(move:targetPosition(), "playerSteppedOn", {})
-            end
+            player.move(input.direction)
         end
 
         if input.isPrimary then

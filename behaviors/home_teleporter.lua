@@ -6,9 +6,7 @@ local home_teleporter = {}
 function home_teleporter.onActivate(self, args)
     local items = run_context.calculateLoadingDockItems()
     animation.warpOut(player.instance(), items, function()
-        World:loadLevel("first_level", {
-            target_score = 200 -- todo: this should come from the selected mission
-        })
+        World:loadLevel("wyatt_sandbox", {})
     end)
 
     for i, entity in ipairs(World:allEntities()) do

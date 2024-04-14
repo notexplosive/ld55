@@ -1,0 +1,47 @@
+{
+  "is_directional": false,
+  "traits": [
+    {
+      "name": "Surface",
+      "value": 15
+    },
+    {
+      "name": "Pickable",
+      "value": 2
+    }
+  ],
+  "config_variables": [
+    {
+      "copy_to_instance": false,
+      "data": {
+        "key": "renderer",
+        "value": "SingleFrame",
+        "type": 0
+      }
+    },
+    {
+      "copy_to_instance": false,
+      "data": {
+        "key": "behavior",
+        "value": "mission_post",
+        "type": 0
+      }
+    },
+    {
+      "copy_to_instance": false,
+      "data": {
+        "key": "sheet",
+        "value": "mission",
+        "type": 0
+      }
+    },
+    {
+      "copy_to_instance": false,
+      "data": {
+        "key": "layer",
+        "value": "2",
+        "type": 1
+      }
+    }
+  ]
+}
