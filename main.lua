@@ -3,10 +3,12 @@ local spawning     = require "library.spawning"
 local animation    = require "library.animation"
 local player       = require "library.player"
 local score_events = require "library.score_events"
+local run_context  = require "library.run_context"
 
 function exports.onStart()
     if player.instance() == nil then
         local shouldWarp = World.levelState["should_warp"] or false
+        local shouldIncludeItems = not World.levelState["skip_items"]
         local spawnPosition = World.levelState["force_spawn_position"]
 
         if spawnPosition == nil then
@@ -29,8 +31,17 @@ function exports.onStart()
         player.setInstance(spawning.spawnPlayer(spawnPosition, Soko.DIRECTION.DOWN))
 
         if shouldWarp then
-            local items = spawning.spawnStartingItems()
+            local items = Soko:list()
+            if shouldIncludeItems then
+                items = run_context.rehydrateLoadingDock(player.instance().gridPosition)
+            end
             animation.warpIn(player.instance(), items)
+        end
+    end
+
+    for i, entity in ipairs(World:allEntities()) do
+        if entity.state["behavior"] == "home_teleporter" then
+            run_context.rehydrateLoadingDock(entity.gridPosition)
         end
     end
 end
@@ -146,8 +157,8 @@ function exports.onLoadLevel()
 end
 
 function exports.onLoadCheckpoint()
-    score_events.clearEvents()
     player.clearState()
+    score_events.clearEvents()
 end
 
 function exports.onEnter()

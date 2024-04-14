@@ -287,7 +287,7 @@ function animation.displacementToZero(entity)
     end)
 end
 
-local function doWarp(func, playerEntity, items, whenDone)
+local function doWarp(func, playerEntity, itemEntities, whenDone)
     World:playAnimation(function(tween, params)
         tween:startMultiplex()
 
@@ -309,26 +309,18 @@ local function doWarp(func, playerEntity, items, whenDone)
         end)
         tween:endSequence()
 
-        local itemTemplates = Soko:list()
-        for i, item in ipairs(items) do
+        for i, item in ipairs(itemEntities) do
             tween:startSequence()
             tween:wait(i * 0.1)
             func(tween, item)
             tween:endSequence()
-
-            itemTemplates:add(
-                {
-                    template = item:templateName(),
-                    position = item.gridPosition - playerEntity.gridPosition
-                }
-            )
         end
 
         tween:endMultiplex()
 
         if whenDone ~= nil then
             tween:callback(function()
-                whenDone(itemTemplates)
+                whenDone()
             end)
         end
     end)
