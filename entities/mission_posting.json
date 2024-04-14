@@ -31,8 +31,16 @@
       "copy_to_instance": false,
       "data": {
         "key": "sheet",
-        "value": "mission",
+        "value": "mission_pedestal",
         "type": 0
+      }
+    },
+    {
+      "copy_to_instance": false,
+      "data": {
+        "key": "frame",
+        "value": "0",
+        "type": 1
       }
     },
     {
