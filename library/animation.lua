@@ -1,5 +1,6 @@
 local score_events   = require "library.score_events"
 local draw_text      = require "library.draw_text"
+local run_context    = require "library.run_context"
 local animation      = {}
 local ABOVE_POSITION = -40
 
@@ -188,14 +189,28 @@ function animation.doScoringAnimation(player)
         tween:endMultiplex()
 
         tween:dynamic(function(innerTween)
-            local targetScoreColor = "white"
+            local targetScoreState = "score"
             local targetScoreCounter = World:spawnObject(Soko:gridPosition(0, 0))
             targetScoreCounter.tweenablePosition:set(auraCounter.tweenablePosition:get())
             targetScoreCounter.state["layer"] = 5
             targetScoreCounter.state["renderer"] = "lua"
             targetScoreCounter.state["render_function"] = function(painter, drawArguments)
-                painter:setColor(targetScoreColor)
-                draw_text.scoreCounter(painter, drawArguments, "Target Score", score_events.targetScore())
+                if targetScoreState == "score" then
+                    painter:setColor("white")
+                    draw_text.scoreCounter(painter, drawArguments, "Target Score", score_events.targetScore())
+                end
+
+                if targetScoreState == "fail" then
+                    painter:setColor("red")
+                    painter:setFontSize(80 * targetScoreCounter.tweenableScale:get())
+                    draw_text.draw(painter, drawArguments, tostring("FAILED"), Soko:worldPosition(0, 0), 0)
+                end
+
+                if targetScoreState == "success" then
+                    painter:setColor("green")
+                    painter:setFontSize(80 * targetScoreCounter.tweenableScale:get())
+                    draw_text.draw(painter, drawArguments, tostring("SUCCESS"), Soko:worldPosition(0, 0), 0)
+                end
             end
 
             innerTween:interpolate(targetScoreCounter.tweenablePosition:to(targetScoreCounter.tweenablePosition:get() +
@@ -206,6 +221,15 @@ function animation.doScoringAnimation(player)
             isVictory = score_events.totalScore() >= score_events.targetScore()
 
             if isVictory then
+                innerTween:callback(function()
+                    targetScoreState = "success"
+                end)
+
+                innerTween:interpolate(targetScoreCounter.tweenableScale:to(1.2), 0.1, "quadratic_fast_slow")
+                innerTween:interpolate(targetScoreCounter.tweenableScale:to(1), 0.2, "quadratic_slow_fast")
+
+                innerTween:wait(0.25)
+
                 for i = 1, score_events.payment() do
                     innerTween:callback(function()
                         score_events:currency()["gold"] = score_events:currency()["gold"] + 1
@@ -214,17 +238,18 @@ function animation.doScoringAnimation(player)
                 end
             else
                 innerTween:callback(function()
-                    targetScoreColor = "red"
+                    targetScoreState = "fail"
                 end)
+
+                innerTween:interpolate(targetScoreCounter.tweenableScale:to(1.2), 0.1, "quadratic_fast_slow")
+                innerTween:interpolate(targetScoreCounter.tweenableScale:to(1), 0.2, "quadratic_slow_fast")
             end
         end)
 
         tween:wait(1)
 
         tween:callback(function()
-            -- TODO: add earned gold into total wallet
-            -- score_events:currency()["gold"]
-
+            run_context.gainGold(score_events:currency()["gold"])
             score_events:clearEvents()
             World:loadLevel("house", { is_victory = isVictory, should_warp = true })
         end)

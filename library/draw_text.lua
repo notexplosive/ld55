@@ -33,10 +33,19 @@ function draw_text.drawLines(painter, drawArguments, lines)
     local restrictedWidth = 180
 
     for i, line in ipairs(lines) do
-        local bounds = painter:measureText(line, restrictedWidth)
+        local text = line
+        if type(line) ~= "string" then
+            text = line.text
+
+            if line.color then
+                painter:setColor(line.color)
+            end
+        end
+
+        local bounds = painter:measureText(text, restrictedWidth)
         local offset = bounds:size()
         offset.x = 0
-        draw_text.draw(painter, drawArguments, line,
+        draw_text.draw(painter, drawArguments, text,
             Soko:worldPosition(0, yPosition) + offset / 2, 0, restrictedWidth)
 
         yPosition = yPosition + bounds:bottomRight().y + 5

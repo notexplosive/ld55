@@ -1,8 +1,10 @@
-local player    = require "library.player"
-local draw_text = require "library.draw_text"
-local items     = require "library.items"
-local shop      = require "library.shop"
-local shop_item = {}
+local player      = require "library.player"
+local draw_text   = require "library.draw_text"
+local items       = require "library.items"
+local shop        = require "library.shop"
+local run_context = require "library.run_context"
+local animation   = require "library.animation"
+local shop_item   = {}
 
 
 local function createUI(self)
@@ -29,7 +31,6 @@ local function createUI(self)
 
     object.state["renderer"] = "lua"
     object.state["render_function"] = function(painter, drawArguments)
-        painter:setColor("white")
         local rulePage = items[self:templateName()]
         if rulePage == nil then
             return
@@ -43,14 +44,31 @@ local function createUI(self)
             lines:add(rule.description)
         end
 
+        painter:setColor("white")
+
+        local color = "gold"
+
+        local price = self.state["price"]
+        if not run_context.canAfford(price) then
+            color = "red"
+        end
+
+        lines.add({
+            text = "Costs: " .. price .. "G" .. " (you have: " .. run_context.gold() .. "G)",
+            color = color
+        })
+
         draw_text.drawLines(painter, drawArguments, lines)
     end
 
     return {
         animatedObject = object,
         onInput = function(input)
-            if input.direction ~= player.instance().facingDirection then
-                restore()
+            if input.direction ~= Soko.DIRECTION.NONE then
+                local move = animation.interpolateMove(player.instance():generateDirectionalMove(input.direction))
+                if move:isAllowed() then
+                    restore()
+                end
             end
 
             if input.isPrimary then
