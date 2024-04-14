@@ -24,6 +24,14 @@ local function addScore(entity, amount, currencyType)
     )
 end
 
+function score_events.payment()
+    return World.levelState["payment"] or 0
+end
+
+function score_events.targetScore()
+    return World.levelState["target_score"] or 0
+end
+
 function score_events.addRegularScoreEvent(entity, amount)
     addScore(entity, amount, "normal")
 end

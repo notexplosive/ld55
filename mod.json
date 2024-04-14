@@ -5,7 +5,7 @@
   "mod_version": "0.1.0",
   "default_tile": "floor",
   "tile_size": 32,
-  "title_screen_level": "",
+  "title_screen_level": "title",
   "menu_selected_color": "",
   "campaign": {
     "chapters": [

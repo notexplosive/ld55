@@ -195,7 +195,7 @@ function animation.doScoringAnimation(player)
             targetScoreCounter.state["renderer"] = "lua"
             targetScoreCounter.state["render_function"] = function(painter, drawArguments)
                 painter:setColor(targetScoreColor)
-                draw_text.scoreCounter(painter, drawArguments, "Target Score", World.levelState["target_score"])
+                draw_text.scoreCounter(painter, drawArguments, "Target Score", score_events.targetScore())
             end
 
             innerTween:interpolate(targetScoreCounter.tweenablePosition:to(targetScoreCounter.tweenablePosition:get() +
@@ -203,10 +203,10 @@ function animation.doScoringAnimation(player)
 
             innerTween:wait(0.5)
 
-            isVictory = score_events.totalScore() >= World.levelState["target_score"]
+            isVictory = score_events.totalScore() >= score_events.targetScore()
 
             if isVictory then
-                for i = 1, World.levelState["payment"] do
+                for i = 1, score_events.payment() do
                     innerTween:callback(function()
                         score_events:currency()["gold"] = score_events:currency()["gold"] + 1
                     end)
