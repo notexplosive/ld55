@@ -122,6 +122,7 @@ function exports.onInput(input)
                     player.dropItem()
                 else
                     -- fail to drop because there's an item there
+                    World:raiseEventAt(itemAtPosition.gridPosition, "onFailDrop", {})
                 end
             end
         end
