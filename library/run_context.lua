@@ -46,6 +46,7 @@ function run_context.clear()
     impl.storageItems     = {}
     impl.storageUpgrade   = 0
     impl.loadingUpgrade   = 0
+    impl.wallet           = 10
 end
 
 function run_context.saveLoadingDock()
@@ -70,6 +71,14 @@ end
 
 function run_context.calculateStorageItems()
     return calculateSpaceItems("storage_floor")
+end
+
+function run_context.canAfford(cost)
+    return impl.wallet >= cost
+end
+
+function run_context.spend(cost)
+    impl.wallet = impl.wallet - cost
 end
 
 run_context.clear()

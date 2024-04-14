@@ -70,6 +70,8 @@ function exports.onInput(input)
                 if World:getRoomAtGridPosition(move:startPosition()) ~= targetRoom then
                     player.moveToRoom(targetRoom)
                 end
+
+                World:raiseEventAt(move:targetPosition(), "playerSteppedOn", {})
             end
         end
 
@@ -95,7 +97,14 @@ function exports.onInput(input)
                 -- is empty handed, pick up item if there is one
                 if itemAtPosition ~= nil then
                     if itemAtPosition:checkTrait("Pickable", "CanPickUp") then
-                        player.pickUpItem(itemAtPosition)
+                        local canPickUp = true
+                        if itemAtPosition.state["price"] then
+                            canPickUp = shop.attemptPurchase(itemAtPosition)
+                        end
+
+                        if canPickUp then
+                            player.pickUpItem(itemAtPosition)
+                        end
                     else
                         -- activate item
                         World:raiseEventAt(itemAtPosition.gridPosition, "onActivate", {})

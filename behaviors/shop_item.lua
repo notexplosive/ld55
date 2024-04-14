@@ -1,9 +1,11 @@
-local player        = require "library.player"
-local draw_text     = require "library.draw_text"
-local items         = require "library.items"
-local spell_book_ui = {}
+local player    = require "library.player"
+local draw_text = require "library.draw_text"
+local items     = require "library.items"
+local shop      = require "library.shop"
+local shop_item = {}
 
-function spell_book_ui.create(self)
+
+local function createUI(self)
     local rectangle = Soko:rectangle(0, 0, 0, 0)
     local worldPosition = Soko:toWorldPosition(self.gridPosition) + Soko:getHalfTileSize()
     rectangle.x = worldPosition.x
@@ -28,34 +30,20 @@ function spell_book_ui.create(self)
     object.state["renderer"] = "lua"
     object.state["render_function"] = function(painter, drawArguments)
         painter:setColor("white")
-        if player.hasHeldItem() then
-            local heldItemName = player.heldItemName()
-
-            local rulePage = items[heldItemName]
-            if rulePage == nil then
-                return
-            end
-
-            draw_text.drawTitle(painter, drawArguments, rulePage.title)
-
-            local lines = Soko:list()
-
-            for i, rule in ipairs(rulePage.rules) do
-                lines:add(rule.description)
-            end
-
-            draw_text.drawLines(painter, drawArguments, lines)
-        else
-            draw_text.drawTitle(painter, drawArguments, "Glossary")
-            local lines = Soko:list()
-
-            lines:add("ADJACENT objects are touching in a cardinal direction (not diagonal).")
-            lines:add(
-                "White reticles when holding an object indicate where the item will be CONNECTED to.")
-            lines:add("When you initiate a SUMMON,\nall items in the room are TRIGGERED.")
-            lines:add("SUMMONING POWER = AURA x CROSS.")
-            draw_text.drawLines(painter, drawArguments, lines)
+        local rulePage = items[self:templateName()]
+        if rulePage == nil then
+            return
         end
+
+        draw_text.drawTitle(painter, drawArguments, rulePage.title)
+
+        local lines = Soko:list()
+
+        for i, rule in ipairs(rulePage.rules) do
+            lines:add(rule.description)
+        end
+
+        draw_text.drawLines(painter, drawArguments, lines)
     end
 
     return {
@@ -66,10 +54,16 @@ function spell_book_ui.create(self)
             end
 
             if input.isPrimary then
-                restore()
+                if shop.attemptPurchase(self) then
+                    player.pickUpItem(self)
+                end
             end
         end
     }
 end
 
-return spell_book_ui
+function shop_item.playerSteppedOn(self, args)
+    player.setUI(createUI(self))
+end
+
+return shop_item
