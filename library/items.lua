@@ -34,7 +34,7 @@ items.birthday_candle.addRule("+10 Aura if the Nexus is directly adjacent in a c
 
 ----
 
-items.skull_candle = rule_template.createPage("Ritual Candle")
+items.skull_candle = rule_template.createPage("Skull Candle")
 items.skull_candle.addRule("+5 Aura if Nexus is 3 squares away cardinally or 2 squares diagonally.")
     .setFunction(function(entity, room)
         local items = Soko:list()

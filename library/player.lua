@@ -48,7 +48,7 @@ function player.setInstance(entity)
     impl.uiObject.state["renderer"] = "lua"
     impl.uiObject.state["layer"] = 3
     impl.uiObject.state["render_function"] = function(painter, drawArguments)
-        if impl.heldItem then
+        if impl.heldItem and not player.hasCurrentUI() then
             local page = items[impl.heldItem.templateName]
 
             if page ~= nil then
@@ -56,7 +56,7 @@ function player.setInstance(entity)
                     for _, gridOffset in ipairs(rule.gridPositions) do
                         painter:drawCircle(
                             Soko:toWorldPosition(impl.instance.gridPosition + gridOffset) + Soko:getHalfTileSize() +
-                            impl.instance:displacementTweenable():get(), 10, 2, 10)
+                            impl.instance:displacementTweenable():get(), 5, 2, 10)
                     end
                 end
             end
@@ -136,8 +136,12 @@ function player.setUI(ui)
     impl.currentUI = ui
 end
 
+function player.hasCurrentUI()
+    return impl.currentUI ~= nil and not impl.currentUI.animatedObject:isDestroyed()
+end
+
 function player.currentUI()
-    if impl.currentUI ~= nil and not impl.currentUI.animatedObject:isDestroyed() then
+    if player.hasCurrentUI() then
         return impl.currentUI
     end
 end
