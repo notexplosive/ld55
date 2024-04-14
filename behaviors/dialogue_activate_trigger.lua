@@ -1,11 +1,7 @@
 local dialogue = require("library/dialogue")
 local exports = {}
 
-local function doSpeak(self, other)
-    if not other.state:has("actor_key") then
-        return
-    end
-
+local function doSpeak(self)
     local hasDone = self.state:get("is_complete")
     local isOneOff = self.state:get("one_off")
     local shouldShow = (isOneOff and not hasDone) or (not isOneOff)
@@ -22,15 +18,12 @@ function exports.onEnter(self)
     self.state:set("is_complete", false)
 end
 
-function exports.onTouched(self, params)
-    local move = params.move
-    local other = move:movingEntity()
-    doSpeak(self, other)
+function exports.onActivate(self, params)
+    doSpeak(self)
 end
 
 function exports.onSpeak(self, params)
-    local other = params.speaker
-    doSpeak(self, other)
+    doSpeak(self)
 end
 
 return exports

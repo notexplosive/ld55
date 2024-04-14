@@ -1,10 +1,14 @@
 {
     "is_directional": false,
     "traits": [
-      {
+        {
         "name": "Surface",
         "value": 10
-      }
+        },
+        {
+        "name": "Pickable",
+        "value": 2
+        }
     ],
     "config_variables": [
       {
@@ -41,7 +45,7 @@
         "copy_to_instance": false,
         "data": {
           "key": "behavior",
-          "value": "dialogue_touch_trigger",
+          "value": "dialogue_activate_trigger",
           "type": 0
         }
       },

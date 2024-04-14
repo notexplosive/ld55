@@ -41,12 +41,22 @@
       "lines": [
         {
           "speaker_id": "player",
-          "text": "Test Text.\nHello World.",
+          "text": "This should  not be used.",
           "mood": "normal"
         },
         {
           "speaker_id": "player",
           "text": "Good bye.",
+          "mood": "normal"
+        }
+      ]
+    },
+    {
+      "name": "default",
+      "lines": [
+        {
+          "speaker_id": "player",
+          "text": "Default Text.",
           "mood": "normal"
         }
       ]
