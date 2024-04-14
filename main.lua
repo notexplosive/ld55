@@ -1,11 +1,12 @@
-local exports   = {}
-local spawning  = require "library.spawning"
-local animation = require "library.animation"
-local player    = require "library.player"
+local exports      = {}
+local spawning     = require "library.spawning"
+local animation    = require "library.animation"
+local player       = require "library.player"
+local score_events = require "library.score_events"
 
 function exports.onStart()
     if player.instance() == nil then
-        local shouldWarp = false
+        local shouldWarp = World.levelState["should_warp"] or false
         local spawnPosition = World.levelState["force_spawn_position"]
 
         if spawnPosition == nil then
@@ -132,9 +133,11 @@ end
 
 function exports.onLoadLevel()
     player.clearState()
+    score_events.clearEvents()
 end
 
 function exports.onLoadCheckpoint()
+    score_events.clearEvents()
     player.clearState()
 end
 

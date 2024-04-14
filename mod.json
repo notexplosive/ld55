@@ -65,8 +65,24 @@
       "color": "ADD8E6FF"
     },
     {
+      "alias": "red",
+      "color": "BF211E"
+    },
+    {
       "alias": "white",
       "color": "FFFFFFFF"
+    },
+    {
+      "alias": "purple",
+      "color": "C398BE"
+    },
+    {
+      "alias": "gold",
+      "color": "EFD28D"
+    },
+    {
+      "alias": "orange",
+      "color": "FF7700"
     }
   ],
   "swap_color": "FF00FF",
