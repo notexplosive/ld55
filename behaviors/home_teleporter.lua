@@ -27,7 +27,8 @@ function home_teleporter.onActivate(self, args)
     local items = getItems()
     animation.warpOut(player.instance(), items, function(itemTemplates)
         World:loadLevel("first_level", {
-            starting_items = itemTemplates
+            starting_items = itemTemplates,
+            target_score = 200 -- todo: this should come from the selected mission
         })
     end)
 end

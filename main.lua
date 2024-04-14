@@ -1,11 +1,12 @@
-local exports   = {}
-local spawning  = require "library.spawning"
-local animation = require "library.animation"
-local player    = require "library.player"
+local exports      = {}
+local spawning     = require "library.spawning"
+local animation    = require "library.animation"
+local player       = require "library.player"
+local score_events = require "library.score_events"
 
 function exports.onStart()
     if player.instance() == nil then
-        local shouldWarp = false
+        local shouldWarp = World.levelState["should_warp"] or false
         local spawnPosition = World.levelState["force_spawn_position"]
 
         if spawnPosition == nil then
@@ -114,11 +115,20 @@ function exports.onMove(move)
 end
 
 function exports.onUpdate(dt)
+    local playerWorldPosition =
+        Soko:toWorldPosition(player.instance().gridPosition) + player.instance():displacementTweenable():get()
     if player.hasHeldItem() then
-        local playerWorldPosition =
-            Soko:toWorldPosition(player:instance().gridPosition) + player.instance():displacementTweenable():get()
         local newPosition = playerWorldPosition + Soko:worldPosition(0, -player.heldItemGraphic().state["height"])
         player.heldItemGraphic().tweenablePosition:set(newPosition)
+    end
+
+    local cameraSize = World.roomState["force_camera_size"]
+    if cameraSize ~= nil then
+        local playerWorldPosition = Soko:toWorldPosition(player.instance().gridPosition)
+        local rectangle = Soko:rectangle(playerWorldPosition.x, playerWorldPosition.y, 0, 0)
+        rectangle = rectangle:inflated(Soko:worldPosition(cameraSize[1], cameraSize[2]))
+        rectangle = rectangle.constrain(World.getRoomAtGridPosition(player.instance().gridPosition):viewBounds())
+        World.camera:panToRectangle(rectangle)
     end
 end
 
@@ -132,9 +142,11 @@ end
 
 function exports.onLoadLevel()
     player.clearState()
+    score_events.clearEvents()
 end
 
 function exports.onLoadCheckpoint()
+    score_events.clearEvents()
     player.clearState()
 end
 

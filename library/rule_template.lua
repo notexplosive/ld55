@@ -1,3 +1,4 @@
+local item_helpers = require "library.item_helpers"
 local rule_template = {}
 
 local function emptyFunction() end
@@ -9,7 +10,7 @@ local function createRule(description)
 
     rule.execute = emptyFunction
 
-    rule.setFunction = function(ruleFuncion)
+    rule.onTrigger = function(ruleFuncion)
         rule.execute = ruleFuncion
         return rule
     end
@@ -18,6 +19,18 @@ local function createRule(description)
         rule.gridPositions:add(gridOffset)
         return rule
     end
+
+    rule.getConnectedItems = function(entity)
+        local connectedItems = Soko:list()
+        for i, position in ipairs(rule.gridPositions) do
+            local item = item_helpers.getItemAt(entity.gridPosition + position)
+            if item then
+                connectedItems:add(item)
+            end
+        end
+        return connectedItems
+    end
+
     return rule
 end
 
