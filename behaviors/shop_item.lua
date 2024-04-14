@@ -74,6 +74,7 @@ local function createUI(self)
             if input.isPrimary then
                 if shop.attemptPurchase(self) then
                     player.pickUpItem(self)
+                    restore()
                 end
             end
         end
