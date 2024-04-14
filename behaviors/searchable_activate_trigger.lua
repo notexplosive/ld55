@@ -22,7 +22,7 @@ local function doCheckItem(self)
         if rand <= search_chance then
             local length = #item_list
             local item_found = item_list[math.random(1, length)]
-            dialogue.doBespokeDialogue("I found some " .. item_found .. "!", 1)
+            dialogue.doBespokeDialogue("I found " .. item_found .. "!", 2)
             local new_item = World:spawnEntity(player.instance().gridPosition, Soko.DIRECTION.NONE, item_found)
             player.pickUpItem(new_item)
         else
