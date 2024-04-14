@@ -20,18 +20,34 @@ local function createRule(description)
         return rule
     end
 
-    rule.getConnectedItems = function(entity)
-        local connectedItems = Soko:list()
-        for i, position in ipairs(rule.gridPositions) do
-            local item = item_helpers.getItemAt(entity.gridPosition + position)
-            if item then
-                connectedItems:add(item)
-            end
+    return rule
+end
+
+function rule_template.getConnectedItems(rule, entity)
+    local connectedItems = Soko:list()
+    for i, position in ipairs(rule.gridPositions) do
+        local item = item_helpers.getItemAt(entity.gridPosition + position)
+        if item then
+            connectedItems:add(item)
         end
-        return connectedItems
     end
 
-    return rule
+    return connectedItems
+end
+
+function rule_template.getConnectedSlots(rule, entity)
+    local connectedItems = Soko:list()
+    for i, position in ipairs(rule.gridPositions) do
+        local slot = {}
+        local item = item_helpers.getItemAt(entity.gridPosition + position)
+        if item then
+            slot.item = item
+        end
+
+        connectedItems:add(slot)
+    end
+
+    return connectedItems
 end
 
 function rule_template.createPage(title)

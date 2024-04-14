@@ -1,4 +1,3 @@
-local player      = require "library.player"
 local run_context = {}
 local impl        = {}
 
@@ -46,10 +45,11 @@ function run_context.clear()
     impl.storageItems     = {}
     impl.storageUpgrade   = 0
     impl.loadingUpgrade   = 0
+    impl.wallet           = 10
 end
 
-function run_context.saveLoadingDock()
-    impl.loadingDockItems = dehydrate(run_context.calculateLoadingDockItems(), player.instance().gridPosition)
+function run_context.saveLoadingDock(gridPosition)
+    impl.loadingDockItems = dehydrate(run_context.calculateLoadingDockItems(), gridPosition)
 end
 
 function run_context.saveStorage(gridPosition)
@@ -70,6 +70,22 @@ end
 
 function run_context.calculateStorageItems()
     return calculateSpaceItems("storage_floor")
+end
+
+function run_context.canAfford(cost)
+    return impl.wallet >= cost
+end
+
+function run_context.spend(cost)
+    impl.wallet = impl.wallet - cost
+end
+
+function run_context.gold()
+    return impl.wallet
+end
+
+function run_context.gainGold(amount)
+    impl.wallet = impl.wallet + amount
 end
 
 run_context.clear()

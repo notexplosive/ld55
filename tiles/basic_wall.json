@@ -1,116 +1,116 @@
 {
-    "traits": [
-      {
-        "name": "Surface",
-        "value": 10
+  "traits": [
+    {
+      "name": "Surface",
+      "value": 10
+    }
+  ],
+  "config_variables": [
+    {
+      "copy_to_instance": false,
+      "data": {
+        "key": "renderer",
+        "value": "SmartTile",
+        "type": 0
       }
-    ],
-    "config_variables": [
-      {
-        "copy_to_instance": false,
-        "data": {
-          "key": "renderer",
-          "value": "SmartTile",
-          "type": 0
-        }
-      },
-      {
-        "data": {
-          "key": "sheet",
-          "value": "basic_wall",
-          "type": 0
-        }
-      },
-      {
-        "data": {
-          "key": "top_left_corner",
-          "value": "0",
-          "type": 1
-        }
-      },
-      {
-        "data": {
-          "key": "top_edge",
-          "value": "1",
-          "type": 1
-        }
-      },
-      {
-        "data": {
-          "key": "top_right_corner",
-          "value": "2",
-          "type": 1
-        }
-      },
-      {
-        "data": {
-          "key": "inverse_top_left",
-          "value": "3",
-          "type": 1
-        }
-      },
-      {
-        "data": {
-          "key": "inverse_top_right",
-          "value": "4",
-          "type": 1
-        }
-      },
-      {
-        "data": {
-          "key": "left_edge",
-          "value": "5",
-          "type": 1
-        }
-      },
-      {
-        "data": {
-          "key": "fill",
-          "value": "6",
-          "type": 1
-        }
-      },
-      {
-        "data": {
-          "key": "right_edge",
-          "value": "7",
-          "type": 1
-        }
-      },
-      {
-        "data": {
-          "key": "inverse_bottom_left",
-          "value": "8",
-          "type": 1
-        }
-      },
-      {
-        "data": {
-          "key": "inverse_bottom_right",
-          "value": "9",
-          "type": 1
-        }
-      },
-      {
-        "data": {
-          "key": "bottom_left_corner",
-          "value": "10",
-          "type": 1
-        }
-      },
-      {
-        "data": {
-          "key": "bottom_edge",
-          "value": "11",
-          "type": 1
-        }
-      },
-      {
-        "data": {
-          "key": "bottom_right_corner",
-          "value": "12",
-          "type": 1
-        }
+    },
+    {
+      "data": {
+        "key": "sheet",
+        "value": "basic_wall",
+        "type": 0
       }
-    ]
-  }
+    },
+    {
+      "data": {
+        "key": "top_left_corner",
+        "value": "0",
+        "type": 1
+      }
+    },
+    {
+      "data": {
+        "key": "top_edge",
+        "value": "1",
+        "type": 1
+      }
+    },
+    {
+      "data": {
+        "key": "top_right_corner",
+        "value": "2",
+        "type": 1
+      }
+    },
+    {
+      "data": {
+        "key": "inverse_top_left",
+        "value": "3",
+        "type": 1
+      }
+    },
+    {
+      "data": {
+        "key": "inverse_top_right",
+        "value": "4",
+        "type": 1
+      }
+    },
+    {
+      "data": {
+        "key": "left_edge",
+        "value": "5",
+        "type": 1
+      }
+    },
+    {
+      "data": {
+        "key": "fill",
+        "value": "6",
+        "type": 1
+      }
+    },
+    {
+      "data": {
+        "key": "right_edge",
+        "value": "7",
+        "type": 1
+      }
+    },
+    {
+      "data": {
+        "key": "inverse_bottom_left",
+        "value": "8",
+        "type": 1
+      }
+    },
+    {
+      "data": {
+        "key": "inverse_bottom_right",
+        "value": "9",
+        "type": 1
+      }
+    },
+    {
+      "data": {
+        "key": "bottom_left_corner",
+        "value": "10",
+        "type": 1
+      }
+    },
+    {
+      "data": {
+        "key": "bottom_edge",
+        "value": "11",
+        "type": 1
+      }
+    },
+    {
+      "data": {
+        "key": "bottom_right_corner",
+        "value": "12",
+        "type": 1
+      }
+    }
+  ]
+}

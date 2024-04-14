@@ -17,7 +17,7 @@ function home_teleporter.onActivate(self, args)
         end
     end
 
-    run_context.saveLoadingDock()
+    run_context.saveLoadingDock(self.gridPosition)
 end
 
 return home_teleporter

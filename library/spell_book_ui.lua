@@ -3,30 +3,18 @@ local draw_text     = require "library.draw_text"
 local items         = require "library.items"
 local spell_book_ui = {}
 
-local function drawTitle(painter, drawArguments, title)
-    local titleFontSize = 16
-    painter:setFontSize(titleFontSize)
-    draw_text.draw(painter, drawArguments, title, Soko:worldPosition(0, -titleFontSize))
-end
-
-local function drawLines(painter, drawArguments, lines)
-    local fontSize = 8
-    painter:setFontSize(fontSize)
-    local yPosition = 0
-    local restrictedWidth = 180
-
-    for i, line in ipairs(lines) do
-        local bounds = painter:measureText(line, restrictedWidth)
-        local offset = bounds:size()
-        offset.x = 0
-        draw_text.draw(painter, drawArguments, line,
-            Soko:worldPosition(0, yPosition) + offset / 2, 0, restrictedWidth)
-
-        yPosition = yPosition + bounds:bottomRight().y + 5
-    end
-end
-
 function spell_book_ui.create(self)
+    local rectangle = Soko:rectangle(0, 0, 0, 0)
+    local worldPosition = Soko:toWorldPosition(self.gridPosition) + Soko:getHalfTileSize()
+    rectangle.x = worldPosition.x
+    rectangle.y = worldPosition.y
+
+    rectangle = rectangle:inflated(Soko:worldPosition(160, 90))
+    rectangle.y = rectangle.y - rectangle.height / 4 + Soko:toWorldPosition(Soko:gridPosition(0, -1)).y / 2
+    World.camera:panToRectangle(rectangle)
+
+    player.instance().facingDirection = Soko.DIRECTION.UP
+
     local object = World:spawnObject(self.gridPosition + Soko:gridPosition(0, -4))
     object.tweenablePosition:set(object.tweenablePosition:get() + Soko:toWorldPosition(Soko:gridPosition(0, 1)) / 2)
 
@@ -48,7 +36,7 @@ function spell_book_ui.create(self)
                 return
             end
 
-            drawTitle(painter, drawArguments, rulePage.title)
+            draw_text.drawTitle(painter, drawArguments, rulePage.title)
 
             local lines = Soko:list()
 
@@ -56,9 +44,9 @@ function spell_book_ui.create(self)
                 lines:add(rule.description)
             end
 
-            drawLines(painter, drawArguments, lines)
+            draw_text.drawLines(painter, drawArguments, lines)
         else
-            drawTitle(painter, drawArguments, "Glossary")
+            draw_text.drawTitle(painter, drawArguments, "Glossary")
             local lines = Soko:list()
 
             lines:add("ADJACENT objects are touching in a cardinal direction (not diagonal).")
@@ -66,7 +54,7 @@ function spell_book_ui.create(self)
                 "White reticles when holding an object indicate where the item will be CONNECTED to.")
             lines:add("When you initiate a SUMMON,\nall items in the room are TRIGGERED.")
             lines:add("SUMMONING POWER = AURA x CROSS.")
-            drawLines(painter, drawArguments, lines)
+            draw_text.drawLines(painter, drawArguments, lines)
         end
     end
 
