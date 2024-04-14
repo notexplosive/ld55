@@ -4,6 +4,7 @@ local animation    = require "library.animation"
 local player       = require "library.player"
 local score_events = require "library.score_events"
 local run_context  = require "library.run_context"
+local shop         = require "library.shop"
 
 function exports.onStart()
     if player.instance() == nil then
@@ -46,6 +47,10 @@ function exports.onStart()
 
         if entity.state["special"] == "storage" then
             run_context.rehydrateStorage(entity.gridPosition)
+        end
+
+        if entity.state["special"] == "shop" then
+            shop.placeOfferAt(entity.gridPosition)
         end
     end
 end
@@ -130,20 +135,22 @@ function exports.onMove(move)
 end
 
 function exports.onUpdate(dt)
-    local playerWorldPosition =
-        Soko:toWorldPosition(player.instance().gridPosition) + player.instance():displacementTweenable():get()
-    if player.hasHeldItem() then
-        local newPosition = playerWorldPosition + Soko:worldPosition(0, -player.heldItemGraphic().state["height"])
-        player.heldItemGraphic().tweenablePosition:set(newPosition)
-    end
+    if player.instance() ~= nil then
+        local playerWorldPosition =
+            Soko:toWorldPosition(player.instance().gridPosition) + player.instance():displacementTweenable():get()
+        if player.hasHeldItem() then
+            local newPosition = playerWorldPosition + Soko:worldPosition(0, -player.heldItemGraphic().state["height"])
+            player.heldItemGraphic().tweenablePosition:set(newPosition)
+        end
 
-    local cameraSize = World.roomState["force_camera_size"]
-    if cameraSize ~= nil then
-        local playerWorldPosition = Soko:toWorldPosition(player.instance().gridPosition)
-        local rectangle = Soko:rectangle(playerWorldPosition.x, playerWorldPosition.y, 0, 0)
-        rectangle = rectangle:inflated(Soko:worldPosition(cameraSize[1], cameraSize[2]))
-        rectangle = rectangle.constrain(World.getRoomAtGridPosition(player.instance().gridPosition):viewBounds())
-        World.camera:panToRectangle(rectangle)
+        local cameraSize = World.roomState["force_camera_size"]
+        if cameraSize ~= nil then
+            local playerWorldPosition = Soko:toWorldPosition(player.instance().gridPosition)
+            local rectangle = Soko:rectangle(playerWorldPosition.x, playerWorldPosition.y, 0, 0)
+            rectangle = rectangle:inflated(Soko:worldPosition(cameraSize[1], cameraSize[2]))
+            rectangle = rectangle.constrain(World.getRoomAtGridPosition(player.instance().gridPosition):viewBounds())
+            World.camera:panToRectangle(rectangle)
+        end
     end
 end
 
