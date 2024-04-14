@@ -76,7 +76,7 @@
     "aspect_ratio": "16:9"
   },
   "prop_layer_rules": {
-    "default_layer": 0,
+    "default_layer": 1,
     "rules": []
   },
   "layers": [
