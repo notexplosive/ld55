@@ -10,6 +10,13 @@ function home_teleporter.onActivate(self, args)
             target_score = 200 -- todo: this should come from the selected mission
         })
     end)
+
+    for i, entity in ipairs(World:allEntities()) do
+        if entity.state["special"] == "storage" then
+            run_context.saveStorage(entity.gridPosition)
+        end
+    end
+
     run_context.saveLoadingDock()
 end
 
