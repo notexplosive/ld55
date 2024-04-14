@@ -41,12 +41,10 @@ function exports.onStart()
 
     for i, entity in ipairs(World:allEntities()) do
         if entity.state["behavior"] == "home_teleporter" then
-            print("hydrating loading dock")
             run_context.rehydrateLoadingDock(entity.gridPosition)
         end
 
         if entity.state["special"] == "storage" then
-            print("hydrating storage", entity.gridPosition)
             run_context.rehydrateStorage(entity.gridPosition)
         end
     end

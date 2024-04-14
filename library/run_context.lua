@@ -41,7 +41,6 @@ local function rehydrate(itemBlueprints, centerGridPosition)
 end
 
 function run_context.clear()
-    print("cleared!")
     -- most likely only ever want to do this on startup
     impl.loadingDockItems = {}
     impl.storageItems     = {}
