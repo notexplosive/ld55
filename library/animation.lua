@@ -8,14 +8,19 @@ function animation.doScoringAnimation()
         for i, event in ipairs(score_events.all()) do
             tween:startSequence()
 
-            tween:wait(0.1 * i)
+            tween:wait(0.2 * i)
             tween:dynamic(function(innerTween)
                 local textObject = World:spawnObject(event.gridPosition)
                 textObject.state["layer"] = 4
                 textObject.state["renderer"] = "lua"
                 textObject.state["render_function"] = function(painter, drawArguments)
-                    painter:setFontSize(16)
-                    painter:setColor("00ffff")
+                    painter:setFontSize(25)
+
+                    if event.isMultiplier then
+                        painter:setColor("ffff00")
+                    else
+                        painter:setColor("00ffff")
+                    end
                     local text = tostring(event.amount)
                     local bounds = painter:measureText(text)
                     local offset = Soko:worldPosition(bounds.width, bounds.height) / 2
@@ -26,7 +31,7 @@ function animation.doScoringAnimation()
                 innerTween:interpolate(
                     textObject.tweenablePosition:to(
                         textObject.tweenablePosition:get() + Soko:worldPosition(0, ABOVE_POSITION - 20)),
-                    0.5,
+                    0.25,
                     "cubic_fast_slow"
                 )
 
