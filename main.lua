@@ -115,11 +115,20 @@ function exports.onMove(move)
 end
 
 function exports.onUpdate(dt)
+    local playerWorldPosition =
+        Soko:toWorldPosition(player.instance().gridPosition) + player.instance():displacementTweenable():get()
     if player.hasHeldItem() then
-        local playerWorldPosition =
-            Soko:toWorldPosition(player:instance().gridPosition) + player.instance():displacementTweenable():get()
         local newPosition = playerWorldPosition + Soko:worldPosition(0, -player.heldItemGraphic().state["height"])
         player.heldItemGraphic().tweenablePosition:set(newPosition)
+    end
+
+    local cameraSize = World.roomState["force_camera_size"]
+    if cameraSize ~= nil then
+        local playerWorldPosition = Soko:toWorldPosition(player.instance().gridPosition)
+        local rectangle = Soko:rectangle(playerWorldPosition.x, playerWorldPosition.y, 0, 0)
+        rectangle = rectangle:inflated(Soko:worldPosition(cameraSize[1], cameraSize[2]))
+        rectangle = rectangle.constrain(World.getRoomAtGridPosition(player.instance().gridPosition):viewBounds())
+        World.camera:panToRectangle(rectangle)
     end
 end
 
