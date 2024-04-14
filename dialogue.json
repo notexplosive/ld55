@@ -16,6 +16,140 @@
         {
           "name": "normal",
           "frame": 0
+        },
+        {
+          "name": "worried",
+          "frame": 1
+        },
+        {
+          "name": "happy",
+          "frame": 2
+        },
+        {
+          "name": "shocked",
+          "frame": 3
+        }
+      ]
+    },
+    {
+      "id": "coworker",
+      "name": "Coworker",
+      "blip": {
+        "sound": "default_blip",
+        "settings": {
+          "volume": 1.0,
+          "pan": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "moods": [
+        {
+          "name": "green_eyes",
+          "frame": 8
+        },
+        {
+          "name": "blue_eyes",
+          "frame": 9
+        },
+        {
+          "name": "purple_eyes",
+          "frame": 10
+        }
+      ]
+    },
+    {
+      "id": "shopkeeper",
+      "name": "Keeper of Shop",
+      "blip": {
+        "sound": "default_blip",
+        "settings": {
+          "volume": 1.0,
+          "pan": 0.0,
+          "pitch": 0.0
+        }
+      },
+      "moods": [
+        {
+          "name": "normal",
+          "frame": 16
+        },
+        {
+          "name": "worried",
+          "frame": 17
+        },
+        {
+          "name": "happy",
+          "frame": 18
+        },
+        {
+          "name": "sale",
+          "frame": 19
+        }
+      ]
+    },
+    {
+      "id": "customer",
+      "name": "Customer",
+      "blip": {
+        "sound": "default_blip",
+        "settings": {
+          "volume": 1.0,
+          "pan": 0.0,
+          "pitch": 3.0
+        }
+      },
+      "moods": [
+        {
+          "name": "cowboy_unamused",
+          "frame": 32
+        },
+        {
+          "name": "cowboy_angry",
+          "frame": 33
+        },
+        {
+          "name": "cowboy_happy",
+          "frame": 34
+        },
+        {
+          "name": "cyan_hair",
+          "frame": 35
+        },
+        {
+          "name": "glasses",
+          "frame": 36
+        },
+        {
+          "name": "moustache",
+          "frame": 37
+        },
+        {
+          "name": "cyclops",
+          "frame": 38
+        },
+        {
+          "name": "zombie",
+          "frame": 39
+        },
+        {
+          "name": "headphones",
+          "frame": 40
+        },
+        {
+          "name": "armor",
+          "frame": 41
+        },
+        {
+          "name": "blonde_hair",
+          "frame": 42
+        },
+        {
+          "name": "notch",
+          "frame": 43
+        },
+        {
+          "name": "dancer",
+          "frame": 44
         }
       ]
     }
