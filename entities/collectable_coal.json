@@ -44,8 +44,22 @@
         "copy_to_instance": false,
         "data": {
           "key": "behavior",
-          "value": "firepit_activate_trigger",
+          "value": "searchable_activate_trigger",
           "type": 0
+        }
+      },
+      {
+        "data": {
+          "key": "search_chance",
+          "value": "100",
+          "type": 1
+        }
+      },
+      {
+        "data": {
+          "key": "item_list",
+          "value": "[]",
+          "type": 5
         }
       },
       {
