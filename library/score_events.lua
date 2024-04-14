@@ -2,15 +2,24 @@ local score_events = {}
 local impl         = {}
 impl.list          = Soko:list()
 
-function score_events.addEvent(entity, amount)
+local function addScore(entity, amount, isMultiplier)
     impl.list:add(
         {
             worldPosition = Soko:toWorldPosition(entity.gridPosition),
             gridPosition = entity.gridPosition,
             amount = amount,
+            isMultiplier = isMultiplier,
             entity = entity
         }
     )
+end
+
+function score_events.addRegularScoreEvent(entity, amount)
+    addScore(entity, amount, false)
+end
+
+function score_events.addMultiplierScoreEvent(entity, amount)
+    addScore(entity, amount, true)
 end
 
 function score_events.all()

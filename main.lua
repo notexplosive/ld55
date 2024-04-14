@@ -141,7 +141,7 @@ function exports.onEnter()
 end
 
 function exports.onLeave()
-
+    World:raiseEntityEvent("onExit", {})
 end
 
 function exports.onTurn()

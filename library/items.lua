@@ -23,7 +23,7 @@ items.birthday_candle.addRule("+10 Aura if the Nexus is directly adjacent in a c
 
         for _, item in ipairs(items) do
             if item:templateName() == "nexus" then
-                score_events.addEvent(entity, 10)
+                score_events.addRegularScoreEvent(entity, 10)
             end
         end
     end)
@@ -31,6 +31,8 @@ items.birthday_candle.addRule("+10 Aura if the Nexus is directly adjacent in a c
     .addLocation(Soko:gridPosition(-1, 0))
     .addLocation(Soko:gridPosition(0, -1))
     .addLocation(Soko:gridPosition(0, 1))
+
+----
 
 items.skull_candle = rule_template.createPage("Ritual Candle")
 items.skull_candle.addRule("+5 Aura if Nexus is 3 squares away cardinally or 2 squares diagonally.")
@@ -48,7 +50,7 @@ items.skull_candle.addRule("+5 Aura if Nexus is 3 squares away cardinally or 2 s
 
         for _, item in ipairs(items) do
             if item:templateName() == "nexus" then
-                score_events.addEvent(entity, 5)
+                score_events.addRegularScoreEvent(entity, 5)
             end
         end
     end)
@@ -66,5 +68,28 @@ items.skull_candle.addRule("-2 Aura for every object adjacent in a cardinal dire
     .setFunction(function(entity, room)
 
     end)
+
+----
+
+
+items.incense = rule_template.createPage("Incense")
+items.incense.addRule("+1 Cross per adjacent item in a cardinal direction")
+    .setFunction(function(entity, room)
+        local items = Soko:list()
+        items:add(getItemAt(room, entity.gridPosition + Soko:gridPosition(1, 0)))
+        items:add(getItemAt(room, entity.gridPosition + Soko:gridPosition(-1, 0)))
+        items:add(getItemAt(room, entity.gridPosition + Soko:gridPosition(0, -1)))
+        items:add(getItemAt(room, entity.gridPosition + Soko:gridPosition(0, 1)))
+
+        for _, item in ipairs(items) do
+            if item ~= nil then
+                score_events.addMultiplierScoreEvent(entity, 1)
+            end
+        end
+    end)
+    .addLocation(Soko:gridPosition(1, 0))
+    .addLocation(Soko:gridPosition(-1, 0))
+    .addLocation(Soko:gridPosition(0, -1))
+    .addLocation(Soko:gridPosition(0, 1))
 
 return items

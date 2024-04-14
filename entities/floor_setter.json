@@ -1,0 +1,37 @@
+{
+  "is_directional": false,
+  "traits": [],
+  "config_variables": [
+    {
+      "copy_to_instance": false,
+      "data": {
+        "key": "renderer",
+        "value": "EditorOnlyWhiteSquare",
+        "type": 0
+      }
+    },
+    {
+      "copy_to_instance": false,
+      "data": {
+        "key": "label",
+        "value": "floor",
+        "type": 0
+      }
+    },
+    {
+      "data": {
+        "key": "sheet",
+        "value": "floor_upstairs",
+        "type": 0
+      }
+    },
+    {
+      "copy_to_instance": false,
+      "data": {
+        "key": "behavior",
+        "value": "floor_setter",
+        "type": 0
+      }
+    },
+  ]
+}
