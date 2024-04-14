@@ -130,6 +130,8 @@ function player.dropItem()
     droppedItem.gridPosition = impl.instance.gridPosition
     impl.heldItem.graphic:destroy()
     impl.heldItem = nil
+
+    World:raiseEventAt(droppedItem.gridPosition, "itemDropped", { item = droppedItem })
 end
 
 function player.setUI(ui)
@@ -144,6 +146,21 @@ function player.currentUI()
     if player.hasCurrentUI() then
         return impl.currentUI
     end
+end
+
+function player.move(direction)
+    local move = animation.interpolateMove(player.instance():generateDirectionalMove(direction))
+
+    if move:isAllowed() then
+        local targetRoom = World:getRoomAtGridPosition(move:targetPosition())
+        if World:getRoomAtGridPosition(move:startPosition()) ~= targetRoom then
+            player.moveToRoom(targetRoom)
+        end
+
+        World:raiseEventAt(move:targetPosition(), "playerSteppedOn", {})
+        return true
+    end
+    return false
 end
 
 return player

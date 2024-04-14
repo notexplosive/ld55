@@ -50,14 +50,19 @@ function rule_template.getConnectedSlots(rule, entity)
     return connectedItems
 end
 
-function rule_template.createPage(title)
+function rule_template.createPage(title, cost)
     local page = {}
     page.title = title
     page.rules = Soko:list()
+    page.costValue = 5
     page.addRule = function(description)
         local rule = createRule(description)
         page.rules:add(rule)
         return rule
+    end
+
+    page.cost = function()
+        return page.costValue
     end
     return page
 end

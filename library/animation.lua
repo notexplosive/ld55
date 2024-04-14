@@ -1,6 +1,7 @@
 local score_events   = require "library.score_events"
 local draw_text      = require "library.draw_text"
 local run_context    = require "library.run_context"
+local missions       = require "library.missions"
 local animation      = {}
 local ABOVE_POSITION = -40
 
@@ -40,6 +41,8 @@ function animation.doScoringAnimation(player)
         local goldCounter
         local center
         local isVictory
+
+        local missionContent = missions:current()
 
         tween:callback(function()
             center = World.camera:tweenableViewBounds():get():center()
@@ -236,6 +239,10 @@ function animation.doScoringAnimation(player)
                     end)
                     innerTween:wait(0.1)
                 end
+
+                innerTween:callback(function()
+                    score_events:currency()["rank"] = score_events:currency()["rank"] + (missionContent.rankReward or 0)
+                end)
             else
                 innerTween:callback(function()
                     targetScoreState = "fail"
@@ -251,6 +258,7 @@ function animation.doScoringAnimation(player)
         tween:callback(function()
             run_context.gainGold(score_events:currency()["gold"])
             score_events:clearEvents()
+            missions:clearContent()
             World:loadLevel("house", { is_victory = isVictory, should_warp = true })
         end)
     end)

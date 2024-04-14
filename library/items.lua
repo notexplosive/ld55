@@ -3,7 +3,7 @@ local score_events  = require "library.score_events"
 local items         = {}
 
 
-items.birthday_candle = rule_template.createPage("Birthday Candle")
+items.birthday_candle = rule_template.createPage("Birthday Candle", 5)
 items.birthday_candle.addRule("+10 Aura if the Nexus is directly adjacent in a cardinal direction.")
     .onTrigger(function(self, entity)
         for _, item in ipairs(rule_template.getConnectedItems(self, entity)) do
@@ -19,7 +19,7 @@ items.birthday_candle.addRule("+10 Aura if the Nexus is directly adjacent in a c
 
 ----
 
-items.skull_candle = rule_template.createPage("Skull Candle")
+items.skull_candle = rule_template.createPage("Skull Candle", 5)
 items.skull_candle.addRule("+5 Aura if Nexus is 3 squares away cardinally or 2 squares diagonally.")
     .onTrigger(function(self, entity)
         for _, item in ipairs(rule_template.getConnectedItems(self, entity)) do
@@ -46,7 +46,7 @@ items.skull_candle.addRule("-2 Aura for every object adjacent in a cardinal dire
 ----
 
 
-items.incense = rule_template.createPage("Incense")
+items.incense = rule_template.createPage("Incense", 5)
 items.incense.addRule("+1 Cross per adjacent item in a cardinal direction")
     .onTrigger(function(self, entity)
         for _, item in ipairs(rule_template.getConnectedItems(self, entity)) do
@@ -63,7 +63,7 @@ items.incense.addRule("+1 Cross per adjacent item in a cardinal direction")
 ----
 
 
-items.crystal_bishop = rule_template.createPage("Crystal Bishop")
+items.crystal_bishop = rule_template.createPage("Crystal Bishop", 5)
 items.crystal_bishop.addRule("If connected to a Nexus, this counts as a Nexus")
     .onTrigger(function(self, entity)
         for _, item in ipairs(rule_template.getConnectedItems(self, entity)) do
@@ -88,7 +88,7 @@ items.crystal_bishop.addRule("If connected to a Nexus, this counts as a Nexus")
 ----
 
 
-items.crystal_king = rule_template.createPage("Crystal King")
+items.crystal_king = rule_template.createPage("Crystal King", 5)
 items.crystal_king.addRule("If connected to a Nexus, this counts as a Nexus")
     .onTrigger(function(self, entity)
         for _, item in ipairs(rule_template.getConnectedItems(self, entity)) do
@@ -109,7 +109,7 @@ items.crystal_king.addRule("If connected to a Nexus, this counts as a Nexus")
 ----
 
 
-items.crystal_knight = rule_template.createPage("Crystal Knight")
+items.crystal_knight = rule_template.createPage("Crystal Knight", 5)
 items.crystal_knight.addRule("If connected to a Nexus, this counts as a Nexus")
     .onTrigger(function(self, entity)
         for _, item in ipairs(rule_template.getConnectedItems(self, entity)) do
@@ -130,7 +130,7 @@ items.crystal_knight.addRule("If connected to a Nexus, this counts as a Nexus")
 ----
 
 
-items.crystal_pawn = rule_template.createPage("Crystal Pawn")
+items.crystal_pawn = rule_template.createPage("Crystal Pawn", 5)
 items.crystal_pawn.addRule("If connected to a Nexus, this counts as a Nexus")
     .onTrigger(function(self, entity)
         for _, item in ipairs(rule_template.getConnectedItems(self, entity)) do
@@ -146,7 +146,7 @@ items.crystal_pawn.addRule("If connected to a Nexus, this counts as a Nexus")
 ----
 
 
-items.crystal_queen = rule_template.createPage("Crystal Queen")
+items.crystal_queen = rule_template.createPage("Crystal Queen", 5)
 items.crystal_queen.addRule("If connected to a Nexus, this counts as a Nexus")
     .onTrigger(function(self, entity)
         for _, item in ipairs(rule_template.getConnectedItems(self, entity)) do
@@ -183,7 +183,7 @@ items.crystal_queen.addRule("If connected to a Nexus, this counts as a Nexus")
 ----
 
 
-items.crystal_rook = rule_template.createPage("Crystal Rook")
+items.crystal_rook = rule_template.createPage("Crystal Rook", 5)
 items.crystal_rook.addRule("If connected to a Nexus, this counts as a Nexus")
     .onTrigger(function(self, entity)
         for _, item in ipairs(rule_template.getConnectedItems(self, entity)) do
@@ -207,7 +207,7 @@ items.crystal_rook.addRule("If connected to a Nexus, this counts as a Nexus")
 
 ----
 
-items.jar_greed = rule_template.createPage("Pot of Greed")
+items.jar_greed = rule_template.createPage("Pot of Greed", 5)
 items.jar_greed.addRule("Gain 2 gold per empty connection.")
     .onTrigger(function(self, entity)
         for _, slot in ipairs(rule_template.getConnectedSlots(self, entity)) do

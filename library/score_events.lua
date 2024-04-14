@@ -1,3 +1,4 @@
+local missions     = require "library.missions"
 local score_events = {}
 local impl         = {}
 impl.list          = Soko:list()
@@ -25,11 +26,11 @@ local function addScore(entity, amount, currencyType)
 end
 
 function score_events.payment()
-    return World.levelState["payment"] or 0
+    return missions.current().goldReward or 0
 end
 
 function score_events.targetScore()
-    return World.levelState["target_score"] or 0
+    return missions.current().scoreObjective or 0
 end
 
 function score_events.addRegularScoreEvent(entity, amount)
@@ -54,6 +55,7 @@ function score_events.clearEvents()
     impl.currency = {
         normal = 0,
         gold = 0,
+        rank = 0,
         multiplier = 1
     }
 end
