@@ -45,7 +45,7 @@ function animation.doScoringAnimation(player)
 
             auraCounter = World:spawnObject(Soko:gridPosition(0, 0))
             auraCounter.tweenablePosition:set(center + Soko:worldPosition(-160, 0))
-            auraCounter.state["layer"] = 4
+            auraCounter.state["layer"] = 5
             auraCounter.state["renderer"] = "lua"
             auraCounter.state["render_function"] = function(painter, drawArguments)
                 painter:setColor("purple")
@@ -65,7 +65,7 @@ function animation.doScoringAnimation(player)
 
             multiplierCounter = World:spawnObject(Soko:gridPosition(0, 0))
             multiplierCounter.tweenablePosition:set(center + Soko:worldPosition(160, 0))
-            multiplierCounter.state["layer"] = 4
+            multiplierCounter.state["layer"] = 5
             multiplierCounter.state["renderer"] = "lua"
             multiplierCounter.state["render_function"] = function(painter, drawArguments)
                 painter:setColor("orange")
@@ -74,7 +74,7 @@ function animation.doScoringAnimation(player)
 
             goldCounter = World:spawnObject(Soko:gridPosition(0, 0))
             goldCounter.tweenablePosition:set(center + Soko:worldPosition(0, 140))
-            goldCounter.state["layer"] = 4
+            goldCounter.state["layer"] = 5
             goldCounter.state["renderer"] = "lua"
             goldCounter.state["render_function"] = function(painter, drawArguments)
                 painter:setColor("gold")
@@ -92,7 +92,7 @@ function animation.doScoringAnimation(player)
                 tween:wait(0.2 * i)
                 tween:dynamic(function(innerTween)
                     local textObject = World:spawnObject(event.gridPosition)
-                    textObject.state["layer"] = 4
+                    textObject.state["layer"] = 5
                     textObject.state["renderer"] = "lua"
                     textObject.state["render_function"] = function(painter, drawArguments)
                         painter:setFontSize(25)
@@ -191,7 +191,7 @@ function animation.doScoringAnimation(player)
             local targetScoreColor = "white"
             local targetScoreCounter = World:spawnObject(Soko:gridPosition(0, 0))
             targetScoreCounter.tweenablePosition:set(auraCounter.tweenablePosition:get())
-            targetScoreCounter.state["layer"] = 4
+            targetScoreCounter.state["layer"] = 5
             targetScoreCounter.state["renderer"] = "lua"
             targetScoreCounter.state["render_function"] = function(painter, drawArguments)
                 painter:setColor(targetScoreColor)
