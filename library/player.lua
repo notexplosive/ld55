@@ -130,6 +130,8 @@ function player.dropItem()
     droppedItem.gridPosition = impl.instance.gridPosition
     impl.heldItem.graphic:destroy()
     impl.heldItem = nil
+
+    World:raiseEventAt(droppedItem.gridPosition, "itemDropped", { item = droppedItem })
 end
 
 function player.setUI(ui)
