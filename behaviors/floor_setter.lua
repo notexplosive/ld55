@@ -12,7 +12,9 @@ function floor_setter.onEnter(self, args)
 end
 
 function floor_setter.onExit(self, args)
-    self.state["tile"].state["sheet"] = self.state["previous"]
+    if self.state["tile"] then
+        self.state["tile"].state["sheet"] = self.state["previous"]
+    end
 end
 
 return floor_setter

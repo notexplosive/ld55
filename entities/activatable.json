@@ -10,5 +10,13 @@
             "value": 15
         }
     ],
-    "config_variables": []
+    "config_variables": [
+        {
+            "data": {
+                "key": "label",
+                "value": "a",
+                "type": 0
+            }
+        }
+    ]
 }
