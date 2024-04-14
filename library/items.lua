@@ -60,4 +60,150 @@ items.incense.addRule("+1 Cross per adjacent item in a cardinal direction")
     .addLocation(Soko:gridPosition(0, -1))
     .addLocation(Soko:gridPosition(0, 1))
 
+----
+
+
+items.crystal_bishop = rule_template.createPage("Crystal Bishop")
+items.crystal_bishop.addRule("If connected to a Nexus, this counts as a Nexus")
+    .onTrigger(function(self, entity)
+        for _, item in ipairs(self.getConnectedItems(entity)) do
+            if item ~= nil then
+                score_events.addMultiplierScoreEvent(entity, 1)
+            end
+        end
+    end)
+    .addLocation(Soko:gridPosition(1, 1))
+    .addLocation(Soko:gridPosition(-1, 1))
+    .addLocation(Soko:gridPosition(1, -1))
+    .addLocation(Soko:gridPosition(-1, -1))
+    .addLocation(Soko:gridPosition(2, 2))
+    .addLocation(Soko:gridPosition(-2, 2))
+    .addLocation(Soko:gridPosition(2, -2))
+    .addLocation(Soko:gridPosition(-2, -2))
+    .addLocation(Soko:gridPosition(3, 3))
+    .addLocation(Soko:gridPosition(-3, 3))
+    .addLocation(Soko:gridPosition(3, -3))
+    .addLocation(Soko:gridPosition(-3, -3))
+
+----
+
+
+items.crystal_king = rule_template.createPage("Crystal King")
+items.crystal_king.addRule("If connected to a Nexus, this counts as a Nexus")
+    .onTrigger(function(self, entity)
+        for _, item in ipairs(self.getConnectedItems(entity)) do
+            if item ~= nil then
+                score_events.addMultiplierScoreEvent(entity, 1)
+            end
+        end
+    end)
+    .addLocation(Soko:gridPosition(1, 1))
+    .addLocation(Soko:gridPosition(-1, 1))
+    .addLocation(Soko:gridPosition(1, -1))
+    .addLocation(Soko:gridPosition(-1, -1))
+    .addLocation(Soko:gridPosition(1, 0))
+    .addLocation(Soko:gridPosition(-1, 0))
+    .addLocation(Soko:gridPosition(0, -1))
+    .addLocation(Soko:gridPosition(0, 1))
+
+----
+
+
+items.crystal_knight = rule_template.createPage("Crystal Knight")
+items.crystal_knight.addRule("If connected to a Nexus, this counts as a Nexus")
+    .onTrigger(function(self, entity)
+        for _, item in ipairs(self.getConnectedItems(entity)) do
+            if item ~= nil then
+                score_events.addMultiplierScoreEvent(entity, 1)
+            end
+        end
+    end)
+    .addLocation(Soko:gridPosition(-2, 1))
+    .addLocation(Soko:gridPosition(-2, -1))
+    .addLocation(Soko:gridPosition(2, 1))
+    .addLocation(Soko:gridPosition(2, -1))
+    .addLocation(Soko:gridPosition(1, 2))
+    .addLocation(Soko:gridPosition(-1, 2))
+    .addLocation(Soko:gridPosition(1, -2))
+    .addLocation(Soko:gridPosition(-1, -2))
+
+----
+
+
+items.crystal_pawn = rule_template.createPage("Crystal Pawn")
+items.crystal_pawn.addRule("If connected to a Nexus, this counts as a Nexus")
+    .onTrigger(function(self, entity)
+        for _, item in ipairs(self.getConnectedItems(entity)) do
+            if item ~= nil then
+                score_events.addMultiplierScoreEvent(entity, 1)
+            end
+        end
+    end)
+    .addLocation(Soko:gridPosition(1, -1))
+    .addLocation(Soko:gridPosition(-1, -1))
+    .addLocation(Soko:gridPosition(0, -1))
+
+----
+
+
+items.crystal_queen = rule_template.createPage("Crystal Queen")
+items.crystal_queen.addRule("If connected to a Nexus, this counts as a Nexus")
+    .onTrigger(function(self, entity)
+        for _, item in ipairs(self.getConnectedItems(entity)) do
+            if item ~= nil then
+                score_events.addMultiplierScoreEvent(entity, 1)
+            end
+        end
+    end)
+    .addLocation(Soko:gridPosition(1, 1))
+    .addLocation(Soko:gridPosition(-1, 1))
+    .addLocation(Soko:gridPosition(1, -1))
+    .addLocation(Soko:gridPosition(-1, -1))
+    .addLocation(Soko:gridPosition(1, 0))
+    .addLocation(Soko:gridPosition(-1, 0))
+    .addLocation(Soko:gridPosition(0, -1))
+    .addLocation(Soko:gridPosition(0, 1))
+    .addLocation(Soko:gridPosition(2, 2))
+    .addLocation(Soko:gridPosition(-2, 2))
+    .addLocation(Soko:gridPosition(2, -2))
+    .addLocation(Soko:gridPosition(-2, -2))
+    .addLocation(Soko:gridPosition(2, 0))
+    .addLocation(Soko:gridPosition(-2, 0))
+    .addLocation(Soko:gridPosition(0, -2))
+    .addLocation(Soko:gridPosition(0, 2))
+    .addLocation(Soko:gridPosition(3, 3))
+    .addLocation(Soko:gridPosition(-3, 3))
+    .addLocation(Soko:gridPosition(3, -3))
+    .addLocation(Soko:gridPosition(-3, -3))
+    .addLocation(Soko:gridPosition(3, 0))
+    .addLocation(Soko:gridPosition(-3, 0))
+    .addLocation(Soko:gridPosition(0, -3))
+    .addLocation(Soko:gridPosition(0, 3))
+
+----
+
+
+items.crystal_rook = rule_template.createPage("Crystal Rook")
+items.crystal_rook.addRule("If connected to a Nexus, this counts as a Nexus")
+    .onTrigger(function(self, entity)
+        for _, item in ipairs(self.getConnectedItems(entity)) do
+            if item ~= nil then
+                score_events.addMultiplierScoreEvent(entity, 1)
+            end
+        end
+    end)
+    .addLocation(Soko:gridPosition(1, 0))
+    .addLocation(Soko:gridPosition(-1, 0))
+    .addLocation(Soko:gridPosition(0, -1))
+    .addLocation(Soko:gridPosition(0, 1))
+    .addLocation(Soko:gridPosition(2, 0))
+    .addLocation(Soko:gridPosition(-2, 0))
+    .addLocation(Soko:gridPosition(0, -2))
+    .addLocation(Soko:gridPosition(0, 2))
+    .addLocation(Soko:gridPosition(3, 0))
+    .addLocation(Soko:gridPosition(-3, 0))
+    .addLocation(Soko:gridPosition(0, -3))
+    .addLocation(Soko:gridPosition(0, 3))
+
+
 return items
