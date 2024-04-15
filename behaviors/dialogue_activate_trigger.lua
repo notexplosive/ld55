@@ -9,6 +9,9 @@ local function doSpeak(self)
 
     if shouldShow then
         dialogue.show(baseSceneName)
+        if self.state["trigger"] then
+            World:raiseEntityEvent("onTrigger", { name = self.state["trigger"] })
+        end
     end
 
     self.state:set("is_complete", true)
