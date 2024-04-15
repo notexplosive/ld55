@@ -29,6 +29,41 @@ local function flyDown(tween, entity)
     tween:endSequence()
 end
 
+local function spawnKicker(gridPosition, tween, text, color)
+    tween:dynamic(function(innerTween)
+        local textObject = World:spawnObject(gridPosition)
+        textObject.state["layer"] = 5
+        textObject.state["renderer"] = "lua"
+        textObject.state["render_function"] = function(painter, drawArguments)
+            painter:setFontSize(25)
+            painter:setColor(color or "white")
+            local bounds = painter:measureText(text)
+            local offset = Soko:worldPosition(bounds.width, bounds.height) / 2
+            painter:drawText(text, drawArguments.worldPosition - offset)
+        end
+
+        innerTween:interpolate(
+            textObject.tweenablePosition:to(
+                textObject.tweenablePosition:get() + Soko:worldPosition(0, ABOVE_POSITION - 20)),
+            0.25,
+            "cubic_fast_slow"
+        )
+
+        innerTween:interpolate(
+            textObject.tweenablePosition:to(
+                textObject.tweenablePosition:get() + Soko:worldPosition(0, ABOVE_POSITION)),
+            0.15,
+            "cubic_slow_fast"
+        )
+
+        innerTween:wait(0.2)
+
+        innerTween:callback(function()
+            textObject:destroy()
+        end)
+    end)
+end
+
 function animation.doScoringAnimation(player)
     World:playAnimation(function(tween)
         -- wait for camera (boooooo!!!!!)
@@ -90,31 +125,22 @@ function animation.doScoringAnimation(player)
 
         for i = 1, #score_events:all() do
             local event = score_events:all()[i]
-            if event.type == "gain_score" then
-                tween:startSequence()
+            tween:startSequence()
 
-                tween:wait(0.2 * i)
-                tween:dynamic(function(innerTween)
-                    local textObject = World:spawnObject(event.gridPosition)
-                    textObject.state["layer"] = 5
-                    textObject.state["renderer"] = "lua"
-                    textObject.state["render_function"] = function(painter, drawArguments)
-                        painter:setFontSize(25)
+            tween:wait(0.2 * i)
+            tween:dynamic(function(innerTween)
+                if event.type == "dud" then
+                    innerTween:startSequence()
+                    innerTween:interpolate(event.entity:displacementTweenable():to(Soko:worldPosition(0, 10)), 0.1,
+                        "quadratic_fast_slow")
+                    innerTween:interpolate(event.entity:displacementTweenable():to(Soko:worldPosition(0, 0)), 0.1,
+                        "quadratic_slow_fast")
+                    innerTween:endSequence()
 
-                        if event.currencyType == "gold" then
-                            painter:setColor("gold")
-                        elseif event.currencyType == "multiplier" then
-                            painter:setColor("orange")
-                        else
-                            painter:setColor("purple")
-                        end
+                    spawnKicker(event.gridPosition, innerTween, "None")
+                end
 
-                        local text = tostring(event.amount)
-                        local bounds = painter:measureText(text)
-                        local offset = Soko:worldPosition(bounds.width, bounds.height) / 2
-                        painter:drawText(text, drawArguments.worldPosition - offset)
-                    end
-
+                if event.type == "gain_score" then
                     innerTween:startMultiplex()
 
                     innerTween:startSequence()
@@ -128,31 +154,22 @@ function animation.doScoringAnimation(player)
 
                     innerTween:callback(event.commit)
 
-                    innerTween:interpolate(
-                        textObject.tweenablePosition:to(
-                            textObject.tweenablePosition:get() + Soko:worldPosition(0, ABOVE_POSITION - 20)),
-                        0.25,
-                        "cubic_fast_slow"
-                    )
 
-                    innerTween:interpolate(
-                        textObject.tweenablePosition:to(
-                            textObject.tweenablePosition:get() + Soko:worldPosition(0, ABOVE_POSITION)),
-                        0.15,
-                        "cubic_slow_fast"
-                    )
+                    local color = "purple"
+                    if event.currencyType == "gold" then
+                        color = "gold"
+                    elseif event.currencyType == "multiplier" then
+                        color = "orange"
+                    end
+
+                    spawnKicker(event.gridPosition, innerTween, tostring(event.amount), color)
+
                     innerTween:endSequence()
 
                     innerTween:endMultiplex()
-
-                    innerTween:wait(0.2)
-
-                    innerTween:callback(function()
-                        textObject:destroy()
-                    end)
-                end)
-                tween:endSequence()
-            end
+                end
+            end)
+            tween:endSequence()
         end
         tween:endMultiplex()
 

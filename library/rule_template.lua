@@ -8,10 +8,10 @@ local function createRule(description)
     rule.description = description
     rule.gridPositions = Soko:list()
 
-    rule.execute = emptyFunction
+    rule.executeTrigger = emptyFunction
 
     rule.onTrigger = function(ruleFuncion)
-        rule.execute = ruleFuncion
+        rule.executeTrigger = ruleFuncion
         return rule
     end
 
