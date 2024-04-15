@@ -49,6 +49,7 @@ function shop.attemptPurchase(shopItemEntity)
         shopItemEntity.state:clear("price")
         shopItemEntity.state:clear("behavior")
         shopItemEntity.state:clear("cannot_pick_up")
+        World:playSound("buy", 0.5)
 
         shop.spawnKicker(shopItemEntity.gridPosition, price)
         return true

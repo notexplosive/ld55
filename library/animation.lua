@@ -113,6 +113,9 @@ function animation.doScoringAnimation(player)
 
         -- fly player out
         tween:startMultiplex()
+        tween:callback(function()
+            World:playSound("fly_out", 1)
+        end)
         flyUp(tween, player)
         tween:startSequence()
         for i = 1, 32 do
@@ -169,6 +172,11 @@ function animation.doScoringAnimation(player)
             end
         end)
 
+        local pitchImpl = 0
+        local function pitch()
+            pitchImpl = math.min(pitchImpl + 0.1, 1)
+            return pitchImpl
+        end
 
         local function addEventsToTween(passedTween)
             passedTween:startMultiplex() -- main event multiplex
@@ -250,17 +258,21 @@ function animation.doScoringAnimation(player)
 
                         innerTween:callback(event.commit)
 
-
                         local color = "purple"
                         if event.currencyType == "gold" then
+                            World:playSound("buy", 0.5, 0.5)
                             color = "gold"
                         elseif event.currencyType == "multiplier" then
+                            World:playSound("score2", 1, pitch())
                             color = "orange"
+                        else
+                            World:playSound("score", 1, pitch())
                         end
 
                         if event.amount < 0 then
                             color = "red"
                         end
+
 
                         spawnKicker(event.gridPosition(), innerTween, tostring(event.amount), color)
 
@@ -519,7 +531,7 @@ local function doWarp(func, playerEntity, itemEntities, whenDone)
         tween:endSequence()
 
         tween:startSequence()
-        for i = 1, 32 do
+        for i = 1, 24 do
             tween:callback(function()
                 playerEntity.facingDirection = playerEntity.facingDirection:next()
             end)
@@ -555,6 +567,8 @@ function animation.warpIn(playerEntity, items, whenDone)
     for i, item in ipairs(items) do
         item:displacementTweenable():set(flyMaxPosition)
     end
+
+    World:playSound("fly_in")
 
     doWarp(flyDown, playerEntity, items, whenDone)
 end
