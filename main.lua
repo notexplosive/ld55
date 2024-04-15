@@ -57,6 +57,21 @@ function exports.onStart()
         if entity.state["special"] == "shop" then
             shop.placeOfferAt(entity.gridPosition)
         end
+
+        if entity:templateName() == "shelf" then
+            local tempItem = World:spawnEntity(entity.gridPosition, Soko.DIRECTION.NONE, entity.state["item"])
+
+            local object = World:spawnObject(entity.gridPosition)
+            local startigPosition = object.tweenablePosition:get()
+            object.tweenablePosition:set(startigPosition + Soko:worldPosition(-5, -8))
+            object.state:addOtherState(tempItem.state)
+
+            local object2 = World:spawnObject(entity.gridPosition)
+            object2.tweenablePosition:set(startigPosition + Soko:worldPosition(5, -6))
+            object2.state:addOtherState(tempItem.state)
+
+            tempItem:destroy()
+        end
     end
 end
 
@@ -117,12 +132,22 @@ function exports.onInput(input)
                     end
                 end
             else
-                -- has item, attempt to drop it
-                if itemAtPosition == nil then
-                    player.dropItem()
+                if shelfAhead ~= nil then
+                    if shelfAhead:templateName() == "shelf" and player.heldItemName() == shelfAhead.state["item"] then
+                        local droppedItem = player.dropItem()
+
+                        if droppedItem then
+                            droppedItem:destroy()
+                        end
+                    end
                 else
-                    -- fail to drop because there's an item there
-                    World:raiseEventAt(itemAtPosition.gridPosition, "onFailDrop", {})
+                    -- has item, attempt to drop it
+                    if itemAtPosition == nil then
+                        player.dropItem()
+                    else
+                        -- fail to drop because there's an item there
+                        World:raiseEventAt(itemAtPosition.gridPosition, "onFailDrop", {})
+                    end
                 end
             end
         end
