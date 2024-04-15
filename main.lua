@@ -58,6 +58,16 @@ function exports.onStart()
             shop.placeOfferAt(entity.gridPosition)
         end
 
+        if entity.state["behavior"] == "bone_door" then
+            local prop = World:spawnObject(entity.gridPosition)
+            prop.tweenablePosition:set(prop.tweenablePosition:get() + Soko:worldPosition(0, 0))
+            prop.state["renderer"] = "SingleFrame"
+            prop.state["layer"] = 1
+            prop.state["sheet"] = "bone_doorway"
+            entity:setVisible(false)
+            entity.state["prop"] = prop
+        end
+
         if entity:templateName() == "shelf" then
             local tempItem = World:spawnEntity(entity.gridPosition, Soko.DIRECTION.NONE, entity.state["item"])
 

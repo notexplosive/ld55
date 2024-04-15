@@ -85,6 +85,7 @@ function mission_post.choseMission(self, args)
 
         tween:callback(function()
             object:destroy()
+            World:raiseEntityEvent("onTrigger", { name = "choose_mission" })
         end)
 
         self:destroy()
