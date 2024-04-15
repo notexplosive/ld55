@@ -309,12 +309,53 @@ items.dagger.addRule("If there is an item to its right, destroy it and move righ
 
 items.sheep = rule_template.createPage("Lamb", 5)
     .onDestroyed(function(entity, destroyer)
-        print(entity, "was destroyed, giving credit to", destroyer)
-        -- destroyer takes credit for the multiplier
         score_events.addMultiplierScoreEvent(destroyer, 10)
     end)
 items.sheep.addRule("Gain 10 Cross if destroyed.")
 
 ----
+
+items.voodoo_doll = rule_template.createPage("Voodoo Doll", 5)
+    .onDestroyed(function(entity, destroyer)
+        score_events.addRegularScoreEvent(destroyer, 100)
+    end)
+items.voodoo_doll.addRule("Gain 100 Aura if destroyed.")
+
+----
+
+items.skull = rule_template.createPage("Skull", 5)
+    .addLocation(Soko:gridPosition(2, 0))
+    .addLocation(Soko:gridPosition(-2, 0))
+    .addLocation(Soko:gridPosition(0, -2))
+    .addLocation(Soko:gridPosition(0, 2))
+    .addLocation(Soko:gridPosition(2, 2))
+    .addLocation(Soko:gridPosition(2, -2))
+    .addLocation(Soko:gridPosition(-2, 2))
+    .addLocation(Soko:gridPosition(-2, -2))
+items.skull.addRule("Gain 5 Aura for each connected Skull or Skull Candle.")
+    .onTrigger(function(rule, entity)
+        for _, item in ipairs(rule_template.getAdjacentItems(entity)) do
+            if item ~= nil and item.state["is_skull"] then
+                score_events.addRegularScoreEvent(5)
+            end
+        end
+    end)
+
+----
+
+items.crown = rule_template.createPage("Crown", 5)
+    .addLocation(Soko:gridPosition(0, 1))
+items.crown.addRule("If connected item is destroyed gain 5 Gold.")
+    .onTrigger(function(rule, entity)
+        for _, item in ipairs(getConnections(rule, entity)) do
+            score_events.whenDestroyed(item, function()
+                score_events.addGoldEvent(entity, 5)
+            end)
+        end
+    end)
+
+----
+
+
 
 return items

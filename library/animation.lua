@@ -126,7 +126,6 @@ function animation.doScoringAnimation(player)
 
         local function addEventsToTween(passedTween)
             passedTween:startMultiplex()
-            print("appending", #score_events:all(), "events")
             for i = 1, #score_events:all() do
                 local event = score_events:all()[i]
                 passedTween:startSequence()
@@ -164,12 +163,13 @@ function animation.doScoringAnimation(player)
 
                     if event.type == "destroy" then
                         innerTween:callback(function()
-                            for i, itemEntity in ipairs(World:getEntitiesAt(event.gridPosition())) do
-                                local page = GET_ITEM_RULE_PAGE(itemEntity:templateName())
+                            for i, entityToDestroy in ipairs(World:getEntitiesAt(event.gridPosition())) do
+                                local page = GET_ITEM_RULE_PAGE(entityToDestroy:templateName())
                                 if page ~= nil then
                                     innerTween:callback(function()
-                                        page.executeDeathTrigger(itemEntity, event.entity)
-                                        itemEntity:destroy()
+                                        page.executeDeathTrigger(entityToDestroy, event.entity)
+                                        entityToDestroy:destroy()
+                                        score_events.onEntityDestroyed(entityToDestroy)
                                     end)
                                 end
                             end

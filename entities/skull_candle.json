@@ -48,6 +48,14 @@
     {
       "copy_to_instance": false,
       "data": {
+        "key": "is_skull",
+        "value": "true",
+        "type": 2
+      }
+    },
+    {
+      "copy_to_instance": false,
+      "data": {
         "key": "layer",
         "value": "2",
         "type": 1

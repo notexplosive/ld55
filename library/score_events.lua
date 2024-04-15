@@ -9,6 +9,20 @@ impl.currency      = {
     multiplier = 1
 }
 
+
+local function getKeys(table)
+    assert(table, "cannot get keys of a nil table")
+    local keys = {}
+    local n = 0
+
+    for key, v in pairs(table) do
+        n = n + 1
+        keys[n] = key
+    end
+
+    return keys
+end
+
 local function addScore(entity, amount, currencyType)
     impl.list:add(
         {
@@ -58,6 +72,22 @@ end
 
 function score_events.addGoldEvent(entity, amount)
     addScore(entity, amount, "gold")
+end
+
+function score_events.whenDestroyed(entity, eventFunction)
+    if impl.entityDestroyedEvents[entity] == nil then
+        impl.entityDestroyedEvents[entity] = Soko:list()
+    end
+
+    impl.entityDestroyedEvents[entity]:add(eventFunction)
+end
+
+function score_events.onEntityDestroyed(entity)
+    if impl.entityDestroyedEvents[entity] ~= nil then
+        for i, event in ipairs(impl.entityDestroyedEvents[entity]) do
+            event()
+        end
+    end
 end
 
 function score_events.addDudEvent(entity)
@@ -148,6 +178,7 @@ function score_events.clearEverything()
         multiplier = 1
     }
     impl.isTallying = false
+    impl.entityDestroyedEvents = {}
 end
 
 function score_events.setRoom(room)
