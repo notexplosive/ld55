@@ -316,9 +316,10 @@ function animation.doScoringAnimation(player)
                 end
 
                 if targetScoreState == "next_rank" then
-                    local text = "Rank: " .. run_context.getRank() .. " / " .. run_context.rankToNextPromotion()
+                    local text = "Next Promotion: " ..
+                        run_context.getRank() .. " / " .. run_context.rankToNextPromotion()
                     painter:setColor("white")
-                    painter:setFontSize(80 * targetScoreCounter.tweenableScale:get())
+                    painter:setFontSize(40 * targetScoreCounter.tweenableScale:get())
                     draw_text.draw(painter, drawArguments, text, Soko:worldPosition(0, 0), 0)
                 end
             end
