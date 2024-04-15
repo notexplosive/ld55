@@ -26,7 +26,7 @@ function tutorial.onEnter(self, args)
         title = "Tutorial Mission",
         description = "Learning the ropes",
         scoreObjective = 100,
-        rankReward = 1,
+        rankReward = 0, -- you're still rank 0 after finishing the tutorial
         goldReward = 5,
     })
 end

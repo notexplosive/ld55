@@ -1,4 +1,4 @@
-local dialogue = require("library/dialogue")
+local dialogue = require "library.dialogue"
 local exports = {}
 
 local function doSpeak(self)
