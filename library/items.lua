@@ -369,5 +369,31 @@ items.rose_gold = rule_template.createPage("Gilded Rose", 5)
     end)
 items.rose_gold.addRule("Gain 2 Gold whenever an adjacent item triggers.")
 
+----
+
+items.rose_gold = rule_template.createPage("Red Rose", 5)
+    .onOtherTrigger(function(page, selfEntity, otherEntity)
+        for _, adjacentEntity in ipairs(rule_template.getAdjacentItems(selfEntity)) do
+            if adjacentEntity == otherEntity then
+                score_events.addRegularScoreEvent(selfEntity, 15)
+            end
+        end
+    end)
+items.rose_gold.addRule("Gain 15 Aura whenever an adjacent item triggers.")
+
+---
+
+items.rose_gold = rule_template.createPage("Blue Rose", 5)
+    .onOtherTrigger(function(page, selfEntity, otherEntity)
+        for _, adjacentEntity in ipairs(rule_template.getAdjacentItems(selfEntity)) do
+            if adjacentEntity == otherEntity then
+                score_events.addMultiplierScoreEvent(selfEntity, 2)
+            end
+        end
+    end)
+items.rose_gold.addRule("Gain 2 Cross whenever an adjacent item triggers.")
+
+---
+
 
 return items
