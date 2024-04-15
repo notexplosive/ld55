@@ -86,6 +86,7 @@ function rule_template.createPage(title, cost)
     page.gridPositions = Soko:list()
     page.requestTemplateOverride = emptyFunction
     page.executeDeathTrigger = emptyFunction
+    page.notifyOfTrigger = emptyFunction
 
     page.onRequestTemplate = function(overrideFunc)
         page.requestTemplateOverride = overrideFunc
@@ -94,6 +95,11 @@ function rule_template.createPage(title, cost)
 
     page.onDestroyed = function(overrideFunc)
         page.executeDeathTrigger = overrideFunc
+        return page
+    end
+
+    page.onOtherTrigger = function(overrideFunc)
+        page.notifyOfTrigger = overrideFunc
         return page
     end
 

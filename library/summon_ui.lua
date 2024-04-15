@@ -36,7 +36,7 @@ function summon_ui.create()
     options[2].offset = Soko:worldPosition(100, -20)
     options[2].execute = function()
         restore()
-        score.execute()
+        score.execute(player.instance().gridPosition)
     end
 
     object.state["renderer"] = "lua"

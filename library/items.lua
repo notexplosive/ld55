@@ -343,19 +343,31 @@ items.skull.addRule("Gain 5 Aura for each connected Skull or Skull Candle.")
 
 ----
 
-items.crown = rule_template.createPage("Crown", 5)
+items.crown = rule_template.createPage("Crown of Succession", 5)
     .addLocation(Soko:gridPosition(0, 1))
 items.crown.addRule("If connected item is destroyed gain 5 Gold.")
     .onTrigger(function(rule, entity)
+        score_events.addBeginRiseEvent(entity)
         for _, item in ipairs(getConnections(rule, entity)) do
+            score_events.addKickerEvent(item, "KING")
             score_events.whenDestroyed(item, function()
                 score_events.addGoldEvent(entity, 5)
             end)
         end
+        score_events.addEndRiseEvent(entity)
     end)
 
 ----
 
+items.rose_gold = rule_template.createPage("Gilded Rose", 5)
+    .onOtherTrigger(function(page, selfEntity, otherEntity)
+        for _, adjacentEntity in ipairs(rule_template.getAdjacentItems(selfEntity)) do
+            if adjacentEntity == otherEntity then
+                score_events.addGoldEvent(selfEntity, 2)
+            end
+        end
+    end)
+items.rose_gold.addRule("Gain 2 Gold whenever an adjacent item triggers.")
 
 
 return items

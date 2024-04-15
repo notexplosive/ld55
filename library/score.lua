@@ -1,4 +1,3 @@
-local player       = require "library.player"
 local items        = require "library.items"
 local score_events = require "library.score_events"
 local score        = {}
@@ -15,8 +14,8 @@ function score.requestImpersonation(entity)
     return nil
 end
 
-local function calculateEntities(room)
-    local entities = room:allEntities()
+function score.calculateEntities()
+    local entities = score_events.currentRoom():allEntities()
 
     entities:sort(function(a, b)
         local yDiff = a.gridPosition.y - b.gridPosition.y
@@ -30,11 +29,11 @@ local function calculateEntities(room)
     return entities
 end
 
-function score.execute()
-    local room = World:getRoomAtGridPosition(player:instance().gridPosition)
+function score.execute(gridPosition)
+    local room = World:getRoomAtGridPosition(gridPosition)
     score_events.setRoom(room)
 
-    local entities = calculateEntities(room)
+    local entities = score.calculateEntities()
 
     -- impersonation phase
     local shouldLoop = true
@@ -44,16 +43,11 @@ function score.execute()
             local entity = entities[i]
             local impersonation = score.requestImpersonation(entity)
             if impersonation ~= nil then
-                entities = calculateEntities(room)
+                entities = score.calculateEntities()
                 shouldLoop = true
                 break
             end
         end
-    end
-
-    -- trigger phase
-    for i, entity in ipairs(entities) do
-        score_events.triggerEntity(entity)
     end
 end
 

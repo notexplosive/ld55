@@ -220,11 +220,6 @@ function exports.onUpdate(dt)
 end
 
 function exports.onEntityDestroyed(entity)
-    if score_events.isTallying() then
-        if GET_ITEM_RULE_PAGE(entity:templateName()) ~= nil then
-
-        end
-    end
 end
 
 function exports.onRoomStateChanged(key)
