@@ -10,8 +10,8 @@
   "campaign": {
     "chapters": [
       {
-        "level": "first_level",
-        "name": "First Level",
+        "level": "tutorial",
+        "name": "Tutorial",
         "instance_variable_overrides": []
       }
     ],

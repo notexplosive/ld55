@@ -19,7 +19,7 @@
       "copy_to_instance": false,
       "data": {
         "key": "sheet",
-        "value": "skull_candle",
+        "value": "candle",
         "type": 0
       }
     },
@@ -41,14 +41,6 @@
       "copy_to_instance": false,
       "data": {
         "key": "is_candle",
-        "value": "true",
-        "type": 2
-      }
-    },
-    {
-      "copy_to_instance": false,
-      "data": {
-        "key": "is_skull",
         "value": "true",
         "type": 2
       }

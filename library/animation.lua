@@ -82,6 +82,8 @@ function animation.doScoringAnimation(player)
         tween:callback(function()
             center = World.camera:tweenableViewBounds():get():center()
 
+            score_events:beginScoreTally()
+
             auraCounter = World:spawnObject(Soko:gridPosition(0, 0))
             auraCounter.tweenablePosition:set(center + Soko:worldPosition(-160, 0))
             auraCounter.state["layer"] = 5
@@ -121,57 +123,113 @@ function animation.doScoringAnimation(player)
             end
         end)
 
-        tween:startMultiplex()
 
-        for i = 1, #score_events:all() do
-            local event = score_events:all()[i]
-            tween:startSequence()
+        local function addEventsToTween(passedTween)
+            passedTween:startMultiplex()
+            for i = 1, #score_events:all() do
+                local event = score_events:all()[i]
+                passedTween:startSequence()
 
-            tween:wait(0.2 * i)
-            tween:dynamic(function(innerTween)
-                if event.type == "dud" then
-                    innerTween:startSequence()
-                    innerTween:interpolate(event.entity:displacementTweenable():to(Soko:worldPosition(0, 10)), 0.1,
-                        "quadratic_fast_slow")
-                    innerTween:interpolate(event.entity:displacementTweenable():to(Soko:worldPosition(0, 0)), 0.1,
-                        "quadratic_slow_fast")
-                    innerTween:endSequence()
-
-                    spawnKicker(event.gridPosition, innerTween, "None")
-                end
-
-                if event.type == "gain_score" then
-                    innerTween:startMultiplex()
-
-                    innerTween:startSequence()
-                    innerTween:interpolate(event.entity:displacementTweenable():to(Soko:worldPosition(0, -10)), 0.1,
-                        "quadratic_fast_slow")
-                    innerTween:interpolate(event.entity:displacementTweenable():to(Soko:worldPosition(0, 0)), 0.1,
-                        "quadratic_slow_fast")
-                    innerTween:endSequence()
-
-                    innerTween:startSequence()
-
-                    innerTween:callback(event.commit)
-
-
-                    local color = "purple"
-                    if event.currencyType == "gold" then
-                        color = "gold"
-                    elseif event.currencyType == "multiplier" then
-                        color = "orange"
+                passedTween:wait(0.2 * i)
+                passedTween:dynamic(function(innerTween)
+                    if event.entity ~= nil and event.entity:isDestroyed() then
+                        return
                     end
 
-                    spawnKicker(event.gridPosition, innerTween, tostring(event.amount), color)
+                    if event.type == "dud" then
+                        innerTween:startSequence()
+                        innerTween:interpolate(event.entity:displacementTweenable():to(Soko:worldPosition(0, 10)), 0.1,
+                            "quadratic_fast_slow")
+                        innerTween:interpolate(event.entity:displacementTweenable():to(Soko:worldPosition(0, 0)), 0.1,
+                            "quadratic_slow_fast")
+                        innerTween:endSequence()
 
-                    innerTween:endSequence()
+                        spawnKicker(event.gridPosition(), innerTween, "X", "white")
+                    end
 
-                    innerTween:endMultiplex()
-                end
-            end)
-            tween:endSequence()
+                    if event.type == "begin_rise" then
+                        innerTween:interpolate(event.entity:displacementTweenable():to(Soko:worldPosition(0, -10)), 0.1,
+                            "quadratic_fast_slow")
+                    end
+
+                    if event.type == "end_rise" then
+                        innerTween:interpolate(event.entity:displacementTweenable():to(Soko:worldPosition(0, 0)), 0.1,
+                            "quadratic_slow_fast")
+                    end
+
+                    if event.type == "kicker" then
+                        spawnKicker(event.gridPosition(), innerTween, event.text, event.color)
+                    end
+
+                    if event.type == "destroy" then
+                        innerTween:callback(function()
+                            for i, entityToDestroy in ipairs(World:getEntitiesAt(event.gridPosition())) do
+                                local page = GET_ITEM_RULE_PAGE(entityToDestroy:templateName())
+                                if page ~= nil then
+                                    innerTween:callback(function()
+                                        page.executeDeathTrigger(entityToDestroy, event.entity)
+                                        entityToDestroy:destroy()
+                                        score_events.onEntityDestroyed(entityToDestroy)
+                                    end)
+                                end
+                            end
+                        end)
+                    end
+
+                    if event.type == "move" then
+                        local move = event.entity:generateDirectionalMove(event.direction)
+                        animation.interpolateMove(move)
+                    end
+
+                    if event.type == "gain_score" then
+                        innerTween:startMultiplex()
+
+                        innerTween:startSequence()
+                        innerTween:interpolate(event.entity:displacementTweenable():to(Soko:worldPosition(0, -10)), 0.1,
+                            "quadratic_fast_slow")
+                        innerTween:interpolate(event.entity:displacementTweenable():to(Soko:worldPosition(0, 0)), 0.1,
+                            "quadratic_slow_fast")
+                        innerTween:endSequence()
+
+                        innerTween:startSequence()
+
+                        innerTween:callback(event.commit)
+
+
+                        local color = "purple"
+                        if event.currencyType == "gold" then
+                            color = "gold"
+                        elseif event.currencyType == "multiplier" then
+                            color = "orange"
+                        end
+
+                        if event.amount < 0 then
+                            color = "red"
+                        end
+
+                        spawnKicker(event.gridPosition(), innerTween, tostring(event.amount), color)
+
+                        innerTween:endSequence()
+
+                        innerTween:endMultiplex()
+                    end
+                end)
+                passedTween:endSequence()
+            end
+            passedTween:endMultiplex()
+            score_events:clearEvents()
         end
-        tween:endMultiplex()
+
+        tween:dynamic(function(innerTween)
+            -- add and run all events
+            addEventsToTween(innerTween)
+        end)
+
+        tween:dynamic(function(innerTween)
+            -- adds any extra events added to the tween (this is not recursive)
+            addEventsToTween(innerTween)
+        end)
+
 
         tween:wait(0.5)
 
@@ -274,9 +332,19 @@ function animation.doScoringAnimation(player)
 
         tween:callback(function()
             run_context.gainGold(score_events:currency()["gold"])
-            score_events:clearEvents()
+            score_events:clearEverything()
             missions:clearContent()
-            World:loadLevel("house", { is_victory = isVictory, should_warp = true })
+
+            if World.levelState["is_tutorial"] and not isVictory then
+                World:loadLevel("tutorial", { should_warp = true, has_failed = true })
+            else
+                World:loadLevel("house",
+                    { is_victory = isVictory, should_warp = true, from_tutorial = World.levelState["is_tutorial"] })
+            end
+        end)
+
+        tween:callback(function()
+            score_events:endScoreTally()
         end)
     end)
 end

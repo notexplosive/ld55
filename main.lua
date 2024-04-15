@@ -6,6 +6,8 @@ local score_events = require "library.score_events"
 local run_context  = require "library.run_context"
 local shop         = require "library.shop"
 local missions     = require "library.missions"
+local constants    = require "library.constants"
+local items        = require "library.items"
 
 function exports.onStart()
     if player.instance() == nil then
@@ -56,6 +58,17 @@ function exports.onStart()
 
         if entity.state["special"] == "shop" then
             shop.placeOfferAt(entity.gridPosition)
+        end
+
+        if entity.state["behavior"] == "tutorial" and World.levelState["has_failed"] then
+            player.instance().gridPosition = entity.gridPosition + Soko:gridPosition(0, 1)
+            local room = World:getRoomAtGridPosition(entity.gridPosition)
+            player.moveToRoom(room)
+            World.camera:snapToRoom(room)
+        end
+
+        if entity:templateName() == "npc" then
+            entity:displacementTweenable():set(Soko:worldPosition(0, -constants.playerHeight))
         end
 
         if entity.state["behavior"] == "bone_door" then
@@ -150,6 +163,8 @@ function exports.onInput(input)
                             droppedItem:destroy()
                         end
                     end
+
+                    World:raiseEventAt(shelfAhead.gridPosition, "onFailDrop", {})
                 else
                     -- has item, attempt to drop it
                     if itemAtPosition == nil then
@@ -166,10 +181,14 @@ end
 
 function exports.onMove(move)
     for i, gridling in ipairs(World:getGridlingsAt(move:targetPosition())) do
-        if move:movingEntity() == player.instance() then
-            if gridling:checkTrait("Surface", "Wall") then
+        if gridling:checkTrait("Surface", "Item") and move:movingEntity():checkTrait("Surface", "Item") then
+            move:stop()
+        end
+
+        if gridling:checkTrait("Surface", "Wall") then
+            move:stop()
+            if move:movingEntity() == player.instance() then
                 World:raiseEventAt(move:targetPosition(), "onTouched", { move = move })
-                move:stop()
             end
         end
     end
@@ -186,17 +205,26 @@ function exports.onUpdate(dt)
 
         local cameraSize = World.roomState["force_camera_size"]
         if cameraSize ~= nil then
-            local playerWorldPosition = Soko:toWorldPosition(player.instance().gridPosition)
-            local rectangle = Soko:rectangle(playerWorldPosition.x, playerWorldPosition.y, 0, 0)
+            local gridAlignedWorldPosition = Soko:toWorldPosition(player.instance().gridPosition)
+            local rectangle = Soko:rectangle(gridAlignedWorldPosition.x, gridAlignedWorldPosition.y, 0, 0)
             rectangle = rectangle:inflated(Soko:worldPosition(cameraSize[1], cameraSize[2]))
             rectangle = rectangle.constrain(World.getRoomAtGridPosition(player.instance().gridPosition):viewBounds())
             World.camera:panToRectangle(rectangle)
         end
+
+        local graphic = player.instance().state["graphic"]
+        graphic.state:addOtherState(player.instance().state)
+        graphic.state["direction"] = player.instance().facingDirection.name
+        graphic.tweenablePosition:set(playerWorldPosition + Soko:worldPosition(0, -constants.playerHeight))
     end
 end
 
 function exports.onEntityDestroyed(entity)
+    if score_events.isTallying() then
+        if GET_ITEM_RULE_PAGE(entity:templateName()) ~= nil then
 
+        end
+    end
 end
 
 function exports.onRoomStateChanged(key)
@@ -205,7 +233,7 @@ end
 
 function exports.onLoadLevel()
     player.clearState()
-    score_events.clearEvents()
+    score_events.clearEverything()
 end
 
 function exports.onLoadCheckpoint()
