@@ -26,7 +26,16 @@ function score.calculateEntities()
         return a.gridPosition.x - b.gridPosition.x
     end)
 
-    return entities
+    local result = Soko:list()
+
+    for i, entity in ipairs(entities) do
+        local template = entity:templateName()
+        if GET_ITEM_RULE_PAGE(template) ~= nil then
+            result:add(entity)
+        end
+    end
+
+    return result
 end
 
 function score.execute(gridPosition)

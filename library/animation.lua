@@ -179,7 +179,7 @@ function animation.doScoringAnimation(player)
                 passedTween:startSequence()
 
                 -- add a delay proportional to the number of events that happened
-                passedTween:wait(0.1 * i)
+                passedTween:wait(0.2 * i)
 
                 passedTween:dynamic(function(innerTween)
                     if event.entity ~= nil and event.entity:isDestroyed() then
@@ -284,7 +284,7 @@ function animation.doScoringAnimation(player)
             tween:startSequence() -- entity sequence
 
             -- add a delay proportional to the item index, so things still execute in sequence
-            tween:wait(0.2 * i)
+            tween:wait(0.4 * i)
 
             tween:callback(function()
                 score_events.triggerEntity(entityToTrigger)
