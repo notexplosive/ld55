@@ -63,6 +63,7 @@ function run_context.clear()
     impl.storageUpgrade   = 0
     impl.loadingUpgrade   = 0
     impl.wallet           = 10
+    impl.progress         = 1
 end
 
 function run_context.saveLoadingDock(gridPosition)
@@ -103,6 +104,14 @@ end
 
 function run_context.gainGold(amount)
     impl.wallet = impl.wallet + amount
+end
+
+function run_context.setProgress(progress)
+    impl.progress = progress
+end
+
+function run_context.getProgress()
+    return impl.progress
 end
 
 run_context.clear()
