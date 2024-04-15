@@ -54,6 +54,22 @@
         {
           "name": "purple_eyes",
           "frame": 10
+        },
+        {
+          "name": "green_coworker",
+          "frame": 20
+        },
+        {
+          "name": "yellow_coworker",
+          "frame": 21
+        },
+        {
+          "name": "pink_coworker",
+          "frame": 22
+        },
+        {
+          "name": "purple_coworker",
+          "frame": 23
         }
       ]
     },
@@ -612,6 +628,156 @@
           "speaker_id": "player",
           "text": "Alright then! Let's summon something fun!",
           "mood": "happy"
+        }
+      ]
+    },
+    {
+      "name": "alien_girl",
+      "lines": [
+        {
+          "speaker_id": "customer",
+          "text": "Hi! You can summon me something fun right?",
+          "mood": "cyclops"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Fun? You paid for this ancient ritual for fun?",
+          "mood": "shocked"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "Yup!",
+          "mood": "cyclops"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Alright then! Let's summon something fun!",
+          "mood": "happy"
+        }
+      ]
+    },
+    {
+      "name": "armor",
+      "lines": [
+        {
+          "speaker_id": "player",
+          "text": "...",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "...",
+          "mood": "armor"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Uhh... did you put in the\nsummoning request?",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "Yes. My old wearer was tragically murdered after doffing me.",
+          "mood": "armor"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Oh.",
+          "mood": "worried"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "You can summon something that will be able to wear me right?",
+          "mood": "armor"
+        },
+        {
+          "speaker_id": "player",
+          "text": "I.. think so? I'll try my best!",
+          "mood": "shocked"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "Wonderful! Hopefully they will last longer than my last wearer.",
+          "mood": "armor"
+        }
+      ]
+    },
+    {
+      "name": "zombie",
+      "lines": [
+        {
+          "speaker_id": "customer",
+          "text": "Brains. It's gotta have lots of brains.",
+          "mood": "zombie"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Oh. Right.",
+          "mood": "shocked"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "Last summon I ordered had \nalmost no brains.",
+          "mood": "zombie"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Oh, I'm sure that was... disappointing?",
+          "mood": "worried"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "Very! It's so hard to get someone to play Rummy with me these days.",
+          "mood": "zombie"
+        }
+      ]
+    },
+    {
+      "name": "green_guy",
+      "lines": [
+        {
+          "speaker_id": "coworker",
+          "text": "First day?",
+          "mood": "green_coworker"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Yup!",
+          "mood": "shocked"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "Don't forget, carpet nullifies ritual items.\nNot sure why, lot's of theories out there.\nI just know it sucks cleaning wax out of it.",
+          "mood": "green_coworker"
+        }
+      ]
+    },
+    {
+      "name": "purple_guy",
+      "lines": [
+        {
+          "speaker_id": "coworker",
+          "text": "Hey, let me enjoy my break.\nCheck back later when I'm working.",
+          "mood": "purple_coworker"
+        }
+      ]
+    },
+    {
+      "name": "pink_guy",
+      "lines": [
+        {
+          "speaker_id": "coworker",
+          "text": "You have an appointment?",
+          "mood": "pink_coworker"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Nope?",
+          "mood": "worried"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "Come back when you have an appointment.\nThe Summon Incorpeal Board members have a busy schedule.",
+          "mood": "pink_coworker"
         }
       ]
     }
