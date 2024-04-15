@@ -171,12 +171,16 @@ function animation.doScoringAnimation(player)
 
 
         local function addEventsToTween(passedTween)
-            passedTween:startMultiplex()
+            passedTween:startMultiplex() -- main event multiplex
+
+            -- runs all pending events, this will likely generate more events that will need to be run
             for i = 1, #score_events:all() do
                 local event = score_events:all()[i]
                 passedTween:startSequence()
 
-                passedTween:wait(0.2 * i)
+                -- add a delay proportional to the number of events that happened
+                passedTween:wait(0.1 * i)
+
                 passedTween:dynamic(function(innerTween)
                     if event.entity ~= nil and event.entity:isDestroyed() then
                         return
@@ -267,13 +271,21 @@ function animation.doScoringAnimation(player)
                 end)
                 passedTween:endSequence()
             end
-            passedTween:endMultiplex()
+            passedTween:endMultiplex() -- main event multiplex
+            local totalNumberOfEvents = #score_events:all()
             score_events:clearEvents()
+            return totalNumberOfEvents
         end
 
         local entities = score.calculateEntities()
 
+        tween:startMultiplex()    -- all events multiplex
         for i, entityToTrigger in ipairs(entities) do
+            tween:startSequence() -- entity sequence
+
+            -- add a delay proportional to the item index, so things still execute in sequence
+            tween:wait(0.2 * i)
+
             tween:callback(function()
                 score_events.triggerEntity(entityToTrigger)
                 for i, entityToNotify in ipairs(entities) do
@@ -287,13 +299,14 @@ function animation.doScoringAnimation(player)
             tween:dynamic(function(innerTween)
                 addEventsToTween(innerTween)
             end)
+            tween:endSequence() -- entity sequence
         end
+        tween:endMultiplex()    -- all events multiplex
 
         tween:dynamic(function(innerTween)
             -- adds any extra events added to the tween (this is not recursive)
             addEventsToTween(innerTween)
         end)
-
 
         tween:interpolate(scrim.tweenableOpacity:to(0.5), 1, "linear")
 

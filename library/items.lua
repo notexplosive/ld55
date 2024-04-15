@@ -336,7 +336,6 @@ items.skull.addRule("Gain 5 Aura for each connected Skull or Skull Candle.")
     .onTrigger(function(rule, entity)
         for _, item in ipairs(getConnections(rule, entity)) do
             if item ~= nil and item.state["is_skull"] then
-                print("found skull")
                 score_events.addRegularScoreEvent(entity, 5)
             end
         end
