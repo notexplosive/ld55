@@ -438,4 +438,19 @@ items.book_m.addRule("Move one square to the right, if nothing blocks the move, 
         score_events.addMoveItemEvent(entity, Soko.DIRECTION.RIGHT)
     end)
 
+---
+
+items.teddy = rule_template.createPage("Teddy Bear", 5)
+items.teddy.addRule("Triggers adjacent items")
+    .onTrigger(function(rule, entity)
+        score_events.addBeginRiseEvent(entity)
+        for _, item in ipairs(rule_template.getAdjacentItems(entity)) do
+            if item ~= nil then
+                score_events.addKickerEvent(entity, "Again!")
+                score_events.triggerEntity(item)
+            end
+        end
+        score_events.addEndRiseEvent(entity)
+    end)
+
 return items
