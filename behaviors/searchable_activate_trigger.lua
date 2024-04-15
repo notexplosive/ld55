@@ -33,8 +33,6 @@ local function doCheckItem(self)
             dialogue.doBespokeDialogue("I found " .. item_name .. "!", 2)
             local new_item = World:spawnEntity(player.instance().gridPosition, Soko.DIRECTION.NONE, item_found)
             player.pickUpItem(new_item)
-        else
-            dialogue.doBespokeDialogue("Didn't find anything of interest.", 1)
         end
     end
 
