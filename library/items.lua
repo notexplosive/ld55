@@ -343,19 +343,114 @@ items.skull.addRule("Gain 5 Aura for each connected Skull or Skull Candle.")
 
 ----
 
-items.crown = rule_template.createPage("Crown", 5)
+items.crown = rule_template.createPage("Crown of Succession", 5)
     .addLocation(Soko:gridPosition(0, 1))
 items.crown.addRule("If connected item is destroyed gain 5 Gold.")
     .onTrigger(function(rule, entity)
+        score_events.addBeginRiseEvent(entity)
         for _, item in ipairs(getConnections(rule, entity)) do
+            score_events.addKickerEvent(item, "KING")
             score_events.whenDestroyed(item, function()
                 score_events.addGoldEvent(entity, 5)
             end)
         end
+        score_events.addEndRiseEvent(entity)
     end)
 
 ----
 
+items.rose_gold = rule_template.createPage("Gilded Rose", 5)
+    .onOtherTrigger(function(page, selfEntity, otherEntity)
+        for _, adjacentEntity in ipairs(rule_template.getAdjacentItems(selfEntity)) do
+            if adjacentEntity == otherEntity then
+                score_events.addGoldEvent(selfEntity, 2)
+            end
+        end
+    end)
+items.rose_gold.addRule("Gain 2 Gold whenever an adjacent item triggers.")
 
+----
+
+items.rose_gold = rule_template.createPage("Red Rose", 5)
+    .onOtherTrigger(function(page, selfEntity, otherEntity)
+        for _, adjacentEntity in ipairs(rule_template.getAdjacentItems(selfEntity)) do
+            if adjacentEntity == otherEntity then
+                score_events.addRegularScoreEvent(selfEntity, 15)
+            end
+        end
+    end)
+items.rose_gold.addRule("Gain 15 Aura whenever an adjacent item triggers.")
+
+---
+
+items.rose_gold = rule_template.createPage("Blue Rose", 5)
+    .onOtherTrigger(function(page, selfEntity, otherEntity)
+        for _, adjacentEntity in ipairs(rule_template.getAdjacentItems(selfEntity)) do
+            if adjacentEntity == otherEntity then
+                score_events.addMultiplierScoreEvent(selfEntity, 2)
+            end
+        end
+    end)
+items.rose_gold.addRule("Gain 2 Cross whenever an adjacent item triggers.")
+
+---
+
+items.dynamite = rule_template.createPage("Dynamite", 5)
+    .addLocation(Soko:gridPosition(1, 0))
+    .addLocation(Soko:gridPosition(-1, 0))
+    .addLocation(Soko:gridPosition(0, -1))
+    .addLocation(Soko:gridPosition(0, 1))
+    .addLocation(Soko:gridPosition(1, 1))
+    .addLocation(Soko:gridPosition(1, -1))
+    .addLocation(Soko:gridPosition(-1, 1))
+    .addLocation(Soko:gridPosition(-1, -1))
+    .addLocation(Soko:gridPosition(2, 0))
+    .addLocation(Soko:gridPosition(-2, 0))
+    .addLocation(Soko:gridPosition(0, -2))
+    .addLocation(Soko:gridPosition(0, 2))
+    .addLocation(Soko:gridPosition(2, 2))
+    .addLocation(Soko:gridPosition(2, -2))
+    .addLocation(Soko:gridPosition(-2, 2))
+    .addLocation(Soko:gridPosition(-2, -2))
+items.dynamite.addRule("Destroy all connected items and then itself")
+    .onTrigger(function(rule, entity)
+        for _, item in ipairs(getConnections(rule, entity)) do
+            if item ~= nil then
+                score_events.addDestroyItemEvent(item, item.gridPosition)
+            end
+        end
+
+        score_events.addDestroyItemEvent(entity, entity.gridPosition)
+    end)
+
+----
+
+items.book_m = rule_template.createPage("Plumbing for Dummies", 5)
+    .onMove(function(entity, success)
+        if success then
+            score_events.addMultiplierScoreEvent(entity, 4)
+        else
+            score_events.addDudEvent(entity)
+        end
+    end)
+items.book_m.addRule("Move one square to the right, if nothing blocks the move, gain 4 Cross.")
+    .onTrigger(function(rule, entity)
+        score_events.addMoveItemEvent(entity, Soko.DIRECTION.RIGHT)
+    end)
+
+---
+
+items.teddy = rule_template.createPage("Teddy Bear", 5)
+items.teddy.addRule("Triggers adjacent items")
+    .onTrigger(function(rule, entity)
+        score_events.addBeginRiseEvent(entity)
+        for _, item in ipairs(rule_template.getAdjacentItems(entity)) do
+            if item ~= nil then
+                score_events.addKickerEvent(entity, "Again!")
+                score_events.triggerEntity(item)
+            end
+        end
+        score_events.addEndRiseEvent(entity)
+    end)
 
 return items

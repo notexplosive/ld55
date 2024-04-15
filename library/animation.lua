@@ -2,6 +2,7 @@ local score_events   = require "library.score_events"
 local draw_text      = require "library.draw_text"
 local run_context    = require "library.run_context"
 local missions       = require "library.missions"
+local score          = require "library.score"
 local animation      = {}
 local ABOVE_POSITION = -40
 
@@ -179,6 +180,11 @@ function animation.doScoringAnimation(player)
                     if event.type == "move" then
                         local move = event.entity:generateDirectionalMove(event.direction)
                         animation.interpolateMove(move)
+
+                        local page = GET_ITEM_RULE_PAGE(event.entity:templateName())
+                        if page ~= nil then
+                            page.notifyOfMove(event.entity, move:isAllowed())
+                        end
                     end
 
                     if event.type == "gain_score" then
@@ -220,10 +226,23 @@ function animation.doScoringAnimation(player)
             score_events:clearEvents()
         end
 
-        tween:dynamic(function(innerTween)
-            -- add and run all events
-            addEventsToTween(innerTween)
-        end)
+        local entities = score.calculateEntities()
+
+        for i, entityToTrigger in ipairs(entities) do
+            tween:callback(function()
+                score_events.triggerEntity(entityToTrigger)
+                for i, entityToNotify in ipairs(entities) do
+                    local page = GET_ITEM_RULE_PAGE(entityToNotify:templateName())
+                    if page ~= nil then
+                        page.notifyOfTrigger(page, entityToNotify, entityToTrigger)
+                    end
+                end
+            end)
+
+            tween:dynamic(function(innerTween)
+                addEventsToTween(innerTween)
+            end)
+        end
 
         tween:dynamic(function(innerTween)
             -- adds any extra events added to the tween (this is not recursive)
