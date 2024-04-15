@@ -433,7 +433,7 @@ items.book_m = rule_template.createPage("Plumbing for Dummies", 5)
             score_events.addDudEvent(entity)
         end
     end)
-items.book_m.addRule("Move one square to the right, if nothing blocks the move, 4 Cross.")
+items.book_m.addRule("Move one square to the right, if nothing blocks the move, gain 4 Cross.")
     .onTrigger(function(rule, entity)
         score_events.addMoveItemEvent(entity, Soko.DIRECTION.RIGHT)
     end)

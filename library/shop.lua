@@ -1,3 +1,4 @@
+local items       = require "library.items"
 local run_context = require "library.run_context"
 local draw_text   = require "library.draw_text"
 local shop        = {}
@@ -5,8 +6,15 @@ local impl        = {}
 
 
 function shop.placeOfferAt(gridPosition)
-    local shopItem = World:spawnEntity(gridPosition, Soko.DIRECTION.NONE, "birthday_candle")
-    shopItem.state["price"] = 5
+    local keys = Soko:keysFromTable(items)
+
+    local max = #keys
+    local index = math.random(1, #keys)
+    local itemKey = keys[index]
+    local item = items[itemKey]
+
+    local shopItem = World:spawnEntity(gridPosition, Soko.DIRECTION.NONE, itemKey)
+    shopItem.state["price"] = item.cost()
     shopItem.state["behavior"] = "shop_item"
     shopItem.state["cannot_pick_up"] = true
 end
