@@ -39,6 +39,7 @@ function exports.onStart()
             if shouldIncludeItems then
                 items = run_context.rehydrateLoadingDock(player.instance().gridPosition)
             end
+            
             animation.warpIn(player.instance(), items)
         end
     end

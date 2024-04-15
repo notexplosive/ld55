@@ -9,6 +9,7 @@ levels:add("wyatt_sandbox") -- temp! remove this when we have more levels
 
 function home_teleporter.onActivate(self, args)
     local items = run_context.calculateLoadingDockItems()
+    World:playSound("fly_out", 1)
     animation.warpOut(player.instance(), items, function()
         World:loadLevel(levels[run_context.getProgress()], {})
         run_context.setProgress(run_context.getProgress() + 1)

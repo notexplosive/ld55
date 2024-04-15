@@ -25,7 +25,7 @@ function tutorial.onEnter(self, args)
     missions.setCurrent({
         title = "Tutorial Mission",
         description = "Learning the ropes",
-        scoreObjective = 100,
+        scoreObjective = 210,
         rankReward = 0, -- you're still rank 0 after finishing the tutorial
         goldReward = 5,
     })

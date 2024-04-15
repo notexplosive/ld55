@@ -77,8 +77,56 @@ function animation.doScoringAnimation(player)
         local goldCounter
         local center
         local isVictory
-
         local missionContent = missions:current()
+
+        local scrim = World:spawnObject(player.gridPosition)
+        scrim.tweenableOpacity:set(0)
+        scrim.state["layer"] = 3
+        scrim.state["renderer"] = "lua"
+        scrim.state["render_function"] = function(painter, drawArguments)
+            painter:setColor(Soko:color(0, 0, 0, scrim.tweenableOpacity:get()))
+            painter:drawFillRectangle(World.camera:tweenableViewBounds():get())
+        end
+
+        local circleItems = Soko:list()
+        circleItems:add({ sprite = "prop:screen_magic_circle_center", color = "red", spinRate = 1, scaleRate = 5, opacity = 0.5 })
+        circleItems:add({ sprite = "prop:screen_magic_circle_inner_ring", color = "purple", spinRate = -.5, scaleRate = 4, opacity = 0.4 })
+        circleItems:add({ sprite = "prop:screen_magic_circle_middle_ring", color = "orange", spinRate = -.25, scaleRate = 3, opacity = 0.3 })
+        circleItems:add({ sprite = "prop:screen_magic_circle_outer_ring", color = "purple", spinRate = -.05, scaleRate = 2, opacity = 0.3 })
+
+        tween:startMultiplex() -- master multiplex: animated circles in one channel, main sequence in the other
+
+        for i, circleItem in ipairs(circleItems) do
+            local circle = World:spawnObject(player.gridPosition)
+            circle.state["renderer"] = "SingleFrame"
+            circle.state["sheet"] = circleItem.sprite
+            circle.state["tint"] = circleItem.color
+            circle.state["layer"] = 1
+            circle.tweenableScale:set(0)
+            circle.tweenableOpacity:set(0)
+            tween:interpolate(circle.tweenableOpacity:to(circleItem.opacity), 1, "linear")
+            tween:interpolate(circle.tweenableScale:to(1), circleItem.scaleRate, "cubic_fast_slow")
+            tween:interpolate(circle.tweenableAngle:to(math.pi * 2 * circleItem.spinRate), 100, "cubic_fast_slow")
+        end
+
+        tween:startSequence() -- main sequence: has everything except for the animated circles
+
+        -- fly player out
+        tween:startMultiplex()
+        tween:callback(function()
+            World:playSound("fly_out", 1)
+        end)
+        flyUp(tween, player)
+        tween:startSequence()
+        for i = 1, 32 do
+            tween:callback(function()
+                player.facingDirection = player.facingDirection:next()
+            end)
+            tween:wait(0.05)
+        end
+        tween:endSequence()
+        tween:endMultiplex()
+
 
         tween:callback(function()
             center = World.camera:tweenableViewBounds():get():center()
@@ -124,14 +172,23 @@ function animation.doScoringAnimation(player)
             end
         end)
 
+        local pitchImpl = 0
+        local function pitch()
+            pitchImpl = math.min(pitchImpl + 0.1, 1)
+            return pitchImpl
+        end
 
         local function addEventsToTween(passedTween)
-            passedTween:startMultiplex()
+            passedTween:startMultiplex() -- main event multiplex
+
+            -- runs all pending events, this will likely generate more events that will need to be run
             for i = 1, #score_events:all() do
                 local event = score_events:all()[i]
                 passedTween:startSequence()
 
+                -- add a delay proportional to the number of events that happened
                 passedTween:wait(0.2 * i)
+
                 passedTween:dynamic(function(innerTween)
                     if event.entity ~= nil and event.entity:isDestroyed() then
                         return
@@ -201,17 +258,21 @@ function animation.doScoringAnimation(player)
 
                         innerTween:callback(event.commit)
 
-
                         local color = "purple"
                         if event.currencyType == "gold" then
+                            World:playSound("buy", 0.5, 0.5)
                             color = "gold"
                         elseif event.currencyType == "multiplier" then
+                            World:playSound("score2", 1, pitch())
                             color = "orange"
+                        else
+                            World:playSound("score", 1, pitch())
                         end
 
                         if event.amount < 0 then
                             color = "red"
                         end
+
 
                         spawnKicker(event.gridPosition(), innerTween, tostring(event.amount), color)
 
@@ -222,13 +283,21 @@ function animation.doScoringAnimation(player)
                 end)
                 passedTween:endSequence()
             end
-            passedTween:endMultiplex()
+            passedTween:endMultiplex() -- main event multiplex
+            local totalNumberOfEvents = #score_events:all()
             score_events:clearEvents()
+            return totalNumberOfEvents
         end
 
         local entities = score.calculateEntities()
 
+        tween:startMultiplex()    -- all events multiplex
         for i, entityToTrigger in ipairs(entities) do
+            tween:startSequence() -- entity sequence
+
+            -- add a delay proportional to the item index, so things still execute in sequence
+            tween:wait(0.4 * i)
+
             tween:callback(function()
                 score_events.triggerEntity(entityToTrigger)
                 for i, entityToNotify in ipairs(entities) do
@@ -242,13 +311,16 @@ function animation.doScoringAnimation(player)
             tween:dynamic(function(innerTween)
                 addEventsToTween(innerTween)
             end)
+            tween:endSequence() -- entity sequence
         end
+        tween:endMultiplex()    -- all events multiplex
 
         tween:dynamic(function(innerTween)
             -- adds any extra events added to the tween (this is not recursive)
             addEventsToTween(innerTween)
         end)
 
+        tween:interpolate(scrim.tweenableOpacity:to(0.5), 1, "linear")
 
         tween:wait(0.5)
 
@@ -272,18 +344,6 @@ function animation.doScoringAnimation(player)
             innerTween:interpolate(auraCounter.tweenablePosition:to(center + Soko:worldPosition(0, -120)), 0.5,
                 "quadratic_slow_fast")
         end)
-
-        tween:startMultiplex()
-        flyUp(tween, player)
-        tween:startSequence()
-        for i = 1, 32 do
-            tween:callback(function()
-                player.facingDirection = player.facingDirection:next()
-            end)
-            tween:wait(0.05)
-        end
-        tween:endSequence()
-        tween:endMultiplex()
 
         tween:dynamic(function(innerTween)
             local targetScoreState = "score"
@@ -348,25 +408,27 @@ function animation.doScoringAnimation(player)
                     innerTween:wait(0.1)
                 end
 
+                -- do rank up
                 innerTween:dynamic(function(innerTween2)
                     local prevBracket = run_context.getRankBracket()
                     run_context.gainRank(missionContent.rankReward or 0)
                     local newBracket = run_context.getRankBracket()
+                    if not World.levelState["is_tutorial"] then
+                        innerTween2:wait(2)
 
-                    innerTween:wait(1)
+                        if prevBracket ~= newBracket then
+                            innerTween2:callback(function()
+                                targetScoreState = "promotion"
+                            end)
+                        else
+                            innerTween2:callback(function()
+                                targetScoreState = "next_rank"
+                            end)
+                        end
 
-                    if prevBracket ~= newBracket then
-                        innerTween2:callback(function()
-                            targetScoreState = "promotion"
-                        end)
-                    else
-                        innerTween2:callback(function()
-                            targetScoreState = "next_rank"
-                        end)
+                        innerTween2:interpolate(targetScoreCounter.tweenableScale:to(1.2), 0.1, "quadratic_fast_slow")
+                        innerTween2:interpolate(targetScoreCounter.tweenableScale:to(1), 0.2, "quadratic_slow_fast")
                     end
-
-                    innerTween2:interpolate(targetScoreCounter.tweenableScale:to(1.2), 0.1, "quadratic_fast_slow")
-                    innerTween2:interpolate(targetScoreCounter.tweenableScale:to(1), 0.2, "quadratic_slow_fast")
                 end)
             else
                 innerTween:callback(function()
@@ -378,7 +440,7 @@ function animation.doScoringAnimation(player)
             end
         end)
 
-        tween:wait(1)
+        tween:wait(2)
 
         tween:callback(function()
             run_context.gainGold(score_events:currency()["gold"])
@@ -396,6 +458,9 @@ function animation.doScoringAnimation(player)
         tween:callback(function()
             score_events:endScoreTally()
         end)
+
+        tween:endSequence()  -- main sequence
+        tween:endMultiplex() -- master multiplex
     end)
 end
 
@@ -466,7 +531,7 @@ local function doWarp(func, playerEntity, itemEntities, whenDone)
         tween:endSequence()
 
         tween:startSequence()
-        for i = 1, 32 do
+        for i = 1, 24 do
             tween:callback(function()
                 playerEntity.facingDirection = playerEntity.facingDirection:next()
             end)
@@ -502,6 +567,8 @@ function animation.warpIn(playerEntity, items, whenDone)
     for i, item in ipairs(items) do
         item:displacementTweenable():set(flyMaxPosition)
     end
+
+    World:playSound("fly_in")
 
     doWarp(flyDown, playerEntity, items, whenDone)
 end
