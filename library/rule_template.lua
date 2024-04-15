@@ -85,13 +85,15 @@ function rule_template.createPage(title, cost)
     page.costValue = cost
     page.gridPositions = Soko:list()
     page.requestTemplateOverride = emptyFunction
+    page.executeDeathTrigger = emptyFunction
 
-    page.hasOverride = function()
-        return page.requestTemplateOverride ~= emptyFunction
+    page.onRequestTemplate = function(overrideFunc)
+        page.requestTemplateOverride = overrideFunc
+        return page
     end
 
-    page.onRequestTemplate = function(x)
-        page.requestTemplateOverride = x
+    page.onDestroyed = function(overrideFunc)
+        page.executeDeathTrigger = overrideFunc
         return page
     end
 

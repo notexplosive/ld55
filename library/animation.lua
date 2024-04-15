@@ -82,6 +82,8 @@ function animation.doScoringAnimation(player)
         tween:callback(function()
             center = World.camera:tweenableViewBounds():get():center()
 
+            score_events:beginScoreTally()
+
             auraCounter = World:spawnObject(Soko:gridPosition(0, 0))
             auraCounter.tweenablePosition:set(center + Soko:worldPosition(-160, 0))
             auraCounter.state["layer"] = 5
@@ -129,6 +131,10 @@ function animation.doScoringAnimation(player)
 
             tween:wait(0.2 * i)
             tween:dynamic(function(innerTween)
+                if event.entity ~= nil and event.entity:isDestroyed() then
+                    return
+                end
+
                 if event.type == "dud" then
                     innerTween:startSequence()
                     innerTween:interpolate(event.entity:displacementTweenable():to(Soko:worldPosition(0, 10)), 0.1,
@@ -152,6 +158,25 @@ function animation.doScoringAnimation(player)
 
                 if event.type == "kicker" then
                     spawnKicker(event.gridPosition, innerTween, event.text, event.color)
+                end
+
+                if event.type == "destroy" then
+                    innerTween:callback(function()
+                        for i, itemEntity in ipairs(World:getEntitiesAt(event.gridPosition)) do
+                            local page = GET_ITEM_RULE_PAGE(itemEntity:templateName())
+                            if page ~= nil then
+                                innerTween:callback(function()
+                                    page.executeDeathTrigger(itemEntity, event.entity)
+                                    itemEntity:destroy()
+                                end)
+                            end
+                        end
+                    end)
+                end
+
+                if event.type == "move" then
+                    local move = event.entity:generateDirectionalMove(event.direction)
+                    animation.interpolateMove(move)
                 end
 
                 if event.type == "gain_score" then
@@ -301,6 +326,10 @@ function animation.doScoringAnimation(player)
                 World:loadLevel("house",
                     { is_victory = isVictory, should_warp = true, from_tutorial = World.levelState["is_tutorial"] })
             end
+        end)
+
+        tween:callback(function()
+            score_events:endScoreTally()
         end)
     end)
 end

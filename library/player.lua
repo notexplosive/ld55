@@ -58,7 +58,7 @@ function player.setInstance(entity)
                     for _, gridOffset in ipairs(rule.parentPage.gridPositions) do
                         painter:drawCircle(
                             Soko:toWorldPosition(impl.instance.gridPosition + gridOffset) + Soko:getHalfTileSize() +
-                            impl.instance:displacementTweenable():get(), 5, 2, 10)
+                            impl.instance:displacementTweenable():get(), 5, 2, 5)
                     end
                 end
             end

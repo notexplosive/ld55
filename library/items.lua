@@ -14,6 +14,20 @@ local function onRequest_impersonateNexus(page, entity)
     end
 end
 
+local function getConnections(rule, entity)
+    return rule_template.getConnectedItems(rule.parentPage, entity)
+end
+
+local function isConnectedToNexus(rule, entity)
+    for _, item in ipairs(getConnections(rule, entity)) do
+        if item:templateName() == "nexus" then
+            return true
+        end
+    end
+
+    return false
+end
+
 ----
 
 items.birthday_candle = rule_template.createPage("Birthday Candle", 5)
@@ -21,12 +35,10 @@ items.birthday_candle = rule_template.createPage("Birthday Candle", 5)
     .addLocation(Soko:gridPosition(-1, 0))
     .addLocation(Soko:gridPosition(0, -1))
     .addLocation(Soko:gridPosition(0, 1))
-items.birthday_candle.addRule("+10 Aura if connected to Nexus.")
+items.birthday_candle.addRule("+25 Aura if connected to Nexus.")
     .onTrigger(function(rule, entity)
-        for _, item in ipairs(rule_template.getConnectedItems(rule.parentPage, entity)) do
-            if item:templateName() == "nexus" then
-                score_events.addRegularScoreEvent(entity, 10)
-            end
+        if isConnectedToNexus(rule, entity) then
+            score_events.addRegularScoreEvent(entity, 10)
         end
     end)
 
@@ -45,10 +57,8 @@ items.skull_candle = rule_template.createPage("Skull Candle", 5)
     .addLocation(Soko:gridPosition(-2, 2))
 items.skull_candle.addRule("+5 Aura if connected to Nexus.")
     .onTrigger(function(rule, entity)
-        for _, item in ipairs(rule_template.getConnectedItems(rule.parentPage, entity)) do
-            if item:templateName() == "nexus" then
-                score_events.addRegularScoreEvent(entity, 5)
-            end
+        if isConnectedToNexus(rule, entity) then
+            score_events.addRegularScoreEvent(entity, 5)
         end
     end)
 
@@ -71,7 +81,7 @@ items.incense = rule_template.createPage("Incense", 5)
     .addLocation(Soko:gridPosition(0, 1))
 items.incense.addRule("+1 Cross per adjacent item in a cardinal direction")
     .onTrigger(function(rule, entity)
-        for _, item in ipairs(rule_template.getConnectedItems(rule.parentPage, entity)) do
+        for _, item in ipairs(getConnections(rule, entity)) do
             if item ~= nil then
                 score_events.addMultiplierScoreEvent(entity, 1)
             end
@@ -257,5 +267,54 @@ items.jar_blue.addRule("Gain 2 Cross for every empty empty adjacent space.")
             end
         end
     end)
+
+----
+
+items.jar_red = rule_template.createPage("Pot of Envy", 5)
+items.jar_red.addRule("Gain 10 Aura for every empty empty adjacent space.")
+    .onTrigger(function(rule, entity)
+        for _, slot in ipairs(rule_template.getAdjacentSlots(entity)) do
+            if slot.item == nil then
+                score_events.addRegularScoreEvent(entity, 10)
+            end
+        end
+    end)
+
+----
+
+items.coal = rule_template.createPage("Charcoal", 5)
+    .addLocation(Soko:gridPosition(1, 0))
+    .addLocation(Soko:gridPosition(-1, 0))
+    .addLocation(Soko:gridPosition(0, -1))
+    .addLocation(Soko:gridPosition(0, 1))
+items.coal.addRule("Gain 1 Cross for every connected candle.")
+    .onTrigger(function(rule, entity)
+        for _, item in ipairs(getConnections(rule, entity)) do
+            if item ~= nil and item.state["is_candle"] then
+                score_events.addMultiplierScoreEvent(entity, 1)
+            end
+        end
+    end)
+
+----
+
+items.dagger = rule_template.createPage("Dagger", 5)
+items.dagger.addRule("If there is an item to its right, destroy it and move right.")
+    .onTrigger(function(rule, entity)
+        score_events.addDestroyItemEvent(entity, entity.gridPosition + Soko:gridPosition(1, 0))
+        score_events.addMoveItemEvent(entity, Soko.DIRECTION.RIGHT)
+    end)
+
+----
+
+items.sheep = rule_template.createPage("Lamb", 5)
+    .onDestroyed(function(entity, destroyer)
+        print(entity, "was destroyed, giving credit to", destroyer)
+        -- destroyer takes credit for the multiplier
+        score_events.addMultiplierScoreEvent(destroyer, 10)
+    end)
+items.sheep.addRule("Gain 10 Cross if destroyed.")
+
+----
 
 return items

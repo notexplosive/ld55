@@ -107,6 +107,29 @@ function score_events.addEndRiseEvent(entity)
     )
 end
 
+function score_events.addDestroyItemEvent(sourceEntity, gridPosition)
+    impl.list:add(
+        {
+            type = "destroy",
+            entity = sourceEntity, -- this is the entity doing the destroying
+            worldPosition = Soko:toWorldPosition(gridPosition),
+            gridPosition = gridPosition,
+        }
+    )
+end
+
+function score_events.addMoveItemEvent(entity, direction)
+    impl.list:add(
+        {
+            type = "move",
+            worldPosition = Soko:toWorldPosition(entity.gridPosition),
+            gridPosition = entity.gridPosition,
+            entity = entity,
+            direction = direction
+        }
+    )
+end
+
 function score_events.all()
     return impl.list
 end
@@ -120,6 +143,7 @@ function score_events.clearEvents()
         rank = 0,
         multiplier = 1
     }
+    impl.isTallying = false
 end
 
 function score_events.setRoom(room)
@@ -136,6 +160,18 @@ end
 
 function score_events.totalScore()
     return impl.currency.normal * impl.currency.multiplier
+end
+
+function score_events.beginScoreTally()
+    impl.isTallying = true
+end
+
+function score_events.endScoreTally()
+    impl.isTallying = false
+end
+
+function score_events.isTallying()
+    return impl.isTallying
 end
 
 score_events.clearEvents()

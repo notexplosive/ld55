@@ -181,10 +181,14 @@ end
 
 function exports.onMove(move)
     for i, gridling in ipairs(World:getGridlingsAt(move:targetPosition())) do
-        if move:movingEntity() == player.instance() then
-            if gridling:checkTrait("Surface", "Wall") then
+        if gridling:checkTrait("Surface", "Item") and move:movingEntity():checkTrait("Surface", "Item") then
+            move:stop()
+        end
+
+        if gridling:checkTrait("Surface", "Wall") then
+            move:stop()
+            if move:movingEntity() == player.instance() then
                 World:raiseEventAt(move:targetPosition(), "onTouched", { move = move })
-                move:stop()
             end
         end
     end
@@ -216,7 +220,11 @@ function exports.onUpdate(dt)
 end
 
 function exports.onEntityDestroyed(entity)
-
+    if score_events.isTallying() then
+        if GET_ITEM_RULE_PAGE(entity:templateName()) ~= nil then
+            
+        end
+    end
 end
 
 function exports.onRoomStateChanged(key)
