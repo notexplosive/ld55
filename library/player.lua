@@ -1,10 +1,9 @@
-local animation   = require "library.animation"
-local lerp        = require "library.lerp"
-local items       = require "library.items"
-local player      = {}
-local impl        = {}
-
-local HELD_HEIGHT = 20
+local animation = require "library.animation"
+local lerp      = require "library.lerp"
+local items     = require "library.items"
+local constants = require "library.constants"
+local player    = {}
+local impl      = {}
 
 local function setupHeldItemGraphic(entityTemplate)
     -- spawns a new instance of the entity in case it didn't already exist
@@ -41,8 +40,11 @@ function player.setInstance(entity)
     if impl.heldItem ~= nil and player.heldItemGraphic() then
         player.heldItemGraphic():destroy()
         setupHeldItemGraphic(impl.heldItem.templateName)
-        impl.heldItem.graphic.state["height"] = HELD_HEIGHT
+        impl.heldItem.graphic.state["height"] = constants.objectHoldHeight
     end
+
+    entity:setVisible(false)
+    entity.state["graphic"] = World:spawnObject(entity.gridPosition)
 
     impl.uiObject = World:spawnObject(Soko:gridPosition(0, 0))
     impl.uiObject.state["renderer"] = "lua"
@@ -53,7 +55,7 @@ function player.setInstance(entity)
 
             if page ~= nil then
                 for _, rule in ipairs(page.rules) do
-                    for _, gridOffset in ipairs(rule.gridPositions) do
+                    for _, gridOffset in ipairs(rule.parentPage.gridPositions) do
                         painter:drawCircle(
                             Soko:toWorldPosition(impl.instance.gridPosition + gridOffset) + Soko:getHalfTileSize() +
                             impl.instance:displacementTweenable():get(), 5, 2, 10)
@@ -105,7 +107,7 @@ function player.pickUpItem(entity)
 
     setupHeldItemGraphic(entity:templateName())
     impl.heldItem.graphic.state["height"] = 0
-    animation.interpolateState(impl.heldItem.graphic.state, "height", lerp.number, HELD_HEIGHT, 0.05)
+    animation.interpolateState(impl.heldItem.graphic.state, "height", lerp.number, constants.objectHoldHeight, 0.05)
     impl.instance.state["is_carrying"] = true
     animation.toPose(impl.instance, "idle")
 

@@ -276,7 +276,13 @@ function animation.doScoringAnimation(player)
             run_context.gainGold(score_events:currency()["gold"])
             score_events:clearEvents()
             missions:clearContent()
-            World:loadLevel("house", { is_victory = isVictory, should_warp = true })
+
+            if World.levelState["is_tutorial"] and not isVictory then
+                World:loadLevel("tutorial", { should_warp = true, has_failed = true })
+            else
+                World:loadLevel("house",
+                    { is_victory = isVictory, should_warp = true, from_tutorial = World.levelState["is_tutorial"] })
+            end
         end)
     end)
 end

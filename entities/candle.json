@@ -1,0 +1,49 @@
+{
+  "is_directional": false,
+  "traits": [
+    {
+      "name": "Surface",
+      "value": 15
+    }
+  ],
+  "config_variables": [
+    {
+      "copy_to_instance": false,
+      "data": {
+        "key": "renderer",
+        "value": "LoopFrames",
+        "type": 0
+      }
+    },
+    {
+      "copy_to_instance": false,
+      "data": {
+        "key": "sheet",
+        "value": "candle",
+        "type": 0
+      }
+    },
+    {
+      "data": {
+        "key": "idle",
+        "value": "[0,1,2]",
+        "type": 0
+      }
+    },
+    {
+      "data": {
+        "key": "idle_fps",
+        "value": "1",
+        "type": 1
+      }
+    },
+    {
+      "copy_to_instance": false,
+      "data": {
+        "key": "layer",
+        "value": "2",
+        "type": 1
+      }
+    }
+  ]
+}

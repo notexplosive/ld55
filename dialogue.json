@@ -291,7 +291,7 @@
       ]
     },
     {
-      "name": "tutorial_2",
+      "name": "tutorial_item_none",
       "lines": [
         {
           "speaker_id": "coworker",
@@ -304,18 +304,23 @@
           "mood": "blue_eyes"
         },
         {
-          "speaker_id": "",
-          "text": "[color(purple)]Summoning Power[/color] is your total [color(purple)]Aura[/color] times the total [color(orange)]Cross[/color].",
-          "mood": ""
-        },
-        {
           "speaker_id": "coworker",
-          "text": "Each item has specific rules about how they work. ",
+          "text": "[color(purple)]Summoning Power[/color] is your total [color(purple)]Aura[/color] times the total [color(orange)]Cross[/color].",
           "mood": "blue_eyes"
         },
         {
           "speaker_id": "coworker",
-          "text": "[color(green)]Bring me an item[/color] and I'll tell you more.",
+          "text": "Each item gives either [color(purple)]Aura[/color] or [color(orange)]Cross[/color].",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "[color(green)]Bring me an item[/color] and I'll tell you about it.",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "You can also bring the item to the [color(blue)]Spellbook[/color] to learn about it.",
           "mood": "blue_eyes"
         },
         {
@@ -350,13 +355,123 @@
         },
         {
           "speaker_id": "coworker",
-          "text": "Try [color(green)]arranging these items[/color]! I think you can get at least [color(purple)]100 Summoning Power[/color].",
+          "text": "Try [color(green)]arranging these items[/color]! I think you can get at least [color(purple)]210 Summoning Power[/color].",
           "mood": "green_eyes"
         },
         {
           "speaker_id": "coworker",
           "text": "When you're ready to initiate the [color(purple)]Summoning[/color]. Interact with the [color(red)]Nexus[/color].",
           "mood": "blue_eyes"
+        }
+      ]
+    },
+    {
+      "name": "tutorial_item_candle",
+      "lines": [
+        {
+          "speaker_id": "coworker",
+          "text": "That's a Candle.",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "They gain [color(orange)]1 Cross[/color] if they're adjacent to the [color(red)]Nexus[/color].",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "We have lots of them! You can grab as many as you want from that shelf over there.",
+          "mood": "green_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "You can review this in the [color(blue)]Spellbook[/color].",
+          "mood": "blue_eyes"
+        }
+      ]
+    },
+    {
+      "name": "tutorial_item_crystal_pawn",
+      "lines": [
+        {
+          "speaker_id": "coworker",
+          "text": "Ahhh, my favorite! \nThe Crystal Pawn!",
+          "mood": "green_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "It impersonates [color(red)]The Nexus[/color] if it's connected to it.",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "It also chains, so a Crystal Pawn can connect to another Crystal Pawn.",
+          "mood": "green_eyes"
+        }
+      ]
+    },
+    {
+      "name": "tutorial_item_skull_candle",
+      "lines": [
+        {
+          "speaker_id": "coworker",
+          "text": "That's a Skull Candle.",
+          "mood": "green_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "See those white dots around you?",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "You want one of those dots to be touching [color(red)]the Nexus[/color].",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "But you also want to keep avoid anything else from being right next to it.",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "Sometimes the tradeoff is worth it though. Think it through!",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "By the way, whenever you see the word \"adjacent,\" diagonals don't count.",
+          "mood": "green_eyes"
+        }
+      ]
+    },
+    {
+      "name": "tutorial_fail",
+      "lines": [
+        {
+          "speaker_id": "coworker",
+          "text": "Normally you'd warp back to HQ after that.",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "If you don't meet the objective, it's OK.",
+          "mood": "green_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "You just won't get paid.",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "But in this case I really want to make sure you understand this stuff.",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "Please try again. \nThe goal is [color(purple)]210 Summoning Power[/color] or higher!",
+          "mood": "green_eyes"
         }
       ]
     }
