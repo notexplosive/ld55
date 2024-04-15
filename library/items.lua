@@ -453,4 +453,15 @@ items.teddy.addRule("Triggers adjacent items")
         score_events.addEndRiseEvent(entity)
     end)
 
+
+---
+
+items.mushroom = rule_template.createPage("Magecap", 5)
+items.mushroom.addRule("Gain 20 Aura")
+    .onTrigger(function(rule, entity)
+        score_events.addRegularScoreEvent(entity, 20)
+    end)
+
+---
+
 return items
