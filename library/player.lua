@@ -115,7 +115,7 @@ end
 function player.dropItem()
     if impl.heldItem == nil then
         print("error: attempted to drop when not holding anything")
-        return
+        return nil
     end
 
     local droppedItem = World:spawnEntity(impl.instance.gridPosition, Soko.DIRECTION.NONE, impl.heldItem.templateName)
@@ -132,6 +132,7 @@ function player.dropItem()
     impl.heldItem = nil
 
     World:raiseEventAt(droppedItem.gridPosition, "itemDropped", { item = droppedItem })
+    return droppedItem
 end
 
 function player.setUI(ui)

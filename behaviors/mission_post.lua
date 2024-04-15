@@ -71,8 +71,28 @@ local function createUI(self)
 end
 
 function mission_post.choseMission(self, args)
-    -- todo: switch to pedestal graphic
-    self:destroy()
+    World:playAsyncAnimation(function(tween, params)
+        local object = World:spawnObject(self.gridPosition)
+        object.tweenablePosition:set(object.tweenablePosition:get() + self:displacementTweenable():get())
+        object.state:addOtherState(self.state)
+
+        for i = 1, 9 do
+            tween:wait(0.1)
+            tween:callback(function()
+                object.state["frame"] = object.state["frame"] + 1
+            end)
+        end
+
+        tween:callback(function()
+            object:destroy()
+        end)
+
+        self:destroy()
+    end, {})
+end
+
+function mission_post.onEnter(self, args)
+    self:displacementTweenable():set(Soko:worldPosition(0, -25))
 end
 
 function mission_post.playerSteppedOn(self, args)

@@ -45,6 +45,17 @@ function score_events.addGoldEvent(entity, amount)
     addScore(entity, amount, "gold")
 end
 
+function score_events.addDudEvent(entity, amount)
+    impl.list:add(
+        {
+            type = "dud",
+            worldPosition = Soko:toWorldPosition(entity.gridPosition),
+            gridPosition = entity.gridPosition,
+            entity = entity
+        }
+    )
+end
+
 function score_events.all()
     return impl.list
 end

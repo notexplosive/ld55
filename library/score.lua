@@ -4,10 +4,15 @@ local score_events = require "library.score_events"
 local score        = {}
 
 function score.triggerEntity(entity)
+    if World:getTileAt(entity.gridPosition):templateName() == "carpet" then
+        score_events.addDudEvent(entity)
+        return
+    end
+
     local page = items[entity:templateName()]
     if page ~= nil then
         for _, rule in ipairs(page.rules) do
-            rule.execute(rule, entity)
+            rule.executeTrigger(rule, entity)
         end
     end
 end
