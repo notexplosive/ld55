@@ -180,6 +180,11 @@ function animation.doScoringAnimation(player)
                     if event.type == "move" then
                         local move = event.entity:generateDirectionalMove(event.direction)
                         animation.interpolateMove(move)
+
+                        local page = GET_ITEM_RULE_PAGE(event.entity:templateName())
+                        if page ~= nil then
+                            page.notifyOfMove(event.entity, move:isAllowed())
+                        end
                     end
 
                     if event.type == "gain_score" then

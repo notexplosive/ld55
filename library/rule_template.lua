@@ -87,6 +87,12 @@ function rule_template.createPage(title, cost)
     page.requestTemplateOverride = emptyFunction
     page.executeDeathTrigger = emptyFunction
     page.notifyOfTrigger = emptyFunction
+    page.notifyOfMove = emptyFunction
+
+    page.onMove = function(overrideFunc)
+        page.notifyOfMove = overrideFunc
+        return page
+    end
 
     page.onRequestTemplate = function(overrideFunc)
         page.requestTemplateOverride = overrideFunc

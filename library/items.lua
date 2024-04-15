@@ -425,5 +425,17 @@ items.dynamite.addRule("Destroy all connected items and then itself")
 
 ----
 
+items.book_m = rule_template.createPage("Plumbing for Dummies", 5)
+    .onMove(function(entity, success)
+        if success then
+            score_events.addMultiplierScoreEvent(entity, 4)
+        else
+            score_events.addDudEvent(entity)
+        end
+    end)
+items.book_m.addRule("Move one square to the right, if nothing blocks the move, 4 Cross.")
+    .onTrigger(function(rule, entity)
+        score_events.addMoveItemEvent(entity, Soko.DIRECTION.RIGHT)
+    end)
 
 return items
