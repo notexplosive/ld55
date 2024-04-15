@@ -34,10 +34,7 @@ function rule_template.getConnectedSlots(page, entity)
     local connectedItems = Soko:list()
     for i, position in ipairs(page.gridPositions) do
         local slot = {}
-        local item = item_helpers.getItemAt(entity.gridPosition + position)
-        if item then
-            slot.item = item
-        end
+        slot.item = item_helpers.getItemAt(entity.gridPosition + position)
 
         connectedItems:add(slot)
     end
@@ -45,12 +42,30 @@ function rule_template.getConnectedSlots(page, entity)
     return connectedItems
 end
 
-function rule_template.getAdjacentItems(entity)
+function rule_template.getAdjacentSlots(entity)
     local positions = Soko:list()
+    positions:add(Soko:gridPosition(0, -1))
     positions:add(Soko:gridPosition(-1, 0))
     positions:add(Soko:gridPosition(1, 0))
     positions:add(Soko:gridPosition(0, 1))
+
+    local adjacentItems = Soko:list()
+    for i, position in ipairs(positions) do
+        local slot = {}
+        -- might be nil, that's OK
+        slot.item = item_helpers.getItemAt(entity.gridPosition + position)
+        adjacentItems:add(slot)
+    end
+
+    return adjacentItems
+end
+
+function rule_template.getAdjacentItems(entity)
+    local positions = Soko:list()
     positions:add(Soko:gridPosition(0, -1))
+    positions:add(Soko:gridPosition(-1, 0))
+    positions:add(Soko:gridPosition(1, 0))
+    positions:add(Soko:gridPosition(0, 1))
 
     local adjacentItems = Soko:list()
     for i, position in ipairs(positions) do

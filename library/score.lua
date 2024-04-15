@@ -3,20 +3,6 @@ local items        = require "library.items"
 local score_events = require "library.score_events"
 local score        = {}
 
-function score.triggerEntity(entity)
-    if World:getTileAt(entity.gridPosition):templateName() == "carpet" then
-        score_events.addDudEvent(entity)
-        return
-    end
-
-    local page = items[entity:templateName()]
-    if page ~= nil then
-        for _, rule in ipairs(page.rules) do
-            rule.executeTrigger(rule, entity)
-        end
-    end
-end
-
 function score.requestImpersonation(entity)
     local page = items[entity:templateName()]
     if page ~= nil then
@@ -67,7 +53,7 @@ function score.execute()
 
     -- trigger phase
     for i, entity in ipairs(entities) do
-        score.triggerEntity(entity)
+        score_events.triggerEntity(entity)
     end
 end
 

@@ -140,6 +140,20 @@ function animation.doScoringAnimation(player)
                     spawnKicker(event.gridPosition, innerTween, "X", "white")
                 end
 
+                if event.type == "begin_rise" then
+                    innerTween:interpolate(event.entity:displacementTweenable():to(Soko:worldPosition(0, -10)), 0.1,
+                        "quadratic_fast_slow")
+                end
+
+                if event.type == "end_rise" then
+                    innerTween:interpolate(event.entity:displacementTweenable():to(Soko:worldPosition(0, 0)), 0.1,
+                        "quadratic_slow_fast")
+                end
+
+                if event.type == "kicker" then
+                    spawnKicker(event.gridPosition, innerTween, event.text, event.color)
+                end
+
                 if event.type == "gain_score" then
                     innerTween:startMultiplex()
 

@@ -2,6 +2,10 @@ local rule_template = require "library.rule_template"
 local score_events  = require "library.score_events"
 local items         = {}
 
+function GET_ITEM_RULE_PAGE(templateName)
+    return items[templateName]
+end
+
 local function onRequest_impersonateNexus(page, entity)
     for _, item in ipairs(rule_template.getConnectedItems(page, entity)) do
         if item:templateName() == "nexus" then
@@ -9,6 +13,8 @@ local function onRequest_impersonateNexus(page, entity)
         end
     end
 end
+
+----
 
 items.birthday_candle = rule_template.createPage("Birthday Candle", 5)
     .addLocation(Soko:gridPosition(1, 0))
@@ -225,5 +231,31 @@ items.candle.addRule("Gain 1 Cross if adjacent to the Nexus.")
         end
     end)
 
+----
+
+items.lighter = rule_template.createPage("Lighter", 5)
+items.lighter.addRule("Triggers adjacent candles")
+    .onTrigger(function(rule, entity)
+        score_events.addBeginRiseEvent(entity)
+        for _, item in ipairs(rule_template.getAdjacentItems(entity)) do
+            if item ~= nil then
+                score_events.addKickerEvent(entity, "Again!")
+                score_events.triggerEntity(item)
+            end
+        end
+        score_events.addEndRiseEvent(entity)
+    end)
+
+----
+
+items.jar_blue = rule_template.createPage("Pot of Wrath", 5)
+items.jar_blue.addRule("Gain 2 Cross for every empty empty adjacent space.")
+    .onTrigger(function(rule, entity)
+        for _, slot in ipairs(rule_template.getAdjacentSlots(entity)) do
+            if slot.item == nil then
+                score_events.addMultiplierScoreEvent(entity, 2)
+            end
+        end
+    end)
 
 return items

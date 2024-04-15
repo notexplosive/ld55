@@ -25,6 +25,21 @@ local function addScore(entity, amount, currencyType)
     )
 end
 
+function score_events.triggerEntity(entity)
+    if World:getTileAt(entity.gridPosition):templateName() == "carpet" then
+        score_events.addDudEvent(entity)
+        return
+    end
+
+    local page = GET_ITEM_RULE_PAGE(entity:templateName())
+
+    if page ~= nil then
+        for _, rule in ipairs(page.rules) do
+            rule.executeTrigger(rule, entity)
+        end
+    end
+end
+
 function score_events.payment()
     return missions.current().goldReward or 0
 end
@@ -45,10 +60,46 @@ function score_events.addGoldEvent(entity, amount)
     addScore(entity, amount, "gold")
 end
 
-function score_events.addDudEvent(entity, amount)
+function score_events.addDudEvent(entity)
     impl.list:add(
         {
             type = "dud",
+            worldPosition = Soko:toWorldPosition(entity.gridPosition),
+            gridPosition = entity.gridPosition,
+            entity = entity
+        }
+    )
+end
+
+function score_events.addBeginRiseEvent(entity)
+    impl.list:add(
+        {
+            type = "begin_rise",
+            worldPosition = Soko:toWorldPosition(entity.gridPosition),
+            gridPosition = entity.gridPosition,
+            entity = entity
+        }
+    )
+end
+
+function score_events.addKickerEvent(entity, text)
+    impl.list:add(
+        {
+            type = "kicker",
+            worldPosition = Soko:toWorldPosition(entity.gridPosition),
+            gridPosition = entity.gridPosition,
+            entity = entity,
+
+            text = text,
+            color = "white"
+        }
+    )
+end
+
+function score_events.addEndRiseEvent(entity)
+    impl.list:add(
+        {
+            type = "end_rise",
             worldPosition = Soko:toWorldPosition(entity.gridPosition),
             gridPosition = entity.gridPosition,
             entity = entity
