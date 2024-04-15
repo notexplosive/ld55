@@ -199,8 +199,8 @@ function exports.onLoadLevel()
 end
 
 function exports.onLoadCheckpoint()
-    player.clearState()
-    score_events.clearEvents()
+    -- player.clearState()
+    -- score_events.clearEvents()
 end
 
 function exports.onEnter()
