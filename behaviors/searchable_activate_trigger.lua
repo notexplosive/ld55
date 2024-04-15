@@ -1,5 +1,6 @@
 local dialogue = require("library/dialogue")
 local player = require "library.player"
+local items = require "library.items"
 local exports = {}
 
 local function doCheckItem(self)
@@ -22,12 +23,23 @@ local function doCheckItem(self)
         if rand <= search_chance then
             local length = #item_list
             local item_found = item_list[math.random(1, length)]
-            dialogue.doBespokeDialogue("I found " .. item_found .. "!", 2)
+
+            local item_name = item_found
+            local rulePage = items[item_found]
+            if rulePage then
+                item_name = rulePage.getTitle()
+            end
+
+            dialogue.doBespokeDialogue("I found " .. item_name .. "!", 2)
             local new_item = World:spawnEntity(player.instance().gridPosition, Soko.DIRECTION.NONE, item_found)
             player.pickUpItem(new_item)
         else
             dialogue.doBespokeDialogue("Didn't find anything of interest.", 1)
         end
+    end
+
+    if self.state:has("opened_frame") then
+        self.state:set("frame", self.state:get("opened_frame"))
     end
 
     self.state:set("is_complete", true)

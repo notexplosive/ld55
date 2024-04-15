@@ -64,6 +64,9 @@ function rule_template.createPage(title, cost)
     page.cost = function()
         return page.costValue
     end
+    page.getTitle = function()
+        return page.title
+    end
     return page
 end
 
