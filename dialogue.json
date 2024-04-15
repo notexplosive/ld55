@@ -212,46 +212,6 @@
       ]
     },
     {
-      "name": "customer_request_non_flaming_horse",
-      "lines": [
-        {
-          "speaker_id": "player",
-          "text": "Thanks for choosing Summons Incorpeal for your summoning needs.",
-          "mood": "normal"
-        },
-        {
-          "speaker_id": "player",
-          "text": "How can I help you today?",
-          "mood": "normal"
-        },
-        {
-          "speaker_id": "customer",
-          "text": "Uh. You can summon me a horse right?",
-          "mood": "cowboy_unamused"
-        },
-        {
-          "speaker_id": "player",
-          "text": "Of course! One horse coming up!",
-          "mood": "happy"
-        },
-        {
-          "speaker_id": "customer",
-          "text": "Yipee!",
-          "mood": "cowboy_happy"
-        },
-        {
-          "speaker_id": "customer",
-          "text": "Make  sure it's not on fire like \nthe last one though!",
-          "mood": "cowboy_angry"
-        },
-        {
-          "speaker_id": "player",
-          "text": "The last horse summoned for you was on fire?!",
-          "mood": "shocked"
-        }
-      ]
-    },
-    {
       "name": "get_coal",
       "lines": [
         {
@@ -607,31 +567,6 @@
       ]
     },
     {
-      "name": "alien_girl_1",
-      "lines": [
-        {
-          "speaker_id": "customer",
-          "text": "Hi! You can summon me something fun right?",
-          "mood": "cyclops"
-        },
-        {
-          "speaker_id": "player",
-          "text": "Fun? You paid for this ancient ritual for fun?",
-          "mood": "shocked"
-        },
-        {
-          "speaker_id": "customer",
-          "text": "Yup!",
-          "mood": "cyclops"
-        },
-        {
-          "speaker_id": "player",
-          "text": "Alright then! Let's summon something fun!",
-          "mood": "happy"
-        }
-      ]
-    },
-    {
       "name": "alien_girl",
       "lines": [
         {
@@ -778,6 +713,206 @@
           "speaker_id": "coworker",
           "text": "Come back when you have an appointment.\nThe Summon Incorpeal Board members have a busy schedule.",
           "mood": "pink_coworker"
+        }
+      ]
+    },
+    {
+      "name": "yellow_dress",
+      "lines": [
+        {
+          "speaker_id": "customer",
+          "text": "Hey. Got anything spicy?",
+          "mood": "cyan_hair"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Spicy? Uhh... like hot?",
+          "mood": "shocked"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "Nah. Spicy. You know.",
+          "mood": "cyan_hair"
+        },
+        {
+          "speaker_id": "player",
+          "text": "...Right. Anything specific?",
+          "mood": "shocked"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "Surprise me!",
+          "mood": "cyan_hair"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Okay then, one giant sandworm coming up!",
+          "mood": "happy"
+        }
+      ]
+    },
+    {
+      "name": "cowboy",
+      "lines": [
+        {
+          "speaker_id": "player",
+          "text": "Thanks for choosing Summons Incorpeal for your summoning needs.",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "player",
+          "text": "How can I help you today?",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "Uh. You can summon me a horse right?",
+          "mood": "cowboy_unamused"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Of course! One horse coming up!",
+          "mood": "happy"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "Yipee!",
+          "mood": "cowboy_happy"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "Make  sure it's not on fire like \nthe last one though!",
+          "mood": "cowboy_angry"
+        },
+        {
+          "speaker_id": "player",
+          "text": "The last horse summoned for you was on fire?!",
+          "mood": "shocked"
+        }
+      ]
+    },
+    {
+      "name": "glasses",
+      "lines": [
+        {
+          "speaker_id": "customer",
+          "text": "I heard you guys could summon anything?",
+          "mood": "glasses"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Almost anything, yup!\nWhat would you like?",
+          "mood": "happy"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "Oh boy! Can you summon me a dog?",
+          "mood": "glasses"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Of course! Any specific breed?",
+          "mood": "happy"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "Yup! A golden summoner.",
+          "mood": "glasses"
+        },
+        {
+          "speaker_id": "player",
+          "text": "You mean a retriever?",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "Same thing!",
+          "mood": "glasses"
+        }
+      ]
+    },
+    {
+      "name": "mother",
+      "lines": [
+        {
+          "speaker_id": "customer",
+          "text": "You're late! Hurry up with the summon for my birthday boy!",
+          "mood": "blonde_hair"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Oh. Right away!",
+          "mood": "worried"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "I swear, next time I'm just ordering from the River Styx online marketplace!",
+          "mood": "blonde_hair"
+        }
+      ]
+    },
+    {
+      "name": "son",
+      "lines": [
+        {
+          "speaker_id": "customer",
+          "text": "Hey man. Sorry about my mom. I'm happy with whatever.",
+          "mood": "moustache"
+        },
+        {
+          "speaker_id": "player",
+          "text": "No worries! I'll try to summon \nsomething fun!",
+          "mood": "happy"
+        }
+      ]
+    },
+    {
+      "name": "father",
+      "lines": [
+        {
+          "speaker_id": "customer",
+          "text": "It's our boy's birthday! My favorite time of the year! Help yourself to cupcakes!",
+          "mood": "notch"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Oh, thanks! You know... I could make use of a few of those.",
+          "mood": "happy"
+        }
+      ]
+    },
+    {
+      "name": "dj",
+      "lines": [
+        {
+          "speaker_id": "customer",
+          "text": "No one has shown up to my party.\nYou can fix this right?",
+          "mood": "headphones"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Oh. Yeah I can summon someone.\nAny preferences?",
+          "mood": "shocked"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "Anyone who can dance!",
+          "mood": "headphones"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Don't worry, all our summoned friends can dance. The ones that don't are left behind.",
+          "mood": "happy"
+        }
+      ]
+    },
+    {
+      "name": "dancer",
+      "lines": [
+        {
+          "speaker_id": "customer",
+          "text": "I was the only paid entertainer available, not my usual cliental, but hey it's work.",
+          "mood": "dancer"
         }
       ]
     }
