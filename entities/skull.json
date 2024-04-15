@@ -34,7 +34,7 @@
     {
       "copy_to_instance": false,
       "data": {
-        "key": "is_candle",
+        "key": "is_skull",
         "value": "true",
         "type": 2
       }
