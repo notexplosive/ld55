@@ -217,7 +217,7 @@ function animation.doScoringAnimation(player)
             targetScoreCounter.state["render_function"] = function(painter, drawArguments)
                 if targetScoreState == "score" then
                     painter:setColor("white")
-                    draw_text.scoreCounter(painter, drawArguments, "Target Score", score_events.targetScore())
+                    draw_text.scoreCounter(painter, drawArguments, "Target Power", score_events.targetScore())
                 end
 
                 if targetScoreState == "fail" then
