@@ -14,7 +14,7 @@ local function addScore(entity, amount, currencyType)
         {
             type = "gain_score",
             worldPosition = Soko:toWorldPosition(entity.gridPosition),
-            gridPosition = entity.gridPosition,
+            gridPosition = function() return entity.gridPosition end,
             amount = amount,
             currencyType = currencyType,
             entity = entity,
@@ -65,7 +65,7 @@ function score_events.addDudEvent(entity)
         {
             type = "dud",
             worldPosition = Soko:toWorldPosition(entity.gridPosition),
-            gridPosition = entity.gridPosition,
+            gridPosition = function() return entity.gridPosition end,
             entity = entity
         }
     )
@@ -76,7 +76,7 @@ function score_events.addBeginRiseEvent(entity)
         {
             type = "begin_rise",
             worldPosition = Soko:toWorldPosition(entity.gridPosition),
-            gridPosition = entity.gridPosition,
+            gridPosition = function() return entity.gridPosition end,
             entity = entity
         }
     )
@@ -87,7 +87,7 @@ function score_events.addKickerEvent(entity, text)
         {
             type = "kicker",
             worldPosition = Soko:toWorldPosition(entity.gridPosition),
-            gridPosition = entity.gridPosition,
+            gridPosition = function() return entity.gridPosition end,
             entity = entity,
 
             text = text,
@@ -101,7 +101,7 @@ function score_events.addEndRiseEvent(entity)
         {
             type = "end_rise",
             worldPosition = Soko:toWorldPosition(entity.gridPosition),
-            gridPosition = entity.gridPosition,
+            gridPosition = function() return entity.gridPosition end,
             entity = entity
         }
     )
@@ -113,7 +113,7 @@ function score_events.addDestroyItemEvent(sourceEntity, gridPosition)
             type = "destroy",
             entity = sourceEntity, -- this is the entity doing the destroying
             worldPosition = Soko:toWorldPosition(gridPosition),
-            gridPosition = gridPosition,
+            gridPosition = function() return gridPosition end,
         }
     )
 end
@@ -123,7 +123,7 @@ function score_events.addMoveItemEvent(entity, direction)
         {
             type = "move",
             worldPosition = Soko:toWorldPosition(entity.gridPosition),
-            gridPosition = entity.gridPosition,
+            gridPosition = function() return entity.gridPosition end,
             entity = entity,
             direction = direction
         }
@@ -135,6 +135,10 @@ function score_events.all()
 end
 
 function score_events.clearEvents()
+    impl.list:clear()
+end
+
+function score_events.clearEverything()
     impl.list:clear()
     impl.room = nil
     impl.currency = {
@@ -174,5 +178,5 @@ function score_events.isTallying()
     return impl.isTallying
 end
 
-score_events.clearEvents()
+score_events.clearEverything()
 return score_events

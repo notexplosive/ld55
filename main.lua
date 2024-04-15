@@ -222,7 +222,7 @@ end
 function exports.onEntityDestroyed(entity)
     if score_events.isTallying() then
         if GET_ITEM_RULE_PAGE(entity:templateName()) ~= nil then
-            
+
         end
     end
 end
@@ -233,7 +233,7 @@ end
 
 function exports.onLoadLevel()
     player.clearState()
-    score_events.clearEvents()
+    score_events.clearEverything()
 end
 
 function exports.onLoadCheckpoint()
