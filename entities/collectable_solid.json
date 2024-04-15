@@ -51,14 +51,14 @@
       {
         "data": {
           "key": "search_chance",
-          "value": "10",
+          "value": "20",
           "type": 1
         }
       },
       {
         "data": {
           "key": "item_list",
-          "value": "[coal,coal,coal,coal,coin,skull_candle,skull_candle]",
+          "value": "[coal,coal,coal,coal,skull_candle,skull_candle,voodoo_doll]",
           "type": 5
         }
       },

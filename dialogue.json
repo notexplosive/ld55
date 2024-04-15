@@ -569,6 +569,31 @@
           "mood": "green_eyes"
         }
       ]
+    },
+    {
+      "name": "alien_girl_1",
+      "lines": [
+        {
+          "speaker_id": "customer",
+          "text": "Hi! You can summon me something fun right?",
+          "mood": "cyclops"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Fun? You paid for this ancient ritual for fun?",
+          "mood": "shocked"
+        },
+        {
+          "speaker_id": "customer",
+          "text": "Yup!",
+          "mood": "cyclops"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Alright then! Let's summon something fun!",
+          "mood": "happy"
+        }
+      ]
     }
   ]
 }
