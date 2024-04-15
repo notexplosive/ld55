@@ -254,6 +254,111 @@
           "mood": "worried"
         }
       ]
+    },
+    {
+      "name": "tutorial_1",
+      "lines": [
+        {
+          "speaker_id": "coworker",
+          "text": "Greetings, friend!",
+          "mood": "green_eyes"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Hi I'm here for my first day.",
+          "mood": "happy"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "You must be the new recruit for the [color(purple)]Summoning Support[/color] team!",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "I'll be your mentor, nice to meet you!",
+          "mood": "green_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "First, we'll need to go over basic [color(purple)]Summoning[/color].",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "Meet me in the next room and we'll talk more.",
+          "mood": "green_eyes"
+        }
+      ]
+    },
+    {
+      "name": "tutorial_2",
+      "lines": [
+        {
+          "speaker_id": "coworker",
+          "text": "Here's the basics of [color(purple)]Summoning[/color]...",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "You arrange items into patterns to maximize [color(purple)]Summoning Power[/color].",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "",
+          "text": "[color(purple)]Summoning Power[/color] is your total [color(purple)]Aura[/color] times the total [color(orange)]Cross[/color].",
+          "mood": ""
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "Each item has specific rules about how they work. ",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "[color(green)]Bring me an item[/color] and I'll tell you more.",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "I'm happy to repeat any of that, just talk to me again!",
+          "mood": "blue_eyes"
+        }
+      ]
+    },
+    {
+      "name": "tutorial_3",
+      "lines": [
+        {
+          "speaker_id": "coworker",
+          "text": "See those white dots when you're holding the item?",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "If an item is on one of those dots, that means this item is [color(blue)]connected[/color] to it.",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "Most items need to be connected to the circle in the center of the room. That's called the [color(red)]Nexus[/color].",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "You can look up how an item works by bringing to [color(blue)]the Spellbook[/color] at any time.",
+          "mood": "green_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "Try [color(green)]arranging these items[/color]! I think you can get at least [color(purple)]100 Summoning Power[/color].",
+          "mood": "green_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "When you're ready to initiate the [color(purple)]Summoning[/color]. Interact with the [color(red)]Nexus[/color].",
+          "mood": "blue_eyes"
+        }
+      ]
     }
   ]
 }
