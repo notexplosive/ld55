@@ -41,7 +41,24 @@ end
 
 function run_context.clear()
     -- most likely only ever want to do this on startup
-    impl.loadingDockItems = {}
+    impl.loadingDockItems = {
+        {
+            template = "candle",
+            position = Soko:gridPosition(0, 1)
+        },
+        {
+            template = "candle",
+            position = Soko:gridPosition(0, -1)
+        },
+        {
+            template = "candle",
+            position = Soko:gridPosition(1, 0)
+        },
+        {
+            template = "candle",
+            position = Soko:gridPosition(-1, 0)
+        }
+    }
     impl.storageItems     = {}
     impl.storageUpgrade   = 0
     impl.loadingUpgrade   = 0

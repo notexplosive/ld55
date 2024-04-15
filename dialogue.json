@@ -474,6 +474,101 @@
           "mood": "green_eyes"
         }
       ]
+    },
+    {
+      "name": "shop_intro",
+      "lines": [
+        {
+          "speaker_id": "shopkeeper",
+          "text": "Greetings.",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "shopkeeper",
+          "text": "I am the Keeper of the Shop.",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "shopkeeper",
+          "text": "Every time you return from a mission I'll have rotated in a new supply.",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "shopkeeper",
+          "text": "If you're strapped for cash, take as many complimentary candles as you want.",
+          "mood": "happy"
+        },
+        {
+          "speaker_id": "shopkeeper",
+          "text": "You'll want to load up the [color(green)]loading area on the right[/color] with as much stuff as possible.",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "shopkeeper",
+          "text": "The area on the left is your [color(blue)]personal storage[/color].",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "shopkeeper",
+          "text": "You can put whatever items you want there. But they won't come with you on your mission.",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "shopkeeper",
+          "text": "Activate the loading area teleporter when you're ready to go to your assignment.",
+          "mood": "normal"
+        }
+      ]
+    },
+    {
+      "name": "boss_intro",
+      "lines": [
+        {
+          "speaker_id": "coworker",
+          "text": "Hello again!",
+          "mood": "green_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "It's time for your first real assignment at [color(purple)]Summoning Support[/color]!",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "You're being summoned to support someone's summon.",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Try saying that 10 times fast.",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "Go over to the room on the right to choose your assignment.",
+          "mood": "green_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "Harder missions will give you more money, and get you promoted faster.",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "But you might want to wait until you've gotten better supplies before you do that.",
+          "mood": "blue_eyes"
+        },
+        {
+          "speaker_id": "player",
+          "text": "Supplies?",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "It'll make sense in a minute when you meet The Keeper.",
+          "mood": "green_eyes"
+        }
+      ]
     }
   ]
 }

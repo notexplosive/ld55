@@ -137,7 +137,7 @@ function animation.doScoringAnimation(player)
                         "quadratic_slow_fast")
                     innerTween:endSequence()
 
-                    spawnKicker(event.gridPosition, innerTween, "None")
+                    spawnKicker(event.gridPosition, innerTween, "X", "white")
                 end
 
                 if event.type == "gain_score" then
@@ -160,6 +160,10 @@ function animation.doScoringAnimation(player)
                         color = "gold"
                     elseif event.currencyType == "multiplier" then
                         color = "orange"
+                    end
+
+                    if event.amount < 0 then
+                        color = "red"
                     end
 
                     spawnKicker(event.gridPosition, innerTween, tostring(event.amount), color)
