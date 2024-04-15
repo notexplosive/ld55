@@ -238,7 +238,7 @@ items.lighter.addRule("Triggers adjacent candles")
     .onTrigger(function(rule, entity)
         score_events.addBeginRiseEvent(entity)
         for _, item in ipairs(rule_template.getAdjacentItems(entity)) do
-            if item ~= nil then
+            if item ~= nil and item.state["is_candle"] then
                 score_events.addKickerEvent(entity, "Again!")
                 score_events.triggerEntity(item)
             end
