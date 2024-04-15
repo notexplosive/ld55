@@ -27,7 +27,7 @@ function missions.setup(entity)
         result.title = "Hard Mission"
         result.description = "A difficult mission that pays well."
         result.scoreObjective = 400
-        result.rankReward = 5
+        result.rankReward = 4
         result.goldReward = 20
     end
 

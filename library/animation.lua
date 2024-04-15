@@ -300,13 +300,26 @@ function animation.doScoringAnimation(player)
                 if targetScoreState == "fail" then
                     painter:setColor("red")
                     painter:setFontSize(80 * targetScoreCounter.tweenableScale:get())
-                    draw_text.draw(painter, drawArguments, tostring("FAILED"), Soko:worldPosition(0, 0), 0)
+                    draw_text.draw(painter, drawArguments, "FAILED", Soko:worldPosition(0, 0), 0)
                 end
 
                 if targetScoreState == "success" then
                     painter:setColor("green")
                     painter:setFontSize(80 * targetScoreCounter.tweenableScale:get())
-                    draw_text.draw(painter, drawArguments, tostring("SUCCESS"), Soko:worldPosition(0, 0), 0)
+                    draw_text.draw(painter, drawArguments, "SUCCESS", Soko:worldPosition(0, 0), 0)
+                end
+
+                if targetScoreState == "promotion" then
+                    painter:setColor("green")
+                    painter:setFontSize(80 * targetScoreCounter.tweenableScale:get())
+                    draw_text.draw(painter, drawArguments, "PROMOTION", Soko:worldPosition(0, 0), 0)
+                end
+
+                if targetScoreState == "next_rank" then
+                    local text = "Rank: " .. run_context.getRank() .. " / " .. run_context.rankToNextPromotion()
+                    painter:setColor("white")
+                    painter:setFontSize(80 * targetScoreCounter.tweenableScale:get())
+                    draw_text.draw(painter, drawArguments, text, Soko:worldPosition(0, 0), 0)
                 end
             end
 
@@ -334,8 +347,25 @@ function animation.doScoringAnimation(player)
                     innerTween:wait(0.1)
                 end
 
-                innerTween:callback(function()
-                    score_events:currency()["rank"] = score_events:currency()["rank"] + (missionContent.rankReward or 0)
+                innerTween:dynamic(function(innerTween2)
+                    local prevBracket = run_context.getRankBracket()
+                    run_context.gainRank(missionContent.rankReward or 0)
+                    local newBracket = run_context.getRankBracket()
+
+                    innerTween:wait(1)
+
+                    if prevBracket ~= newBracket then
+                        innerTween2:callback(function()
+                            targetScoreState = "promotion"
+                        end)
+                    else
+                        innerTween2:callback(function()
+                            targetScoreState = "next_rank"
+                        end)
+                    end
+
+                    innerTween2:interpolate(targetScoreCounter.tweenableScale:to(1.2), 0.1, "quadratic_fast_slow")
+                    innerTween2:interpolate(targetScoreCounter.tweenableScale:to(1), 0.2, "quadratic_slow_fast")
                 end)
             else
                 innerTween:callback(function()

@@ -64,6 +64,7 @@ function run_context.clear()
     impl.loadingUpgrade   = 0
     impl.wallet           = 10
     impl.progress         = 1
+    impl.rank             = 0
 end
 
 function run_context.saveLoadingDock(gridPosition)
@@ -112,6 +113,32 @@ end
 
 function run_context.getProgress()
     return impl.progress
+end
+
+function run_context.gainRank(amount)
+    impl.rank = impl.rank + amount
+end
+
+function run_context.getRank()
+    return impl.rank
+end
+
+local function calculateBracket(rank)
+    return math.ceil(rank / 3)
+end
+
+function run_context.rankToNextPromotion()
+    local currentBracket = calculateBracket(impl.rank)
+    for i = impl.rank, impl.rank + 1000 do
+        if currentBracket ~= calculateBracket(i) then
+            return i
+        end
+    end
+    return 0
+end
+
+function run_context.getRankBracket()
+    return calculateBracket(impl.rank)
 end
 
 run_context.clear()

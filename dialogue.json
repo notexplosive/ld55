@@ -521,7 +521,7 @@
       ]
     },
     {
-      "name": "boss_intro",
+      "name": "boss_0",
       "lines": [
         {
           "speaker_id": "coworker",
@@ -566,6 +566,26 @@
         {
           "speaker_id": "coworker",
           "text": "It'll make sense in a minute when you meet The Keeper.",
+          "mood": "green_eyes"
+        }
+      ]
+    },
+    {
+      "name": "boss_1",
+      "lines": [
+        {
+          "speaker_id": "coworker",
+          "text": "Welcome back, Initiate!",
+          "mood": "green_eyes"
+        }
+      ]
+    },
+    {
+      "name": "boss_2",
+      "lines": [
+        {
+          "speaker_id": "coworker",
+          "text": "Welcome back, Adept!",
           "mood": "green_eyes"
         }
       ]
