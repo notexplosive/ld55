@@ -209,7 +209,7 @@ items.crystal_rook.addRule("If connected to a Nexus, this counts as a Nexus")
 
 ----
 
-items.jar_greed = rule_template.createPage("Pot of Greed", 5)
+items.jar_greed = rule_template.createPage("Pot of Greed", 10)
     .addLocation(Soko:gridPosition(1, 0))
     .addLocation(Soko:gridPosition(-1, 0))
     .addLocation(Soko:gridPosition(0, -1))
@@ -258,7 +258,7 @@ items.lighter.addRule("Triggers adjacent candles")
 
 ----
 
-items.jar_blue = rule_template.createPage("Pot of Wrath", 5)
+items.jar_blue = rule_template.createPage("Pot of Wrath", 25)
 items.jar_blue.addRule("Gain 2 Cross for every empty empty adjacent space.")
     .onTrigger(function(rule, entity)
         for _, slot in ipairs(rule_template.getAdjacentSlots(entity)) do
@@ -270,7 +270,7 @@ items.jar_blue.addRule("Gain 2 Cross for every empty empty adjacent space.")
 
 ----
 
-items.jar_red = rule_template.createPage("Pot of Envy", 5)
+items.jar_red = rule_template.createPage("Pot of Envy", 25)
 items.jar_red.addRule("Gain 10 Aura for every empty empty adjacent space.")
     .onTrigger(function(rule, entity)
         for _, slot in ipairs(rule_template.getAdjacentSlots(entity)) do
@@ -440,12 +440,12 @@ items.book_m.addRule("Move one square to the right, if nothing blocks the move, 
 
 ---
 
-items.teddy = rule_template.createPage("Teddy Bear", 5)
+items.teddy = rule_template.createPage("Teddy Bear", 50)
 items.teddy.addRule("Triggers adjacent items")
     .onTrigger(function(rule, entity)
         score_events.addBeginRiseEvent(entity)
         for _, item in ipairs(rule_template.getAdjacentItems(entity)) do
-            if item ~= nil then
+            if item ~= nil and item:templateName() ~= "teddy" then
                 score_events.addKickerEvent(entity, "Again!")
                 score_events.triggerEntity(item)
             end
@@ -460,6 +460,13 @@ items.mushroom = rule_template.createPage("Magecap", 5)
 items.mushroom.addRule("Gain 20 Aura")
     .onTrigger(function(rule, entity)
         score_events.addRegularScoreEvent(entity, 20)
+    end)
+
+---
+
+items.potato = rule_template.createPage("Potato", 0)
+items.potato.addRule("Tasty! Not useful for summoning though.")
+    .onTrigger(function(rule, entity)
     end)
 
 ---

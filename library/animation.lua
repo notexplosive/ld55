@@ -292,12 +292,11 @@ function animation.doScoringAnimation(player)
 
         local entities = score.calculateEntities()
 
-        tween:startMultiplex()    -- all events multiplex
         for i, entityToTrigger in ipairs(entities) do
             tween:startSequence() -- entity sequence
 
             -- add a delay proportional to the item index, so things still execute in sequence
-            tween:wait(0.4 * i)
+            -- tween:wait(0.4 * i)
 
             tween:callback(function()
                 score_events.triggerEntity(entityToTrigger)
@@ -314,7 +313,6 @@ function animation.doScoringAnimation(player)
             end)
             tween:endSequence() -- entity sequence
         end
-        tween:endMultiplex()    -- all events multiplex
 
         tween:dynamic(function(innerTween)
             -- adds any extra events added to the tween (this is not recursive)
@@ -451,7 +449,7 @@ function animation.doScoringAnimation(player)
             if World.levelState["is_tutorial"] and not isVictory then
                 World:loadLevel("tutorial", { should_warp = true, has_failed = true })
             else
-                if run_context.getRankBracket() >= 4 then
+                if run_context.getRankBracket() >= 4 and not HAS_SEEN_ENDING then
                     World:loadLevel("ending",
                         { should_warp = true })
                 else
