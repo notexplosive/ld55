@@ -1065,6 +1065,56 @@
           "mood": "pink_coworker"
         }
       ]
+    },
+    {
+      "name": "green_guy_1",
+      "lines": [
+        {
+          "speaker_id": "coworker",
+          "text": "Uhg. Carpet. Am I right?",
+          "mood": "green_coworker"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "Don't even get me started!\nI put down a pot of greed on carpet on my last job... ",
+          "mood": "purple_coworker"
+        },
+        {
+          "speaker_id": "coworker",
+          "text": "Ouch.",
+          "mood": "green_coworker"
+        }
+      ]
+    },
+    {
+      "name": "purple_guy_3",
+      "lines": [
+        {
+          "speaker_id": "coworker",
+          "text": "Listen. I'm always on break.\nJust go bug someone else.",
+          "mood": "purple_coworker"
+        }
+      ]
+    },
+    {
+      "name": "green_guy_2",
+      "lines": [
+        {
+          "speaker_id": "coworker",
+          "text": "Oh hey congrats on the promotion! Keep it up and you'll outrank us both in no time!",
+          "mood": "green_coworker"
+        }
+      ]
+    },
+    {
+      "name": "shop_1",
+      "lines": [
+        {
+          "speaker_id": "shopkeeper",
+          "text": "Hey there, looking to spend some of that hard earned cash? I've got new items in stock!",
+          "mood": "sale"
+        }
+      ]
     }
   ]
 }
