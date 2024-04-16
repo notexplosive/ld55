@@ -412,15 +412,13 @@ items.dynamite = rule_template.createPage("Dynamite", 5)
     .addLocation(Soko:gridPosition(2, -2))
     .addLocation(Soko:gridPosition(-2, 2))
     .addLocation(Soko:gridPosition(-2, -2))
-items.dynamite.addRule("Destroy all connected items and then itself")
+items.dynamite.addRule("Destroy all connected items.")
     .onTrigger(function(rule, entity)
         for _, item in ipairs(getConnections(rule, entity)) do
             if item ~= nil then
                 score_events.addDestroyItemEvent(item, item.gridPosition)
             end
         end
-
-        score_events.addDestroyItemEvent(entity, entity.gridPosition)
     end)
 
 ----
