@@ -1116,8 +1116,23 @@
       "lines": [
         {
           "speaker_id": "shopkeeper",
-          "text": "Hey there, looking to spend some of that hard earned cash? I've got new items in stock!",
+          "text": "Hey there, looking to spend some\nof that hard earned cash? ",
           "mood": "sale"
+        },
+        {
+          "speaker_id": "shopkeeper",
+          "text": "\nI've got new items in stock!",
+          "mood": "happy"
+        }
+      ]
+    },
+    {
+      "name": "green_guy_3",
+      "lines": [
+        {
+          "speaker_id": "coworker",
+          "text": "Wow, promoted again already?\nHah, keep it up and you'll be running this place in no time!",
+          "mood": "green_coworker"
         }
       ]
     }
