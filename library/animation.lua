@@ -114,6 +114,7 @@ function animation.doScoringAnimation(player)
         -- fly player out
         tween:startMultiplex()
         tween:callback(function()
+            World:stopSong()
             World:playSound("fly_out", 1)
         end)
         flyUp(tween, player)

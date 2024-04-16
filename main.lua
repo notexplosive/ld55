@@ -10,6 +10,12 @@ local constants    = require "library.constants"
 local items        = require "library.items"
 
 function exports.onStart()
+    if World.levelState["track"] == "home_base" then
+        World:playSong("item-shop-controllerhead", true)
+    else
+        World:playSong("shop-theme-clayton-kauffman", true)
+    end
+
     if player.instance() == nil then
         local shouldWarp = World.levelState["should_warp"] or false
         local shouldIncludeItems = not World.levelState["skip_items"]
@@ -39,7 +45,7 @@ function exports.onStart()
             if shouldIncludeItems then
                 items = run_context.rehydrateLoadingDock(player.instance().gridPosition)
             end
-            
+
             animation.warpIn(player.instance(), items)
         end
     end

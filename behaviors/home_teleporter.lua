@@ -4,8 +4,16 @@ local run_context = require "library.run_context"
 local home_teleporter = {}
 
 local levels = Soko:list()
+
 levels:add("level_cowboy")
-levels:add("wyatt_sandbox") -- temp! remove this when we have more levels
+levels:add("level_alien_girl")
+levels:add("level_yellow_dress")
+levels:add("level_armor")
+levels:add("level_glasses")
+levels:add("level_zombie")
+levels:add("level_dj")
+levels:add("level_mother")
+
 
 function home_teleporter.onActivate(self, args)
     local items = run_context.calculateLoadingDockItems()
