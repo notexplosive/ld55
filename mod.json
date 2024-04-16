@@ -6,7 +6,7 @@
   "default_tile": "floor",
   "tile_size": 32,
   "title_screen_level": "title",
-  "menu_selected_color": "",
+  "menu_selected_color": "blue",
   "campaign": {
     "chapters": [
       {
