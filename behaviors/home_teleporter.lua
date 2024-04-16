@@ -19,6 +19,11 @@ function home_teleporter.onActivate(self, args)
     local items = run_context.calculateLoadingDockItems()
     World:playSound("fly_out", 1)
     animation.warpOut(player.instance(), items, function()
+        if self.state["override_destination"] then
+            World:loadLevel(self.state["override_destination"], { should_warp = true })
+            return
+        end
+
         World:loadLevel(levels[run_context.getProgress()], {})
         run_context.setProgress(run_context.getProgress() + 1)
 

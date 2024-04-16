@@ -1046,6 +1046,11 @@
         },
         {
           "speaker_id": "board_member",
+          "text": "[scale(0.9)][color(blue)]\"Just because you've reached the end doesn't mean you've seen all the content. There still might be more levels to see.\"",
+          "mood": "happy"
+        },
+        {
+          "speaker_id": "board_member",
           "text": "[scale(0.9)][color(blue)]\"Sorry about ths bugs and balance issues. We got really down to the wire with this one. I'm writing this message with 20 minutes to spare.\"",
           "mood": "happy"
         },

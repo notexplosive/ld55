@@ -7,6 +7,8 @@ function ending.onEnter(self, args)
             World:showSceneDialogue("ending")
         end)
     end, {})
+
+    HAS_SEEN_ENDING = true
 end
 
 return ending
