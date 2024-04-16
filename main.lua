@@ -12,6 +12,8 @@ local items        = require "library.items"
 function exports.onStart()
     if World.levelState["track"] == "home_base" then
         World:playSong("item-shop-controllerhead", true)
+    elseif World.levelState["track"] == "none" then
+        World:stopSong()
     else
         World:playSong("shop-theme-clayton-kauffman", true)
     end

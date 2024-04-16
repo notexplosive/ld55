@@ -451,8 +451,13 @@ function animation.doScoringAnimation(player)
             if World.levelState["is_tutorial"] and not isVictory then
                 World:loadLevel("tutorial", { should_warp = true, has_failed = true })
             else
-                World:loadLevel("house",
-                    { is_victory = isVictory, should_warp = true, from_tutorial = World.levelState["is_tutorial"] })
+                if run_context.getRankBracket() >= 4 then
+                    World:loadLevel("ending",
+                        { should_warp = true })
+                else
+                    World:loadLevel("house",
+                        { is_victory = isVictory, should_warp = true, from_tutorial = World.levelState["is_tutorial"] })
+                end
             end
         end)
 
