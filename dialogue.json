@@ -2,6 +2,36 @@
   "portrait_sheet": "portraits",
   "cast": [
     {
+      "id": "board_member",
+      "name": "Board Member",
+      "blip": {
+        "sound": "default_blip",
+        "settings": {
+          "volume": 1.0,
+          "pan": 0.0,
+          "pitch": -1.0
+        }
+      },
+      "moods": [
+        {
+          "name": "normal",
+          "frame": 24
+        },
+        {
+          "name": "worried",
+          "frame": 25
+        },
+        {
+          "name": "happy",
+          "frame": 26
+        },
+        {
+          "name": "shocked",
+          "frame": 27
+        }
+      ]
+    },
+    {
       "id": "player",
       "name": "Player",
       "blip": {
@@ -913,6 +943,126 @@
           "speaker_id": "customer",
           "text": "I was the only paid entertainer available, not my usual cliental, but hey it's work.",
           "mood": "dancer"
+        }
+      ]
+    },
+    {
+      "name": "ending",
+      "lines": [
+        {
+          "speaker_id": "player",
+          "text": ".....!",
+          "mood": "worried"
+        },
+        {
+          "speaker_id": "board_member",
+          "text": "You have done well.",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "board_member",
+          "text": "The Board recognizes your accomplishments.",
+          "mood": "shocked"
+        },
+        {
+          "speaker_id": "board_member",
+          "text": "Summoners Incorporeal's shares are through the roof!",
+          "mood": "worried"
+        },
+        {
+          "speaker_id": "board_member",
+          "text": "...And we have you to thank for that.",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "board_member",
+          "text": "We would like to offer you a position...",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "board_member",
+          "text": "Not just as a member of The Board....",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "board_member",
+          "text": "But a chief position in the organization that [color(orange)]really[/color] runs this company!",
+          "mood": "worried"
+        },
+        {
+          "speaker_id": "board_member",
+          "text": "The [color(red)]Luudum[/color] [color(orange)]Daarey[/color].",
+          "mood": "happy"
+        },
+        {
+          "speaker_id": "board_member",
+          "text": "As part of your inaugoration we will recite to you our [color(blue)]divine message.[/color]",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "board_member",
+          "text": "These words have been passed down for generations. One day we hope to rediscover their true meaning.",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "board_member",
+          "text": "Such is the mission of the [color(red)]Luudum[/color] [color(orange)]Daarey[/color].",
+          "mood": "shocked"
+        },
+        {
+          "speaker_id": "board_member",
+          "text": "Let us begin....",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "",
+          "text": "[scale(2)][color(blue)]. . . . .",
+          "mood": ""
+        },
+        {
+          "speaker_id": "board_member",
+          "text": "[color(blue)]\"This game was made in 72 hours...\"[/color]",
+          "mood": "worried"
+        },
+        {
+          "speaker_id": "board_member",
+          "text": "[color(blue)]\"...By NotExplosive and Ursagames...\"[/color]",
+          "mood": "happy"
+        },
+        {
+          "speaker_id": "board_member",
+          "text": "[color(blue)]\"...Using SokoMaker, a game engine by NotExplosive...\"[/color]",
+          "mood": "shocked"
+        },
+        {
+          "speaker_id": "board_member",
+          "text": "[scale(0.8)][color(blue)]\"...Music tracks sourced from OpenGameArt:\nShop Theme by Cleyton Kauffman\nItem Shop by controllerhead...\"[/color]",
+          "mood": "normal"
+        },
+        {
+          "speaker_id": "board_member",
+          "text": "[scale(1.5)][color(blue)]\"Thank you for playing.\"",
+          "mood": "worried"
+        },
+        {
+          "speaker_id": "board_member",
+          "text": "[scale(0.9)][color(blue)]\"Sorry about ths bugs and balance issues. We got really down to the wire with this one. I'm writing this message with 20 minutes to spare.\"",
+          "mood": "happy"
+        },
+        {
+          "speaker_id": "board_member",
+          "text": "That is all that is written.",
+          "mood": "normal"
+        }
+      ]
+    },
+    {
+      "name": "epilogue",
+      "lines": [
+        {
+          "speaker_id": "coworker",
+          "text": "Uh... where did the rest of the world go?",
+          "mood": "pink_coworker"
         }
       ]
     }

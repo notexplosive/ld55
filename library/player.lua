@@ -111,7 +111,7 @@ function player.pickUpItem(entity)
     impl.instance.state["is_carrying"] = true
     animation.toPose(impl.instance, "idle")
 
-    World:playSound("pickup", 2)
+    World:playSound("pickup", 1)
 
     entity:destroy()
 end
@@ -159,7 +159,7 @@ function player.move(direction)
     local move = animation.interpolateMove(player.instance():generateDirectionalMove(direction))
 
     if move:isAllowed() then
-        World:playSound("step", 1.5, -.5)
+        World:playSound("step", 1, -.5)
 
         local targetRoom = World:getRoomAtGridPosition(move:targetPosition())
         if World:getRoomAtGridPosition(move:startPosition()) ~= targetRoom then
